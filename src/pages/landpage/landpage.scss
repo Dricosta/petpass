@@ -1,7 +1,8 @@
 .Landpage{
+    background: #f4f9f9;
     &__background{
         width: 100%;
-        height: 80vh;
+        height: 85vh;
         background: url('../../assets/background.png') no-repeat;
         background-size: cover;
         background-position: center;
@@ -11,10 +12,17 @@
         h1{
             color: #fff;
             margin-left: 50px;
-            width: 450px;
-            text-shadow: 4px 5px 20px #000;
+            width: 600px;
+            text-shadow: 0px 0px 40px #000;
             font-size: 42px;
+            small{
+                color: #32B796;
+            }
         }
+    }
+    &__content{
+        width: 100%;
+        background: #1D406D; 
     }
     &__group-circle{
         width: 100%;
@@ -22,14 +30,98 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin-top: -65px;
+        transform: translateY(-75px);
         margin-left: auto;
         margin-right: auto;
-        div{
-            width: 150px;
-            height: 150px;
-            background: #fff;
-            border-radius: 100px;
+        &__content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            &__circle{
+                width: 150px;
+                height: 150px;
+                background: #fff;
+                border-radius: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all ease-in-out .5s;
+                &:hover{
+                    box-shadow: 2px 2px 35px -5px #f9f9f9;
+                    cursor: pointer;
+                }
+            }
+            .icon{
+                color: #1D406D;
+                font-size: 48px;
+                opacity: 0.8;
+            }
+            small{
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+                display: block;
+                margin-top: 25px;
+            }
+        }
+    }
+
+    .About-us{
+        padding: 60px 0px;
+        opacity: 0.6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        h2{
+            color: #32B796;
+            font-size: 32px;
+            font-weight: 500;
+        }
+        h3{
+            text-align: center;
+            font-size: 14px;
+            padding-top: 15px;
+        }
+        &__team{
+            width: 100%;
+            // height: 500px;
+            // background: red;
+            opacity: 0.5;
+            display: flex;
+            flex-direction: column;
+            padding: 50px;
+            &-primary{
+                width: 100%;
+                max-width: 1400px;
+                // background: green;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                &__cards{
+                    width: 250px;
+                    height: 250px;
+                    background: #333;
+                }
+            }
+            &-secundary{
+                width: 50%;
+                max-width: 1400px;
+                // background: pink;
+                margin-top: 50px;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                justify-content: space-around;
+                &__cards{
+                    width: 250px;
+                    height: 250px;
+                    background: #333;
+                }
+            }
         }
     }
 }

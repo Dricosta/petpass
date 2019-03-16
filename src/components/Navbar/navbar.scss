@@ -5,6 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.2) -2px 1px 20px 0px;
+    position: fixed;
+    z-index: 99;
     img{
         width: 7%;
         margin-left: 50px;
