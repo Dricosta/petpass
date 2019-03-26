@@ -16,7 +16,7 @@
             text-shadow: 0px 0px 40px #000;
             font-size: 42px;
             small{
-                color: #32B796;
+                color: #1D406D;
             }
         }
     }
@@ -39,8 +39,8 @@
             justify-content: center;
             flex-direction: column;
             &__circle{
-                width: 150px;
-                height: 150px;
+                width: 135px;
+                height: 135px;
                 background: #fff;
                 border-radius: 100px;
                 display: flex;
@@ -69,13 +69,12 @@
 
     .About-us{
         padding: 60px 0px;
-        opacity: 0.6;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         h2{
-            color: #32B796;
+            color: #1D406D;
             font-size: 32px;
             font-weight: 500;
         }
@@ -88,7 +87,7 @@
             width: 100%;
             // height: 500px;
             // background: red;
-            opacity: 0.5;
+            
             display: flex;
             flex-direction: column;
             padding: 50px;
@@ -105,13 +104,36 @@
                     width: 250px;
                     height: 250px;
                     background: #333;
+                    opacity: 0.7;
+                    transition: opacity .5s ease-in-out;
+                    overflow: hidden;
+                    &:hover{
+                        opacity: 1;
+                        cursor: pointer;
+                        span{
+                            margin-top: -30px;
+                        }
+                    }
+                    a{
+                        text-decoration: none;
+                    }
+                    img{
+                        width: 100%;
+                    }
+                    span{
+                        display: block;
+                        color: white;
+                        margin-left: 15px;
+                        padding: 0;
+                        transition: margin .5s ease-in-out;
+                    }
                 }
             }
             &-secundary{
                 width: 50%;
                 max-width: 1400px;
                 // background: pink;
-                margin-top: 50px;
+                margin-top: 80px;
                 margin-left: auto;
                 margin-right: auto;
                 display: flex;
@@ -120,8 +142,39 @@
                     width: 250px;
                     height: 250px;
                     background: #333;
+                    opacity: 0.7;
+                    transition: opacity .5s ease-in-out;
+                    overflow: hidden;
+                    &:hover{
+                        opacity: 1;
+                        cursor: pointer;
+                        span{
+                            margin-top: -30px;
+                        }
+                    }
+                    a{
+                        text-decoration: none;
+                    }
+                    img{
+                        width: 100%;
+                    }
+                    span{
+                        display: block;
+                        color: white;
+                        margin-left: 15px;
+                        padding: 0;
+                        transition: margin .5s ease-in-out;
+                    }
                 }
             }
         }
+    }
+    .footer{
+        background: #1D406D;
+        width: 100%;
+        padding: 20px 0px;
+        text-align: center;
+        color: #fff;
+        font-size: 14px;
     }
 }

@@ -1,7 +1,7 @@
 .Navbar{
     width: 100%;
     background: #1D406D;
-    padding: 15px 0px;
+    padding: 15px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9,27 +9,18 @@
     position: fixed;
     z-index: 99;
     img{
-        width: 7%;
+        width: 10%;
         margin-left: 50px;
         @media only screen and (max-width: 768px) {
             width: 25%
         }
     }
-    &__group-button{
-        margin-right: 25px;
-        button{
-            margin: 0px 5px;
-            padding: 5px;
-            padding: 7px 25px;
-            background: #FFFFFF;
-            box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            border: 0px;
-            transition: all .5s;
-            &:hover{
-                cursor: pointer;
-                opacity: 0.5;
-            }
+    .btn-navbar{
+        margin: 0 5px;
+        background: #1D406D;
+        &:hover{
+            background: #1D406D;
+            opacity: 0.8;
         }
     }
 }

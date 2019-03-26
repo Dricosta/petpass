@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faPhone, faClock, faSmileWink } from '@fortawesome/free-solid-svg-icons'
 import './landpage.scss';
-
+import bgAdriano from '../../assets/bgAdriano.jpeg';
+import bgJulio  from '../../assets/bgJulio.jpeg';
+import bgMarcelo from '../../assets/bgMarcelo.jpeg';
+import bgJoao from '../../assets/bgJoao.jpeg';
+import bgRodrigo from '../../assets/bgRodrigo.jpg';
 
 
 class Landpage extends Component {
@@ -44,9 +48,6 @@ class Landpage extends Component {
                 </div>
             </div>
 
-
-
-
             <section className="About-us">
                 <h2>O que nós fazemos</h2>
                 <h3>Desenvolvemos Sistemas voltados para Internet / Web
@@ -55,16 +56,45 @@ class Landpage extends Component {
                 ser utilizado como referência.</h3>
                 <div className="About-us__team">
                     <div className="About-us__team-primary">
-                        <div className="About-us__team-primary__cards"></div>
-                        <div className="About-us__team-primary__cards"></div>
-                        <div className="About-us__team-primary__cards"></div>
+                        <div className="About-us__team-primary__cards Marcelo">
+                            <a href="https://github.com/marcelob133">
+                                <img src={ bgMarcelo } alt="marcelo"/>
+                                <span>Desenvolvedor Back-end</span>
+                            </a>
+                        </div>
+                        <div className="About-us__team-primary__cards Joao">
+                            <a href="https://github.com/JoHNNyRiver">
+                                <img src={ bgJoao } alt="joao"/>
+                                <span>Desenvolvedor FullStack</span>
+                            </a>
+                        </div>
+                        <div className="About-us__team-primary__cards Rodrigo">
+                            <a href="https://github.com/RodrigoLS">
+                                <img src={ bgRodrigo } alt="rodrigo"/>
+                                <span>Desenvolvedor Back-end</span>
+                            </a>
+                        </div>
                     </div>
                     <div className="About-us__team-secundary">
-                        <div className="About-us__team-secundary__cards"></div>
-                        <div className="About-us__team-secundary__cards"></div>
+                        <div className="About-us__team-secundary__cards Adriano">
+                            <a href="https://github.com/Dricosta">
+                                <img src={ bgAdriano } alt="adriano"/>
+                                <span>Desenvolvedor Front-end</span>
+                            </a>
+                        </div>
+                        <div className="About-us__team-secundary__cards Julio">
+                            <a href="https://github.com/julioklein">
+                                <img src={ bgJulio } alt="julio"/>
+                                <span>Desenvolvedor Front-end</span>
+                            </a>
+                        </div>
                     </div>
                 </div> 
             </section>
+
+            <footer className="footer">
+                <span>@Copyright 2019 - PetPass /  Sistemas para Internet SENAC</span>
+            </footer>
         </div>
       );
     }
