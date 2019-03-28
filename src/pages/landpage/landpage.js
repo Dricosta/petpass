@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import './landpage.scss';
-// import bgAdriano from '../../assets/bgAdriano.jpeg';
-// import bgJulio  from '../../assets/bgJulio.jpeg';
-// import bgMarcelo from '../../assets/bgMarcelo.jpeg';
-// import bgJoao from '../../assets/bgJoao.jpeg';
-// import bgRodrigo from '../../assets/bgRodrigo.jpg';
+import bgAdriano from '../../assets/bgAdriano.jpeg';
+import bgJulio  from '../../assets/bgJulio.jpeg';
+import bgMarcelo from '../../assets/bgMarcelo.jpeg';
+import bgJoao from '../../assets/bgJoao.jpeg';
+import bgRodrigo from '../../assets/bgRodrigo.jpg';
+import ball from '../../assets/ball.svg';
+import cardiogram from '../../assets/cardiogram.svg';
+import clock from '../../assets/clock.svg';
+import pin from '../../assets/pin.svg';
+import phone from '../../assets/telephone.svg';
+import pets from '../../assets/Pets.png';
 
 class Landpage extends Component {
     render() {
@@ -17,6 +23,50 @@ class Landpage extends Component {
                 <a className="header-info_content_button" href="www.google.com">Saiba mais</a>
             </div>
           </header>
+          <section className="petinfo">
+              <div className="container">
+                  <div className="petinfo_content">
+                      <div className="petinfo_content_group">
+                        <img src={ball} alt="ball" />
+                        <p>Diversão garantida</p>
+                      </div>
+                      <div className="petinfo_content_group">
+                        <img src={cardiogram} alt="coracao" />
+                        <p>Cuidados especiais</p>
+                      </div>
+                      <div className="petinfo_content_group">
+                        <img src={clock} alt="relogio" />
+                        <p>Rápido e Prático</p>
+                      </div>
+                      <div className="petinfo_content_group">
+                        <img src={pin} alt="localizacao" />
+                        <p>Perto de você</p>
+                      </div>
+                      <div className="petinfo_content_group">
+                        <img src={phone} alt="telefone" />
+                        <p>Fale Conosco</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <section className="About-us">
+            <div className="container">
+              <div className="About-us_content">
+                  <div className="About-us_content_box">
+                    <img src={pets} alt="pets"/>
+                  </div>
+                  <div className="About-us_content_boxtwo">
+                    <h2>About the shelter “Cozy House”</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce efficitur blandit condimentum. Proin accumsan lorem vel gravida fringilla. Suspendisse potenti. Mauris ut pulvinar nunc.
+                    </p>
+                    <p>Donec consectetur, diam in porta tempus, urna ligula vestibulum nibh, ac ornare felis justo nec leo. Praesent mattis nibh quis 
+                    ultrices pharetra. Morbi tempus at ante sit amet tristique. 
+                    Maecenas dignissim justo orci, in laoreet urna dapibus nec. Praesent quis tortor faucibus, tristique ante vitae, dignissim 
+                    lorem. Sed at ligula et sem mattis gravida ac vel erat. </p>
+                  </div>
+              </div>
+            </div>
+          </section>
         </div>
       );
     }

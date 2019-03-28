@@ -6,9 +6,11 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false
+      menuOpen: false,
+      scrollNav: false
     }
     this.OpenMenuHamburguer = this.OpenMenuHamburguer.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   OpenMenuHamburguer() {
@@ -17,10 +19,26 @@ class Navbar extends React.Component {
     }));
   }
 
+  handleScroll() { 
+    if (document.documentElement.scrollTop > 60) {
+       this.setState({
+         scrollNav: true
+       })
+     } else {
+       this.setState({
+         scrollNav: false
+       })
+     }
+   }
+
+  componentDidMount() {
+    window.onscroll = () => this.handleScroll()
+  }
+
 
   render() {
     return (
-      <nav className="Navbar">
+      <nav className={`Navbar ${this.state.scrollNav ? 'scrolling' : '' }`}>
         <div className="Navbar_container">
           <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
           <div className={`Navbar_menu-hamburguer ${this.state.menuOpen ? 'open' : 'close'}`} onClick={this.OpenMenuHamburguer}>
