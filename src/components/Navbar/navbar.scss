@@ -1,26 +1,112 @@
 .Navbar{
+    $grey: #dddddd;
+    $brown: #282222;
+    position: fixed!important;
     width: 100%;
-    background: #1D406D;
-    padding: 15px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.2) -2px 1px 20px 0px;
-    position: fixed;
-    z-index: 99;
-    img{
-        width: 10%;
-        margin-left: 50px;
-        @media only screen and (max-width: 768px) {
-            width: 25%
+    padding: 5px 20px;
+    position: relative;
+    height: 70px;
+    &_container{
+        width: 100%;
+        max-width: 1200px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 0px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media only screen and (max-width: 768px){
+            padding: 0px;
         }
     }
-    .btn-navbar{
-        margin: 0 5px;
-        background: #1D406D;
-        &:hover{
-            background: #1D406D;
-            opacity: 0.8;
+    @media only screen and (max-width: 768px){
+        position: fixed;
+        z-index: 99;
+    }
+    &_logo{
+        width: 15%;
+        @media only screen and (min-width: 1200px){
+            width: 12%;
+        }
+        @media only screen and (max-width: 600px){
+            width: 35%;
+        }
+    }
+
+    &_menu-hamburguer{
+        @media only screen and (max-width: 768px){
+            width: 45px;
+            height: 45px;
+            background: $grey;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            span{
+                width: 50%;
+                height: 3px;
+                display: block;
+                margin: 3px 10px;
+                background: $brown;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+
+
+    @media only screen and (max-width: 768px){
+        .open{
+            span:nth-child(1){
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            span:nth-child(2){
+                opacity: 0;
+            }
+            span:nth-child(3){
+                transform: rotate(-45deg) translate(6px, -7px);
+            }
+        }
+    }
+
+
+    &_group-button{
+        @media only screen and (max-width: 768px){
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: $brown;
+            ul{
+                width: 100%;
+                height: 100vh;
+                opacity: 1;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                li{
+                    text-align: center;
+                    a{
+                        width: 100%;
+                        display: block;
+                        padding: 20px 20px;
+                        font-size: 22px;
+                        letter-spacing: 2px;
+                    }
+                }
+            }
+        }
+        @media only screen and (min-width: 769px){
+            ul{
+                display: flex;
+                li{
+                    margin: 0px 10px;
+                }
+            }
         }
     }
 }
