@@ -64,34 +64,66 @@ class Landpage extends Component {
           </section>
           <section className="Team-developer">
             <div className="container">
+            <h2 className="Team-developer_title">Developers | Petpass</h2>
               <div className="Team-developer_main">
-                <div clasName="Team-developer_group">
+                <div className="Team-developer_group">
                   <div className="Team-developer_circle dev-joao"></div>
-                  <span>Developer Fullstack</span>
+                  <span className="Team-developer_name">João Ribeiro</span>
+                  <span className="Team-developer_skill">Developer Fullstack</span>
+                  <a className="Team-developer_btn" href="https://github.com/JoHNNyRiver">Github</a>
                 </div>
 
-                <div clasName="Team-developer_group">
+                <div className="Team-developer_group">
                   <div className="Team-developer_circle dev-marcelo"></div>
-                  <span>Developer Back-end</span>
+                  <span className="Team-developer_name">Marcelo B H</span>
+                  <span className="Team-developer_skill">Developer Back-end</span>
+                  <a className="Team-developer_btn" href="https://github.com/marcelob133">Github</a>
                 </div>
 
-                <div clasName="Team-developer_group">
+                <div className="Team-developer_group">
                   <div className="Team-developer_circle dev-rodrigo"></div>
-                  <span>Developer Back-end</span>
+                  <span className="Team-developer_name">Rodrigo Lima</span>
+                  <span className="Team-developer_skill">Developer Back-end</span>
+                  <a className="Team-developer_btn" href="https://github.com/RodrigoLS">Github</a>
                 </div>
 
-                <div clasName="Team-developer_group">
+                <div className="Team-developer_group">
                   <div className="Team-developer_circle dev-adriano"></div>
-                  <span>Developer Front-end</span>
+                  <span className="Team-developer_name">Adriano da Costa</span>
+                  <span className="Team-developer_skill">Developer Front-end</span>
+                  <a className="Team-developer_btn" href="https://github.com/Dricosta">Github</a>
                 </div>
 
-                <div clasName="Team-developer_group">
+                <div className="Team-developer_group">
                   <div className="Team-developer_circle dev-julio"></div>
-                  <span>Developer Front-end</span>
+                  <span className="Team-developer_name">Julio Klein</span>
+                  <span className="Team-developer_skill">Developer Front-end</span>
+                  <a className="Team-developer_btn" href="https://github.com/julioklein">Github</a>
                 </div>
               </div>
             </div>
           </section>
+          <footer className="footer">
+            <div className="container">
+              <div className="footer_main">
+                <div className="footer_main_box">
+                  <h3 className="footer_main_box_title">Para perguntas e <br/>sugestões</h3>
+                  <ul className="footer_main_box_list">
+                    <li className="footer_main_box_list-item"><img src={phone} alt="pin"/><a href="https://github.com/Dricosta/petpass">Github PetPass</a></li>
+                    <li className="footer_main_box_list-item"><img src={phone} alt="phone"/>+55 (11) 98585-6800</li>
+                  </ul>
+                </div>
+
+                <div className="footer_main_boxtwo">
+                  <h3 className="footer_main_boxtwo_title">Nós estamos esperando <br/>por sua visita</h3>
+                  <ul className="footer_main_boxtwo_list">
+                    <li className="footer_main_boxtwo_list-item"><img src={pin} alt="pin"/>Centro Universitario Senac <br/>Santo Amaro</li>
+                    <li className="footer_main_boxtwo_list-item"><img src={pin} alt="pin"/>SP, São Paulo - Brasil</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
       );
     }
