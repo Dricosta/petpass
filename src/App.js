@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import './reset.scss'
+import './reset.scss';
 import Navbar from './components/Navbar/navbar.js';
-import Landpage from './pages/landpage/landpage.js'
+import Routes from './routes'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Navbar/>
-        <Landpage/>
+        <Routes />
       </div>
     );
   }
