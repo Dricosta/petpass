@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './reset.scss';
-import Navbar from './components/Navbar/navbar.js';
-import Routes from './routes'
+import './reset.scss'
+import Navbar from './components/Navbar';
+import Landpage from './pages/landpage'
 
 class App extends Component {
   render() {
