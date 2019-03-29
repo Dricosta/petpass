@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Landpage from './pages/landpage/landpage';
+import Landpage from './pages/landpage';
 import Login from './pages/login'
 import Register from './pages/register'
 
