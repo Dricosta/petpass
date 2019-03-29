@@ -1,6 +1,6 @@
-import React from 'react';
-import logoPetpass  from '../../assets/petpass.png';
-import './navbar.scss';
+import React from 'react'
+import logoPetpass  from '../../assets/petpass.png'
+import './navbar.scss'
 
 class Navbar extends React.Component {
   constructor(props) {

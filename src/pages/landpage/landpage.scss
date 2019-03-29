@@ -117,4 +117,51 @@
             }
         }
     }
+    .Team-developer{
+        &_main{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+        }
+        &_group{
+            display: flex;
+            flex-direction: column;
+        }
+        &_circle{
+            background: #282222;
+            width: 120px;
+            height: 120px;
+            border-radius: 200%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            img{
+                width: 50%;
+                max-width: 200px;
+                object-fit: cover;
+            }
+        }
+        .dev-joao{
+            background: url(../../assets/bgJoao.jpeg);
+            background-size: 100%;
+        }
+        .dev-marcelo{
+            background: url(../../assets/bgMarcelo.jpeg);
+            background-size: 100%;
+        }
+        .dev-rodrigo{
+            background: url(../../assets/bgRodrigo.jpg);
+            background-size: 100%;
+        }
+        .dev-adriano{
+            background: url(../../assets/bgAdriano.jpeg);
+            background-size: 100%;
+        }
+        .dev-julio{
+            background: url(../../assets/bgJulio.jpeg);
+            background-size: 100%;
+        }
+    }
 }

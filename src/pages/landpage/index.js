@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-import './landpage.scss';
-import bgAdriano from '../../assets/bgAdriano.jpeg';
-import bgJulio  from '../../assets/bgJulio.jpeg';
-import bgMarcelo from '../../assets/bgMarcelo.jpeg';
-import bgJoao from '../../assets/bgJoao.jpeg';
-import bgRodrigo from '../../assets/bgRodrigo.jpg';
-import ball from '../../assets/ball.svg';
-import cardiogram from '../../assets/cardiogram.svg';
-import clock from '../../assets/clock.svg';
-import pin from '../../assets/pin.svg';
-import phone from '../../assets/telephone.svg';
-import pets from '../../assets/Pets.png';
+import React, { Component } from 'react'
+import './landpage.scss'
+import ball from '../../assets/ball.svg'
+import cardiogram from '../../assets/cardiogram.svg'
+import clock from '../../assets/clock.svg'
+import pin from '../../assets/pin.svg'
+import phone from '../../assets/telephone.svg'
+import pets from '../../assets/Pets.png'
 
 class Landpage extends Component {
     render() {
@@ -64,6 +59,36 @@ class Landpage extends Component {
                     Maecenas dignissim justo orci, in laoreet urna dapibus nec. Praesent quis tortor faucibus, tristique ante vitae, dignissim 
                     lorem. Sed at ligula et sem mattis gravida ac vel erat. </p>
                   </div>
+              </div>
+            </div>
+          </section>
+          <section className="Team-developer">
+            <div className="container">
+              <div className="Team-developer_main">
+                <div clasName="Team-developer_group">
+                  <div className="Team-developer_circle dev-joao"></div>
+                  <span>Developer Fullstack</span>
+                </div>
+
+                <div clasName="Team-developer_group">
+                  <div className="Team-developer_circle dev-marcelo"></div>
+                  <span>Developer Back-end</span>
+                </div>
+
+                <div clasName="Team-developer_group">
+                  <div className="Team-developer_circle dev-rodrigo"></div>
+                  <span>Developer Back-end</span>
+                </div>
+
+                <div clasName="Team-developer_group">
+                  <div className="Team-developer_circle dev-adriano"></div>
+                  <span>Developer Front-end</span>
+                </div>
+
+                <div clasName="Team-developer_group">
+                  <div className="Team-developer_circle dev-julio"></div>
+                  <span>Developer Front-end</span>
+                </div>
               </div>
             </div>
           </section>
