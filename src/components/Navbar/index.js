@@ -9,11 +9,13 @@ class Navbar extends React.Component {
     this.state = {
       menuOpen: false,
       scrollNav: false,
-      menuOptionCadastro: false
+      menuOptionCadastro: false,
+      menuOptionLogin: false
     }
     this.OpenMenuHamburguer = this.OpenMenuHamburguer.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.OpenOptionCadastro = this.OpenOptionCadastro.bind(this);
+    this.OpenOptionLogin = this.OpenOptionLogin.bind(this);
   }
 
   OpenMenuHamburguer() {
@@ -25,6 +27,12 @@ class Navbar extends React.Component {
   OpenOptionCadastro() {
     return this.setState(state => ({
       menuOptionCadastro: !state.menuOptionCadastro
+    }));
+  }
+
+  OpenOptionLogin() {
+    return this.setState(state => ({
+      menuOptionLogin: !state.menuOptionLogin
     }));
   }
 
@@ -81,19 +89,27 @@ class Navbar extends React.Component {
                 Sobre nós
                 </Link>
               </li>
-
-              <li className="link_cadastre-se" 
+              <li className="link_dropdown" 
               onClick={this.OpenOptionCadastro}>
-                <a>Cadastre-se</a>
-                <div className={`link_cadastre-se_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
-                    <ul className="link_cadastre-se_list">
-                      <li className="link_cadastre-se_list-item"><a href='/jobberRegister'>P / de Serviço</a></li>
-                      <li className="link_cadastre-se_list-item"><a href='/userRegister'>Usuário</a></li>
+                Cadastre-se
+                <div className={`link_dropdown_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
+                    <ul className="link_dropdown_list">
+                      <li className="link_dropdown_list-item submenu">P / de Serviço</li>
+                      <li className="link_dropdown_list-item submenu">Usuário</li>
                     </ul>
                 </div>
               </li>
 
-              <li className="link_login" onClick={this.OpenOptionLogin}><a href="/login">Login</a></li>
+              <li className="link_dropdown" 
+              onClick={this.OpenOptionLogin}>
+              Login
+                <div className={`link_dropdown_option option_login ${this.state.menuOptionLogin ? 'openOptionLogin' : ''}`}>
+                    <ul className="link_dropdown_list">
+                      <li className="link_dropdown_list-item submenu">P / de Serviço</li>
+                      <li className="link_dropdown_list-item submenu">Usuário</li>
+                    </ul>
+                </div>
+              </li>
             </ul>
           </div>
           :
