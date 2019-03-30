@@ -91,11 +91,11 @@ class Navbar extends React.Component {
               </li>
               <li className="link_dropdown" 
               onClick={this.OpenOptionCadastro}>
-                <a>Cadastre-se</a>
-                <div className={`link_cadastre-se_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
-                    <ul className="link_cadastre-se_list">
-                      <li className="link_cadastre-se_list-item"><a href='/jobberRegister'>P / de Serviço</a></li>
-                      <li className="link_cadastre-se_list-item"><a href='/userRegister'>Usuário</a></li>
+                Cadastre-se
+                <div className={`link_dropdown_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
+                    <ul className="link_dropdown_list">
+                      <li className="link_dropdown_list-item submenu">P / de Serviço</li>
+                      <li className="link_dropdown_list-item submenu">Usuário</li>
                     </ul>
                 </div>
               </li>
