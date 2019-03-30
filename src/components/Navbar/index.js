@@ -87,13 +87,13 @@ class Navbar extends React.Component {
                 <a>Cadastre-se</a>
                 <div className={`link_cadastre-se_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
                     <ul className="link_cadastre-se_list">
-                      <li className="link_cadastre-se_list-item">P / de Serviço</li>
-                      <li className="link_cadastre-se_list-item">Usuário</li>
+                      <li className="link_cadastre-se_list-item"><a href='/jobberRegister'>P / de Serviço</a></li>
+                      <li className="link_cadastre-se_list-item"><a href='/userRegister'>Usuário</a></li>
                     </ul>
                 </div>
               </li>
 
-              <li className="link_login" onClick={this.OpenOptionLogin}><a href="www.google.com">Login</a></li>
+              <li className="link_login" onClick={this.OpenOptionLogin}><a href="/login">Login</a></li>
             </ul>
           </div>
           :
