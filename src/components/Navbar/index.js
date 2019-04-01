@@ -52,6 +52,7 @@ class Navbar extends React.Component {
     window.onscroll = () => this.handleScroll()
   }
 
+
   scrollToTop = () => {
     scroll.scrollToTop(); 
   };
@@ -75,8 +76,7 @@ class Navbar extends React.Component {
                 spy={true}
                 smooth={true}
                 offset={-70}
-                duration= {1200} 
-                href="www.google.com">
+                duration= {1200}>
                 Developers</Link>
               </li>
               <li>
@@ -84,8 +84,7 @@ class Navbar extends React.Component {
                 spy={true}
                 smooth={true}
                 offset={-70}
-                duration= {1200} 
-                href="www.google.com">
+                duration= {1200}>
                 Sobre nós
                 </Link>
               </li>
