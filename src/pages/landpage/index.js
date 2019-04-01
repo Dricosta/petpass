@@ -7,6 +7,7 @@ import clock from '../../assets/clock.svg'
 import pin from '../../assets/pin.svg'
 import phone from '../../assets/telephone.svg'
 import pets from '../../assets/Pets.png'
+import Navbar from '../../components/Navbar'
 
 class Landpage extends Component {
 
@@ -17,6 +18,7 @@ class Landpage extends Component {
     render() {
       return (
         <div className="landpage">
+        <Navbar/> 
           <header className="header-info">
             <div className="header-info_content container">
                 <h1 className="header-info_content_title">Conheça a PetPass</h1>
