@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './landpage.scss'
+import { Link, animateScroll as scroll } from "react-scroll";
 import ball from '../../assets/ball.svg'
 import cardiogram from '../../assets/cardiogram.svg'
 import clock from '../../assets/clock.svg'
@@ -9,6 +10,11 @@ import pets from '../../assets/Pets.png'
 import Navbar from '../../components/Navbar'
 
 class Landpage extends Component {
+
+    scrollToTop = () => {
+      scroll.scrollToTop(); 
+    };
+
     render() {
       return (
         <div className="landpage">
@@ -17,7 +23,15 @@ class Landpage extends Component {
             <div className="header-info_content container">
                 <h1 className="header-info_content_title">Conheça a PetPass</h1>
                 <p className="header-info_content_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <a className="header-info_content_button" href="www.google.com">Saiba mais</a>
+                <Link 
+                to="About-us" 
+                className="header-info_content_button" 
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration= {1200}>
+                Saiba mais
+                </Link>
             </div>
           </header>
           <section className="petinfo">

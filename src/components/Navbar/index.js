@@ -26,13 +26,15 @@ class Navbar extends React.Component {
 
   OpenOptionCadastro() {
     return this.setState(state => ({
-      menuOptionCadastro: !state.menuOptionCadastro
+      menuOptionCadastro: !state.menuOptionCadastro,
+      menuOptionLogin: false
     }));
   }
 
   OpenOptionLogin() {
     return this.setState(state => ({
-      menuOptionLogin: !state.menuOptionLogin
+      menuOptionLogin: !state.menuOptionLogin,
+      menuOptionCadastro: false
     }));
   }
 
@@ -61,7 +63,19 @@ class Navbar extends React.Component {
     return (
       <nav className={`Navbar ${this.state.scrollNav ? 'scrolling' : '' }`}>
         <div className="Navbar_container">
-          <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
+          {window.location.pathname === "/" ?
+            <Link to="header-info"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration= {1200}>
+              <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
+            </Link>
+            :
+            <a href="/">
+              <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
+            </a>
+          }
           <div className={`Navbar_menu-hamburguer ${this.state.menuOpen ? 'open' : 'close'}`} onClick={this.OpenMenuHamburguer}>
             <span></span>
             <span></span>
@@ -75,8 +89,7 @@ class Navbar extends React.Component {
                 spy={true}
                 smooth={true}
                 offset={-70}
-                duration= {1200} 
-                href="www.google.com">
+                duration= {1200}>
                 Developers</Link>
               </li>
               <li>
@@ -84,8 +97,7 @@ class Navbar extends React.Component {
                 spy={true}
                 smooth={true}
                 offset={-70}
-                duration= {1200} 
-                href="www.google.com">
+                duration= {1200}>
                 Sobre nós
                 </Link>
               </li>
