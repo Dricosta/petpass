@@ -1,0 +1,14 @@
+$grey: #dddddd;
+$brown: #282222;
+$skin-color: #f1cdb3;
+.dashboard{
+    background: $grey;
+    width: 100%;
+    height: 100vh;
+    h1{
+        text-align: center;
+        letter-spacing: 2px;
+        color: $brown;
+        padding-top: 60px;
+    }
+}
