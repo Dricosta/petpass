@@ -1,5 +1,5 @@
 import React from 'react'
-import logoPetpass  from '../../assets/petpass.png'
+import logoPetpass from '../../assets/petpass.png'
 import { Link, animateScroll as scroll } from "react-scroll";
 import './navbar.scss'
 
@@ -38,42 +38,42 @@ class Navbar extends React.Component {
     }));
   }
 
-  handleScroll() { 
+  handleScroll() {
     if (document.documentElement.scrollTop > 60) {
-       this.setState({
-         scrollNav: true
-       })
-     } else {
-       this.setState({
-         scrollNav: false
-       })
-     }
-   }
+      this.setState({
+        scrollNav: true
+      })
+    } else {
+      this.setState({
+        scrollNav: false
+      })
+    }
+  }
 
   componentDidMount() {
     window.onscroll = () => this.handleScroll()
   }
 
   scrollToTop = () => {
-    scroll.scrollToTop(); 
+    scroll.scrollToTop();
   };
 
 
   render() {
     return (
-      <nav className={`Navbar ${this.state.scrollNav ? 'scrolling' : '' }`}>
+      <nav className={`Navbar ${this.state.scrollNav ? 'scrolling' : ''}`}>
         <div className="Navbar_container">
           {window.location.pathname === "/" ?
             <Link to="header-info"
-            spy={true}
-            smooth={true}
-            offset={-70}
-            duration= {1200}>
-              <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={1200}>
+              <img className="Navbar_logo" src={logoPetpass} alt="petpass" />
             </Link>
             :
             <a href="/">
-              <img className="Navbar_logo" src={logoPetpass} alt="petpass"/>
+              <img className="Navbar_logo" src={logoPetpass} alt="petpass" />
             </a>
           }
           <div className={`Navbar_menu-hamburguer ${this.state.menuOpen ? 'open' : 'close'}`} onClick={this.OpenMenuHamburguer}>
@@ -81,51 +81,51 @@ class Navbar extends React.Component {
             <span></span>
             <span></span>
           </div>
-          {this.state.menuOpen || window.innerWidth > 768 ? 
-          <div className="Navbar_group-button">
-            <ul className="Navbar_group-button_content">
-              <li>
-                <Link to="Team-developer"
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration= {1200}>
-                Developers</Link>
-              </li>
-              <li>
-              <Link to="About-us"
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration= {1200}>
-                Sobre nós
+          {this.state.menuOpen || window.innerWidth > 768 ?
+            <div className="Navbar_group-button">
+              <ul className="Navbar_group-button_content">
+                <li>
+                  <Link to="Team-developer"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={1200}>
+                    Developers</Link>
+                </li>
+                <li>
+                  <Link to="About-us"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={1200}>
+                    Sobre nós
                 </Link>
-              </li>
-              <li className="link_dropdown" 
-              onClick={this.OpenOptionCadastro}>
-                Cadastre-se
+                </li>
+                <li className="link_dropdown"
+                  onClick={this.OpenOptionCadastro}>
+                  Cadastre-se
                 <div className={`link_dropdown_option ${this.state.menuOptionCadastro ? 'openOption' : ''}`}>
                     <ul className="link_dropdown_list">
                       <li className="link_dropdown_list-item submenu">P / de Serviço</li>
-                      <li className="link_dropdown_list-item submenu">Usuário</li>
+                      <li className="link_dropdown_list-item submenu"><a href="/userRegister" className="link_dropdown_list-item">Usuário</a></li>
                     </ul>
-                </div>
-              </li>
+                  </div>
+                </li>
 
-              <li className="link_dropdown" 
-              onClick={this.OpenOptionLogin}>
-              Login
+                <li className="link_dropdown"
+                  onClick={this.OpenOptionLogin}>
+                  Login
                 <div className={`link_dropdown_option option_login ${this.state.menuOptionLogin ? 'openOptionLogin' : ''}`}>
                     <ul className="link_dropdown_list">
                       <li className="link_dropdown_list-item submenu">P / de Serviço</li>
                       <li className="link_dropdown_list-item submenu">Usuário</li>
                     </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-          :
-          false
+                  </div>
+                </li>
+              </ul>
+            </div>
+            :
+            false
           }
         </div>
       </nav>
