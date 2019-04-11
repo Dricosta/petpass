@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import NavbarDash from '../../components/NavbarDash'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faHome, faHandshake, faMapMarkedAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHome, faHandshake, faMapMarkedAlt, faSignOutAlt, faPaw } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss'
 
-library.add(faUser, faHome, faHandshake, faMapMarkedAlt, faSignOutAlt)
+library.add(faUser, faPaw, faHandshake, faMapMarkedAlt, faSignOutAlt)
 
 
 class Dashboard extends Component {

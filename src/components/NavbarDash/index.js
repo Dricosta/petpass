@@ -19,7 +19,7 @@ const NavbarDash = () => {
                 </div>
                 <ul className="navbardash_menu">
                     <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="user" /></a></li>
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="home" /></a></li>
+                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="paw" /></a></li>
                     <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="handshake" /></a></li>
                     <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="map-marked-alt" /></a></li>
                     <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
