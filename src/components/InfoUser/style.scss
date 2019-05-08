@@ -1,0 +1,32 @@
+.InfoUser{
+    height: auto;
+    width: 100%;
+    margin-left: 8%;
+    padding: 20px;
+    padding-bottom: 50px;
+    &_group{
+        display: flex;
+        justify-content: space-between;
+        &-comments{
+            width: 50%;
+        }
+        &-pets{
+            width: 40%;
+            // background: red;
+            height: max-content;
+            margin-right: 10%;
+            position: relative;
+            padding: 0;
+        }
+    }
+    &_add-pet{
+        position: absolute!important;
+        right: -20px;
+        bottom: -20px;
+        width: 50px!important;
+        height: 50px!important;
+        background: #4b5155!important;
+        color: white!important;
+        z-index: 1;
+    }
+}

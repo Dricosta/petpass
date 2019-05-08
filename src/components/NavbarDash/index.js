@@ -1,6 +1,7 @@
 import React from 'react'
 import './navbardash.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Avatar from '@material-ui/core/Avatar'
 import bgJulio from '../../assets/bgJulio.jpeg'
 
 
@@ -10,21 +11,30 @@ const stylesUser = {
     backgroundSize: 'cover'
 }
 
-const NavbarDash = () => {
+const styles = {
+    avatar: {
+      margin: 10,
+    },
+    bigAvatar: {
+      margin: 10,
+      width: 60,
+      height: 60,
+    },
+  };
+
+const NavbarDash = ({ handleLight, Light }) => {
     return (
-        <div>
-            <nav className="navbardash">
-                <div className="navbardash_logo">
-                    <div className="navbardash_circle" style={stylesUser}></div>
-                </div>
-                <ul className="navbardash_menu">
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="user" /></a></li>
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="paw" /></a></li>
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="handshake" /></a></li>
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="map-marked-alt" /></a></li>
-                    <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
-                </ul>
-            </nav>
+        <div className="navbardash">
+            <div className="navbardash_logo">
+                <Avatar alt="Remy Sharp" className="navbardash_circle" style={stylesUser} />
+            </div>
+            <ul className="navbardash_menu">
+                <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="user" /></a></li>
+                <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="handshake" /></a></li>
+                <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="map-marked-alt" /></a></li>
+                <li className="navbardash_menu-item" onClick={handleLight}><FontAwesomeIcon className={`${Light ? 'dark' : 'false'}`} icon="lightbulb" /></li>
+                <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
+            </ul>
         </div>
     );
 }

@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
 import NavbarDash from '../../components/NavbarDash'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faHome, faHandshake, faMapMarkedAlt, faSignOutAlt, faPaw } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss'
+import InfoUser from '../../components/InfoUser/'
 
-library.add(faUser, faPaw, faHandshake, faMapMarkedAlt, faSignOutAlt)
+library.add(faUser, faLightbulb, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard)
 
 
-class Dashboard extends Component {
+class Dashboard extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            light: false
+        }
+    }
+
+    handleLight = () => {
+        this.setState(state => ({
+            light: !state.light
+        }))
+    }
+
+
     render() {
         return (
-            <div className="dashboard">
-                <h1>Other Components</h1>
-                <NavbarDash/>
+            <div className={`dashboard ${this.state.light ? 'dashboard-dark' : 'dashboard-light'}`}>                
+                <NavbarDash handleLight={this.handleLight} Light={this.state.light}/>
+                <InfoUser/>
             </div>
         );
     }

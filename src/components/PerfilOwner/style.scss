@@ -1,0 +1,76 @@
+.PerfilUser{
+    &_content{
+        background: #ffffff;
+        border: 1px solid #d2d8dd;
+        padding: 20px 20px 40px 20px;
+        border-radius: 2px;
+        width: 90%;
+        &-group{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-user{
+            display: inline-flex;
+            &_title{
+                margin-left: 10px;
+                line-height: 26px;
+                color: #4b5155;
+                font-weight: 500;
+            }
+        }
+        &-tools{
+            display: flex;
+            flex-direction: column;
+            &_group{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+        &-wrap{
+            font-size: 12px;
+            color: #a1a4a6;
+            &-sexo{
+                margin-right: 10px;
+            }
+        } 
+    }
+    
+    &_avatar{
+        width: 70px!important;
+        height: 70px!important;
+        margin-right: 10px;
+    }
+ 
+    &_description{
+        font-size: 14px;
+        display: block!important;
+        color: #a1a4a6;
+        font-weight: 500;
+    }
+}
+
+.coins-group{
+    display: flex;
+    align-items: center;
+}
+
+.star-ratings{
+    .star-container{
+        svg{
+            width: 26px!important;
+        }
+    }
+}
+
+.coins{
+    font-size: 26px;
+    color: #1ebb28;
+    margin-right: 10px;
+    &_value{
+        font-size: 26px;
+        color: #4b5155;
+        margin-right: 20px;
+    }
+}
