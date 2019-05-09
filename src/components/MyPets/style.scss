@@ -13,6 +13,21 @@
     }
     &_info{
         display: flex;
+        &-btn{
+            padding: 5px!important;
+            height: 35px!important;
+            min-width: 35px!important;
+            &_delete{
+                color: red;
+                width: 20px!important;
+                height: 20px!important;
+            }
+            &_edit{
+                color: grey;
+                width: 20px!important;
+                height: 20px!important;
+            }
+        }
     }
     &_info-main{
         display: flex;
@@ -27,6 +42,7 @@
             color: #a1a4a6;
             font-size: 14px;
             line-height: 18px;
+            width: 95%;
         }
     }
     &_info-secundary{
