@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import '../../reset.scss'
 import Navbar from '../Navbar'
 import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
+//import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import TextField from '@material-ui/core/TextField'
-import DateFnsUtils from '@date-io/date-fns'
-import { InlineDatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers'
-
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -23,7 +20,7 @@ export class UserDetails extends Component {
   }
 
   render() {
-    const { values, handleChange, handleChangeDate } = this.props
+    const { values, handleChange, handleUpload } = this.props
 
     return (
       <div>
@@ -40,156 +37,147 @@ export class UserDetails extends Component {
         </Grid>
 
         {/* Body */}
-        <Grid container direction='row' spacing={8} justify='center'>
-          <Grid item container xs={10} sm={8} direction='row' spacing={8}>
-            <Grid item container justify='center' xs={12} sm={8}>
-              <div style={styles.banner}>
-                <input accept="image/*" id="btn-banner" type="file" hidden />
-                <label htmlFor="btn-banner">Foto de capa
-                  <IconButton color="primary" component="span">
-                    <PhotoCamera />
-                  </IconButton>
+         
+         <Grid item xs={12} sm={6} container
+            justify='center' alignItems='center'
+            style={styles.form}>
+            <Grid item xs={12} container
+              justify='center' alignItems='center'>
+              {values.photoPreview && <Grid item container xs={10} justify='center' alignItems='center'>
+                <img src={values.photoPreview} alt='Foto de perfil' style={styles.photo} />
+              </Grid>}
+              <Grid item xs={10}>
+                <input
+                  accept="image/*"
+                  id="photo"
+                  multiple
+                  type="file"
+                  onChange={handleUpload('photo')}
+                  hidden
+                />
+                <label htmlFor="photo">
+                  <Button variant="contained" component="span" fullWidth
+                    style={styles.buttonUpload}>
+                    <PhotoCamera /> Escolha uma foto de perfil
+                  </Button>
                 </label>
-              </div>
-            </Grid>
+              </Grid>
 
-            <Grid item container xs={12} sm={4} justify='center'>
-              <input accept="image/*" id="btn-avatar" type="file" hidden />
-              <label htmlFor="btn-avatar">Foto de perfil
-                <IconButton color="primary" component="span">
-                  <PhotoCamera />
-                </IconButton>
-              </label>
-            </Grid>
-          </Grid>
-
-          <Grid container direction='row' justify='center'>
-            <Grid item xs={10} sm={8} container direction='row' justify='center'>
-              <form style={styles.formInput}>
+              <Grid item xs={10}>
                 <TextField
-                  label="Nome"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  fullWidth={true}
+                  label='Nome'
+                  value={values.name}
                   onChange={handleChange('name')}
-                  defaultValue={values.name}
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
                 />
+              </Grid>
 
+              <Grid item xs={10}>
                 <TextField
-                  label="Email"
-                  margin="normal"
-                  variant="outlined"
-                  type='email'
-                  required={true}
-                  fullWidth={true}
+                  label='Email'
+                  value={values.email}
                   onChange={handleChange('email')}
-                  defaultValue={values.email}
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
                 />
+              </Grid>
 
+              <Grid item xs={10}>
                 <TextField
-                  label="Senha"
-                  margin="normal"
-                  variant="outlined"
+                  label='Senha'
                   type='password'
-                  required={true}
-                  fullWidth={true}
+                  value={values.password}
                   onChange={handleChange('password')}
-                  defaultValue={values.password}
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
                 />
+              </Grid>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <InlineDatePicker
-                    keyboard
-                    clearable
-                    variant="outlined"
-                    label="Nascimento"
-                    fullWidth={true}
-                    value={values.birthday}
-                    style={styles.inputDate}
-                    onChange={handleChangeDate('birthday')}
-                    format={"dd/MM/yyyy"}
-                    mask={[/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]}
-                  />
-                </MuiPickersUtilsProvider>
-
-                <Grid item xs={10} sm={8} container justify='center'>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">Gênero</FormLabel>
-                    <RadioGroup
-                      aria-label="gender"
-                      style={styles.radioGroup}
-                      name="gender"
-                      value={values.genre}
-                      onChange={handleChange('genre')}
-                    >
-                      <FormControlLabel
-                        value="F"
-                        control={<Radio color="primary" />}
-                        label="Feminino"
-                        labelPlacement="end"
-                      />
-                      <FormControlLabel
-                        value="M"
-                        control={<Radio color="primary" />}
-                        label="Masculino"
-                        labelPlacement="end"
-                      />
-                      <FormControlLabel
-                        value="O"
-                        control={<Radio color="primary" />}
-                        label="Outro"
-                        labelPlacement="end"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-
+              <Grid item xs={10}>
                 <TextField
-                  label="Descrição"
-                  margin="normal"
-                  variant="outlined"
+                  label='Apresentação'
                   multiline
-                  fullWidth={true}
-                  onChange={handleChange('bio')}
-                  defaultValue={values.bio}
+                  value={values.description}
+                  onChange={handleChange('description')}
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
                 />
+              </Grid>
 
+              <Grid item xs={10}>
                 <TextField
-                  label="Endereço"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  fullWidth={true}
+                  label='Nascimento'
+                  type='date'
+                  defaultValue={values.birthday}
+                  onChange={handleChange('birthday')}
+                  variant='outlined'
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={10}>
+                <TextField
+                  label='Endereço'
+                  value={values.address}
                   onChange={handleChange('address')}
-                  defaultValue={values.address}
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
                 />
+              </Grid>
 
+              <Grid item xs={10}>
                 <TextField
-                  label="Telefone"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  fullWidth={true}
+                  label='Telefone / Celular'
+                  value={values.phone}
                   onChange={handleChange('phone')}
-                  mask={["(", /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
-                  defaultValue={values.phone} />
-              </form>
-            </Grid>
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
+                />
+              </Grid>
 
-            <Grid item container justify='center' style={styles.footer}>
-              <Grid item>
-                <Button variant="outlined" href="/" style={styles.button}>
-                  Voltar
-                </Button>
+              <Grid item xs={10}>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Gênero</FormLabel>
+                  <RadioGroup
+                    aria-label="Gender"
+                    name="gender"
+                    value={values.gender}
+                    onChange={handleChange('gender')}
+                    style={styles.radioGroup}
+                  >
+                    <FormControlLabel value="f" control={<Radio />} label="Feminino" />
+                    <FormControlLabel value="m" control={<Radio />} label="Masculino" />
+                    <FormControlLabel value="o" control={<Radio />} label="Outro" />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
-              <Grid item>
-                <Button children='Continuar' color='primary' variant='outlined'
-                  style={styles.button} onClick={this.continue} />
+
+              <Grid item container xs={10}
+                justify='space-around'
+                style={styles.gridButtons}>
+                <Grid item>
+                  <Button variant="outlined" href="/">
+                    Voltar
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="outlined" onClick={this.continue}>
+                    Continuar
+                  </Button>
+                </Grid>
+              </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
 
         <Footer />
       </div>

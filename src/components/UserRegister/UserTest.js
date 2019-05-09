@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import UserDetails from './UserDetails'
+import UserDetailsCopy from './UserDetailsCopy'
 import AccountDetails from './AccountDetails'
 import PetDetails from './PetDetails'
 import Confirm from './Confirm'
 import Success from './Success'
+import logo from '../../assets/mypetpass.png'
+import { Grid, Hidden } from '@material-ui/core'
+import './page.scss'
 
-export class UserRegister extends Component {
+export class UserTest extends Component {
     state = {
         step: 1,
         name: '',
@@ -113,11 +116,23 @@ export class UserRegister extends Component {
 
             case 1:
                 return (
-                    <UserDetails
-                        nextStep={this.nextStep}
-                        handleChange={this.handleChange}
-                        handleUpload={this.handleUpload}
-                        values={values} />
+                    <div className='page'>
+                        <Grid container xs={10} className='box'>
+                            <Hidden xsDown>
+                                <Grid item container sm={6} justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid item xs={12} sm={6} container justify='center' alignItems='center' className='form'>
+                                <UserDetailsCopy nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    handleUpload={this.handleUpload}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </div>
                 )
             case 2:
                 return (
@@ -152,4 +167,4 @@ export class UserRegister extends Component {
     }
 }
 
-export default UserRegister
+export default UserTest
