@@ -91,25 +91,18 @@ export class UserTest extends Component {
             name,
             email,
             password,
-            active,
             description,
-            rate,
-            qtdCredit,
             accountNumber,
             digit,
             agency,
             bankCode,
-            birthday,
+            birthday : 1554564513464,
             address,
-            lat,
-            lng,
+            lat: 20.592630,
+            lng: -100.409660,
             phone,
             gender,
             photo,
-            photoPreview,
-            capaPhoto,
-            comments,
-            animals
         }
 
         switch (step) {

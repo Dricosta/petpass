@@ -14,31 +14,24 @@ export class Confirm extends Component {
         e.preventDefault()
         //PROCESS FORM
         /* this.props.nextStep() */
-        const values = this.props.values
-        const data = new FormData()
-        data.append('name', values.name)
-        data.append('email', values.email)
-        data.append('password', values.password)
-        data.append('description', values.description)
-        data.append('accountNumber', values.accountNumber)
-        data.append('digit', values.digit)
-        data.append('agency', values.agency)
-        data.append('bankCode', values.bankCode)
-        data.append('birhday', 1554564513464)
-        data.append('address', values.address)
-        data.append('phone', values.phone)
-        data.append('gender', values.gender)
-        data.append('photo', values.photo)
-        data.append('lat', 20.592630)
-        data.append('lng', -100.409660)
-        console.log('DATA FORM: ', data)
-        api.post('/user/signup', data)
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        api.post('user/signup', {
+            
+                'name': this.props.values.name,
+                'email': this.props.values.email,
+                'password': this.props.values.password,
+                'description': this.props.values.description,
+                'accountNumber': this.props.values.accountNumber,
+                'digit': this.props.values.digit,
+                'agency': this.props.values.agency,
+                'bankCode': this.props.values.bankCode,
+                'birthday' : 1554564513464,
+                'lat': 20.592630,
+                'lng': -100.409660,
+                'phone': this.props.values.phone,
+                'gender': this.props.values.gender,
+                'photo': this.props.values.photo,
+            
+        }).then(response => console.log(response.data.result._id))
     }
 
     back = e => {
