@@ -18,7 +18,7 @@ class InfoUser extends Component {
             ModalAddPet: false,
             ModalDeletePet: false,
             ModalEditPet: false,
-            Comments: []
+            PetsOwner: []
         }
     }
     
@@ -26,9 +26,8 @@ class InfoUser extends Component {
     async componentDidMount(){
         const response = await api.get(`user/animals/5ca8c905725d7b51b271c31e`)
         this.setState({
-            Comments: response.data.result
+            PetsOwner: response.data.result
         })
-        console.log('Comentarios:',this.state.Comments)
     }
    
     handleAddPet = () => {
@@ -49,7 +48,28 @@ class InfoUser extends Component {
         }))
     }
 
+     handleSubmitPetAdd = (e) => {
+        e.preventDefault()
+        const { name, breed, weight, animalSize, animalType, description } = e.target
+        
 
+        const newPets = {
+            idOwner: "5ca8c905725d7b51b271c31e",
+            name: name.value,
+            breed: breed.value,
+            weight: weight.value,
+            animalSize: animalSize.value,
+            animalType: animalType.value,
+            description: description.value
+        }
+
+        api.post(`/animal/create`, {
+            ...newPets
+        })
+
+        console.log('dados', newPets)
+
+    }
 
     render() {
         return (
@@ -57,13 +77,24 @@ class InfoUser extends Component {
                 <PerfilOwner/>
                 <div className="InfoUser_group">
                     <div className="InfoUser_group-comments">
-                        <Comments />
+                        <Comments/>
                     </div>
                     <div className="InfoUser_group-pets">
-                        <MyPets 
-                        handleDelete={this.handleDeletePet}
-                        handleEdit={this.handleEditPet}
-                        />
+                        {this.state.PetsOwner.map((pet, index) => {
+                            return (
+                                <MyPets
+                                key={index}
+                                handleDelete={this.handleDeletePet}
+                                handleEdit={this.handleEditPet}
+                                name={pet.name}
+                                breed={pet.breed}
+                                weight={pet.weight}
+                                animalSize={pet.animalSize}
+                                animalType={pet.animalType}
+                                description={pet.description}
+                                /> 
+                            )
+                        })}
                         <Fab onClick={this.handleAddPet} aria-label="Pets" className="InfoUser_add-pet" >
                             <IconPets />
                         </Fab>
@@ -72,7 +103,8 @@ class InfoUser extends Component {
 
                 <ModalAddPet
                 openModal={this.state.ModalAddPet}
-                handleModal={this.handleAddPet}/>
+                handleModal={this.handleAddPet}
+                handleSubmitPetAdd={this.handleSubmitPetAdd}/>
 
                 <ModalDeletePet
                 openDeleteModal={this.state.ModalDeletePet}

@@ -9,72 +9,68 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 
-const ModalAddPet = ({ openModal, handleModal}) => {
+const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd}) => {
     return (
-        <div>
-             <Dialog
-                open={openModal}
-                onClose={handleModal}
-                >
-                <DialogTitle>Cadastrar Pet</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                    Cadastre seu novo Pet aqui mesmo, após o cadastro ele aparecerá ao lado direito do seu perfil.
-                    </DialogContentText>
-                    <div className="UploadPhotoPet">
-                        <input accept="image/*" id="btn-banner" type="file" hidden />
-                        <label htmlFor="btn-banner"> Foto do Pet
-                            <IconButton color="primary" component="span">
-                                <PhotoCamera />
-                            </IconButton>
-                        </label>
-                    </div>
+        <Dialog open={openModal} onClose={handleModal}>
+            <DialogTitle>Cadastrar Pet</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                Cadastre seu novo Pet aqui mesmo, após o cadastro ele aparecerá ao lado direito do seu perfil.
+                </DialogContentText>
+                <div className="UploadPhotoPet">
+                    <input accept="image/*" id="btn-banner" type="file" hidden />
+                    <label htmlFor="btn-banner"> Foto do Pet
+                        <IconButton color="primary" component="span">
+                            <PhotoCamera />
+                        </IconButton>
+                    </label>
+                </div>
+                <form onSubmit={handleSubmitPetAdd}>
                     <TextField
                     margin="dense"
                     id="name"
                     label="Nome"
-                    type="email"
                     fullWidth
                     />
                     <TextField
                     margin="dense"
-                    id="name"
+                    id="breed"
                     label="Raça"
-                    type="email"
                     fullWidth
                     />
                     <TextField
                     margin="dense"
-                    id="name"
+                    id="weight"
                     label="Peso"
-                    type="email"
                     fullWidth
                     />
-                     <TextField
+                    <TextField
                     margin="dense"
-                    id="name"
+                    id="animalSize"
                     label="Porte"
-                    type="email"
                     fullWidth
                     />
-                     <TextField
+                    <TextField
                     margin="dense"
-                    id="name"
+                    id="description"
                     label="Descrição"
-                    type="email"
                     fullWidth
                     />
-                </DialogContent>
-                <DialogActions className="DialogActionsButtons">
+                    <TextField
+                    margin="dense"
+                    id="animalType"
+                    label="Tipo do Pet"
+                    fullWidth
+                    />
                     <Button onClick={handleModal} variant="contained" color="secondary">
                     Cancelar
                     </Button>
-                    <Button  variant="contained" color="primary">
+                    <button type="submit">
                     Cadastrar
-                    </Button>
-                </DialogActions>
-                </Dialog>
-        </div>
+                    </button>
+                </form>
+            </DialogContent>
+        </Dialog>
     );
 }
 

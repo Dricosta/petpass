@@ -25,6 +25,7 @@ const ModalEditPet = ({ openModal, handleModal }) => {
                             </IconButton>
                         </label>
                     </div>
+                    <form>
                     <TextField
                     margin="dense"
                     id="name"
@@ -60,6 +61,7 @@ const ModalEditPet = ({ openModal, handleModal }) => {
                     type="email"
                     fullWidth
                     />
+                    </form>
                 </DialogContent>
                 <DialogActions className="DialogActionsButtons">
                     <Button onClick={handleModal} variant="contained" color="secondary">
