@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import dog from '../../assets/dog.png';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';

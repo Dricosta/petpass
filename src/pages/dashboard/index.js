@@ -8,7 +8,7 @@ import InfoUser from '../../components/InfoUser/'
 library.add(faUser, faLightbulb, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard)
 
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
     constructor(props){
         super(props)
         this.state = {

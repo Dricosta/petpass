@@ -7,8 +7,10 @@ import IconPets from '@material-ui/icons/Pets';
 import ModalAddPet from '../ModalAddPet/index';
 import ModalDeletePet from '../ModalDeletePet/index';
 import ModalEditPet from '../ModalEditPet/index';
+import MsgSuccess from '../MsgSuccess/index';
 import api from '../../services/api';
 import './style.scss'
+
 
 
 class InfoUser extends Component {
@@ -18,6 +20,9 @@ class InfoUser extends Component {
             ModalAddPet: false,
             ModalDeletePet: false,
             ModalEditPet: false,
+            loadingAddPet: false,
+            PetAddSuccess: false,
+            cadastrar: 'Cadastrar',
             PetsOwner: []
         }
     }
@@ -28,6 +33,7 @@ class InfoUser extends Component {
         this.setState({
             PetsOwner: response.data.result
         })
+        console.log(this.state.PetsOwner)
     }
    
     handleAddPet = () => {
@@ -62,13 +68,44 @@ class InfoUser extends Component {
             animalType: animalType.value,
             description: description.value
         }
-
+        
         api.post(`/animal/create`, {
             ...newPets
+        }).then((response) => {
+            this.setState(state => ({
+                cadastrar: '',
+                loadingAddPet: !state.loadingAddPet
+            }))
+            setTimeout(() => {
+                if(response.status === 200){
+                    this.setState(state => ({
+                        cadastrar: 'Cadastrar',
+                        loadingAddPet: !state.loadingAddPet
+                    }))
+                    setTimeout(() => {
+                        this.handleAddPet()
+                    }, 800);
+
+                    this.setState({
+                        PetAddSuccess: true,
+                        PetsOwner: this.state.PetsOwner.concat(newPets),
+                    }, () => {
+                        setTimeout(() => {
+                            this.setState({
+                                PetAddSuccess: false
+                            })
+                        }, 3000);
+                    })
+                } 
+            }, 2000);
         })
+    }
 
-        console.log('dados', newPets)
-
+    DeletePet = () => {
+        console.log('delete pet')
+        api.delete(`/animal/5cb9e24da3afe3613a459bcd`, {
+             
+        })
     }
 
     render() {
@@ -104,15 +141,22 @@ class InfoUser extends Component {
                 <ModalAddPet
                 openModal={this.state.ModalAddPet}
                 handleModal={this.handleAddPet}
-                handleSubmitPetAdd={this.handleSubmitPetAdd}/>
-
+                handleSubmitPetAdd={this.handleSubmitPetAdd}
+                loading={this.state.loadingAddPet}
+                cadastrar={this.state.cadastrar}/>
+                
                 <ModalDeletePet
                 openDeleteModal={this.state.ModalDeletePet}
-                handleDeleteModal={this.handleDeletePet}/>
+                handleDeleteModal={this.handleDeletePet}
+                DeletePet={this.DeletePet}/>
 
                 <ModalEditPet
                 openModal={this.state.ModalEditPet}
                 handleModal={this.handleEditPet}/>
+
+                <MsgSuccess 
+                PetAddSuccess={this.state.PetAddSuccess}/>
+                
             </div>
         );
     }

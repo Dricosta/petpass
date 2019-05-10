@@ -1,18 +1,27 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton'
-import PhotoCamera from '@material-ui/icons/PhotoCamera'
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import CloseIcon from '@material-ui/icons/Close';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import './style.scss';
 
-const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd}) => {
+
+
+const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, loading, cadastrar}) => {
     return (
         <Dialog open={openModal} onClose={handleModal}>
-            <DialogTitle>Cadastrar Pet</DialogTitle>
+            <div className="header_modal">
+                <DialogTitle>Cadastrar Pet</DialogTitle>
+                <Button className="btn-cancelar" onClick={handleModal}>
+                    <CloseIcon className="btn-cancelar-icon" />
+                </Button>
+            </div>
             <DialogContent>
                 <DialogContentText>
                 Cadastre seu novo Pet aqui mesmo, após o cadastro ele aparecerá ao lado direito do seu perfil.
@@ -62,12 +71,12 @@ const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd}) => {
                     label="Tipo do Pet"
                     fullWidth
                     />
-                    <Button onClick={handleModal} variant="contained" color="secondary">
-                    Cancelar
-                    </Button>
-                    <button type="submit">
-                    Cadastrar
-                    </button>
+                    <div className="btn-group">
+                        <button type="submit" className="btn-cadastrar">
+                        {!!loading && <CircularProgress className="loading"/>}
+                        {cadastrar}
+                        </button>
+                    </div>
                 </form>
             </DialogContent>
         </Dialog>

@@ -11,17 +11,6 @@ const stylesUser = {
     backgroundSize: 'cover'
 }
 
-const styles = {
-    avatar: {
-      margin: 10,
-    },
-    bigAvatar: {
-      margin: 10,
-      width: 60,
-      height: 60,
-    },
-  };
-
 const NavbarDash = ({ handleLight, Light }) => {
     return (
         <div className="navbardash">
