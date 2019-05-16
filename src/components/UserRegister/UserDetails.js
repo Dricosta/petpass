@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import '../../reset.scss'
-import Navbar from '../Navbar'
 import Grid from '@material-ui/core/Grid'
 //import IconButton from '@material-ui/core/IconButton'
-import PhotoCamera from '@material-ui/icons/PhotoCamera'
+import PhotoCamera from '@material-ui/icons/AccountCircle'
 import TextField from '@material-ui/core/TextField'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -11,220 +10,188 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import Button from '@material-ui/core/Button'
-import Footer from '../Footer'
 
 export class UserDetails extends Component {
-  continue = e => {
-    e.preventDefault()
-    this.props.nextStep()
-  }
+    continue = e => {
+        e.preventDefault()
+        this.props.nextStep()
+    }
 
-  render() {
-    const { values, handleChange, handleUpload } = this.props
+    render() {
+        const { values, handleChange, handleUpload } = this.props
 
-    return (
-      <div>
-        {/* Header */}
-        <Grid container>
-          <Grid item xs={12}>
-            <header style={styles.header}>
-              <Navbar />
-            </header>
-          </Grid>
-          <Grid item xs={12}>
-            <h1 style={styles.h1}>Cadastro como usuário</h1>
-          </Grid>
-        </Grid>
-
-        {/* Body */}
-         
-         <Grid item xs={12} sm={6} container
-            justify='center' alignItems='center'
-            style={styles.form}>
+        return (
             <Grid item xs={12} container
-              justify='center' alignItems='center'>
-              {values.photoPreview && <Grid item container xs={10} justify='center' alignItems='center'>
-                <img src={values.photoPreview} alt='Foto de perfil' style={styles.photo} />
-              </Grid>}
-              <Grid item xs={10}>
-                <input
-                  accept="image/*"
-                  id="photo"
-                  multiple
-                  type="file"
-                  onChange={handleUpload('photo')}
-                  hidden
-                />
-                <label htmlFor="photo">
-                  <Button variant="contained" component="span" fullWidth
-                    style={styles.buttonUpload}>
-                    <PhotoCamera /> Escolha uma foto de perfil
-                  </Button>
-                </label>
-              </Grid>
+                justify='center' alignItems='center' style={styles.formPage}>
+                <Grid item xs={12} container
+                    justify='center' alignItems='center'>
+                    <h2>Preencha com seus dados</h2>
+                    {/* Avatar */}
+                    {values.photoPreview && <Grid item container xs={10} justify='flex-end' alignItems='center'>
+                        <label htmlFor="photo">
+                            <img src={values.photoPreview} alt='Foto de perfil' style={styles.photo} />
+                        </label>
+                    </Grid>}
+                    <Grid item container xs={10} justify='flex-end' alignItems='center'>
+                        <input
+                            accept="image/*"
+                            id="photo"
+                            multiple
+                            type="file"
+                            onChange={handleUpload('photo')}
+                            hidden
+                        />
+                        {!values.photoPreview && <label htmlFor="photo">
+                            <Button variant="contained" component="span" fullWidth style={styles.button}
+                            >
+                                <PhotoCamera style={styles.photo} />
+                            </Button>
+                        </label>}
+                    </Grid>
+                    {/* End Avatar */}
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Nome'
-                  value={values.name}
-                  onChange={handleChange('name')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    {/* Inputs */}
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Nome'
+                            type='text'
+                            required
+                            value={values.name}
+                            onChange={handleChange('name')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Email'
-                  value={values.email}
-                  onChange={handleChange('email')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Email'
+                            type='email'
+                            required
+                            value={values.email}
+                            onChange={handleChange('email')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Senha'
-                  type='password'
-                  value={values.password}
-                  onChange={handleChange('password')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Senha'
+                            type='password'
+                            required
+                            value={values.password}
+                            onChange={handleChange('password')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Apresentação'
-                  multiline
-                  value={values.description}
-                  onChange={handleChange('description')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Apresentação'
+                            multiline
+                            value={values.description}
+                            onChange={handleChange('description')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Nascimento'
-                  type='date'
-                  defaultValue={values.birthday}
-                  onChange={handleChange('birthday')}
-                  variant='outlined'
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Nascimento'
+                            type='date'
+                            required
+                            defaultValue={values.birthday}
+                            onChange={handleChange('birthday')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Endereço'
-                  value={values.address}
-                  onChange={handleChange('address')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Telefone / Celular'
+                            type='text'
+                            value={values.phone}
+                            onChange={handleChange('phone')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
 
-              <Grid item xs={10}>
-                <TextField
-                  label='Telefone / Celular'
-                  value={values.phone}
-                  onChange={handleChange('phone')}
-                  margin='normal'
-                  variant='outlined'
-                  fullWidth
-                />
-              </Grid>
+                    <Grid item xs={10}>
+                        <FormControl component="fieldset" style={styles.radioGroup}>
+                            <FormLabel component="legend">Gênero</FormLabel>
+                            <RadioGroup
+                                aria-label="Gender"
+                                name="gender"
+                                value={values.gender}
+                                onChange={handleChange('gender')}
+                            >
+                                <FormControlLabel value="f" control={<Radio color='primary'/>} label="Feminino" />
+                                <FormControlLabel value="m" control={<Radio color='primary'/>} label="Masculino" />
+                                <FormControlLabel value="o" control={<Radio color='primary'/>} label="Outro" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    {/* End Inputs */}
 
-              <Grid item xs={10}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Gênero</FormLabel>
-                  <RadioGroup
-                    aria-label="Gender"
-                    name="gender"
-                    value={values.gender}
-                    onChange={handleChange('gender')}
-                    style={styles.radioGroup}
-                  >
-                    <FormControlLabel value="f" control={<Radio />} label="Feminino" />
-                    <FormControlLabel value="m" control={<Radio />} label="Masculino" />
-                    <FormControlLabel value="o" control={<Radio />} label="Outro" />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
+                    {/* Buttons */}
+                    <Grid item container xs={10} alignItems='baseline'>
+                        <Grid item container xs={6} justify='flex-start'>
+                            <Button href="/" style={styles.actionButton}>
+                                Voltar
+                                </Button>
+                        </Grid>
+                        <Grid item container xs={6} justify='flex-end'>
+                            <Button onClick={this.continue} style={styles.actionButton}>
+                                Continuar
+                                </Button>
+                        </Grid>
+                    </Grid>
+                    {/* End Buttons */}
 
-              <Grid item container xs={10}
-                justify='space-around'
-                style={styles.gridButtons}>
-                <Grid item>
-                  <Button variant="outlined" href="/">
-                    Voltar
-                  </Button>
                 </Grid>
-                <Grid item>
-                  <Button variant="outlined" onClick={this.continue}>
-                    Continuar
-                  </Button>
-                </Grid>
-              </Grid>
-              </Grid>
             </Grid>
-
-        <Footer />
-      </div>
-    )
-  }
+        )
+    }
 }
 
 const styles = {
-  header: {
-    backgroundColor: '#3d3029',
-    height: 76
-  },
-  h1: {
-    textAlign: 'center',
-    backgroundColor: '#3d3029',
-    color: '#fff',
-    fontWeight: 100,
-    padding: '20px 10px',
-    marginBottom: 30
-  },
-  formPage: {
-    paddingTop: 76,
-  },
-  banner: {
-    backgroundColor: '#d3d3d3',
-    margin: '0 10px',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    width: '100%'
-  },
-  formInput: {
-    width: '100%'
-  },
-  inputDate: {
-    margin: '12px 0'
-  },
-  radioGroup: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  button: {
-    margin: 15
-  },
-  footer: {
-    marginBottom: 30
-  }
+    photo: {
+        height: '82px',
+        width: '85px',
+        maxWidth: '85px',
+        maxHeight: '82px',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        margin: '10px'
+    },
+    button: {
+        height: '82px',
+        width: '85px',
+        maxWidth: '85px',
+        maxHeight: '82px',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        margin: '10px',
+        background: '#fff',
+    },
+    radioGroup: {
+        margin: '20px 0px'
+    },
+    actionButton: {
+        background: '#282222',
+        boxShadow: '4px 5px 15px rgba(0, 0, 0, 0.25)',
+        borderRadius: '4px',
+        color: '#fff',
+        textTransform: 'none',
+        width: '80%'
+    }
 }
 
 export default UserDetails

@@ -4,32 +4,29 @@ import AccountDetails from './AccountDetails'
 import PetDetails from './PetDetails'
 import Confirm from './Confirm'
 import Success from './Success'
+import logo from '../../assets/mypetpass.png'
+import { Grid, Hidden } from '@material-ui/core'
+import './page.scss'
+import '../../reset.scss'
 
-export class UserRegister extends Component {
+export class UserTest extends Component {
     state = {
-        step: 1,
+        step: 4,
         name: '',
         email: '',
         password: '',
-        active: '',
         description: '',
-        rate: '',
-        qtdCredit: '',
         accountNumber: '',
         digit: '',
         agency: '',
         bankCode: '',
         birthday: '',
-        address: '',
         lat: '',
         lng: '',
         phone: '',
         gender: '',
         photo: '',
         photoPreview: '',
-        capaPhoto: '',
-        comments: '',
-        animals: []
     }
 
     nextStep = () => {
@@ -64,83 +61,117 @@ export class UserRegister extends Component {
         const { name,
             email,
             password,
-            active,
             description,
-            rate,
-            qtdCredit,
             accountNumber,
             digit,
             agency,
             bankCode,
             birthday,
-            address,
             lat,
             lng,
             phone,
             gender,
             photo,
-            photoPreview,
-            capaPhoto,
-            comments,
-            animals } = this.state
+            photoPreview } = this.state
 
         const values = {
             name,
             email,
             password,
-            active,
             description,
-            rate,
-            qtdCredit,
             accountNumber,
             digit,
             agency,
             bankCode,
             birthday,
-            address,
-            lat,
-            lng,
+            lat: 20.592630,
+            lng: -100.409660,
             phone,
             gender,
             photo,
-            photoPreview,
-            capaPhoto,
-            comments,
-            animals
+            photoPreview
         }
 
         switch (step) {
 
             case 1:
                 return (
-                    <UserDetails
-                        nextStep={this.nextStep}
-                        handleChange={this.handleChange}
-                        handleUpload={this.handleUpload}
-                        values={values} />
+                    <Grid className='page'>
+                        <Grid item container xs={10} className='box'>
+                            <Hidden xsDown>
+                                <Grid item container sm={6} justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid item xs={12} sm={6} container justify='center' alignItems='center' className='form'>
+                                <UserDetails nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    handleUpload={this.handleUpload}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 )
             case 2:
                 return (
-                    <AccountDetails
-                        nextStep={this.nextStep}
-                        prevStep={this.prevStep}
-                        handleChange={this.handleChange}
-                        values={values} />
+                    <Grid className='page'>
+                        <Grid item container xs={10} className='box'>
+                            <Hidden xsDown>
+                                <Grid item container sm={6} justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid item xs={12} sm={6} container justify='center' alignItems='center' className='form'>
+                                <AccountDetails
+                                    nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 )
             case 3:
                 return (
-                    <PetDetails
-                        nextStep={this.nextStep}
-                        prevStep={this.prevStep}
-                        handleChange={this.handleChange}
-                        values={values} />
+                    <Grid className='page'>
+                        <Grid item container xs={10} className='box'>
+                            <Hidden xsDown>
+                                <Grid item container sm={6} justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid item xs={12} sm={6} container justify='center' alignItems='center' className='form'>
+                                <Confirm
+                                    nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 )
             case 4:
                 return (
-                    <Confirm
-                        nextStep={this.nextStep}
-                        prevStep={this.prevStep}
-                        values={values} />
+                    <Grid className='page'>
+                        <Grid item container xs={10} className='box'>
+                            <Hidden xsDown>
+                                <Grid item container sm={6} justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid item xs={12} sm={6} container justify='center' alignItems='center' className='form'>
+                                <PetDetails
+                                    nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 )
             case 5:
                 return (
@@ -152,4 +183,4 @@ export class UserRegister extends Component {
     }
 }
 
-export default UserRegister
+export default UserTest

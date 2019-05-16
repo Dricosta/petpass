@@ -16,11 +16,11 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 export class PetDetails extends Component {
     state = {
         idOwner: '',
-        status: '',
         name: '',
         animalRegister: '',
         description: '',
         photo: '',
+        photoPreview: '',
         breed: '',
         weight: '',
         animalSize: '',
@@ -37,180 +37,122 @@ export class PetDetails extends Component {
         this.props.prevStep()
     }
 
+    handleChange = input => e => {
+        this.setState({ [input]: e.target.value })
+    }
+
+    handleUpload = input => e => {
+        if (input === 'photo') {
+            const file = e.target.files[0]
+            this.setState({ photoPreview: URL.createObjectURL(file), photo: e.target.files[0] })
+        }
+    }
+
     render() {
-        const { values, handleChange } = this.props
-
         return (
-            <div>
-                {/* Header */}
-                <Grid container>
-                    <Grid item xs={12}>
-                        <header style={styles.header}>
-                            <Navbar />
-                        </header>
+            <Grid item xs={12} container
+                justify='center' alignItems='center' style={styles.formPage}>
+                <Grid item xs={12} container
+                    justify='center' alignItems='center'>
+                    <h2>Cadastre ao menos um pet para começar</h2>
+                    {/* Avatar */}
+                    {this.state.photoPreview && <Grid item container xs={10} justify='flex-end' alignItems='center'>
+                        <label htmlFor="photo">
+                            <img src={this.state.photoPreview} alt='Foto de perfil' style={styles.photo} />
+                        </label>
+                    </Grid>}
+                    <Grid item container xs={10} justify='flex-end' alignItems='center'>
+                        <input
+                            accept="image/*"
+                            id="photo"
+                            multiple
+                            type="file"
+                            onChange={this.handleUpload('photo')}
+                            hidden
+                        />
+                        {!this.state.photoPreview && <label htmlFor="photo">
+                            <Button variant="contained" component="span" fullWidth style={styles.button}
+                            >
+                                <PhotoCamera style={styles.icon} />
+                            </Button>
+                        </label>}
                     </Grid>
-                    <Grid item xs={12}>
-                        <h1 style={styles.h1}>Cadastre seu pet</h1>
+                    {/* End Avatar */}
+                    {/* Inputs */}
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Nome'
+                            type='text'
+                            required
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
+                            margin='normal'
+                            fullWidth
+                        />
                     </Grid>
-                </Grid>
 
-                {/* Body */}
-                <Grid container direction='row' spacing={8} justify='center'>
-                    <Grid container direction='row' justify='center'>
-                        <Grid item xs={10} sm={8} container direction='row' justify='center'>
-                            <form style={styles.formInput}>
-                                <TextField
-                                    label="Nome"
-                                    margin="normal"
-                                    variant="outlined"
-                                    required={true}
-                                    fullWidth={true}
-                                    onChange={handleChange('petName')}
-                                    defaultValue={values.petName}
-                                />
 
-                                <TextField
-                                    label="Número de identificação"
-                                    margin="normal"
-                                    variant="outlined"
-                                    type='email'
-                                    required={true}
-                                    fullWidth={true}
-                                    onChange={handleChange('idNumber')}
-                                    defaultValue={values.idNumber}
-                                />
-
-                                <Grid item container xs={12} sm={4} justify='center'>
-                                    <input accept="image/*" id="btn-petAvatar" type="file" hidden />
-                                    <label htmlFor="btn-petAvatar">Foto
-                                        <IconButton color="primary" component="span">
-                                            <PhotoCamera />
-                                        </IconButton>
-                                    </label>
-                                </Grid>
-
-                                <TextField
-                                    label="Descrição"
-                                    margin="normal"
-                                    variant="outlined"
-                                    multiline
-                                    fullWidth={true}
-                                    onChange={handleChange('petBio')}
-                                    defaultValue={values.petBio}
-                                />
-
-                                <TextField
-                                    label="Raça"
-                                    margin="normal"
-                                    variant="outlined"
-                                    required={true}
-                                    fullWidth={true}
-                                    onChange={handleChange('breed')}
-                                    defaultValue={values.breed}
-                                />
-
-                                <TextField
-                                    label="Peso"
-                                    margin="normal"
-                                    variant="outlined"
-                                    required={true}
-                                    fullWidth={true}
-                                    onChange={handleChange('weight')}
-                                    defaultValue={values.weight} />
-
-                                <FormControl variant="outlined" style={styles.selectSize}>
-                                    <InputLabel
-                                        ref={ref => {
-                                            this.InputLabelRef = ref;
-                                        }}
-                                        htmlFor="outlined-size"
-                                        style={styles.selectSize}>
-                                        Porte
-                                    </InputLabel>
-                                    <Select
-                                        value={this.state.animalSize}
-                                        onChange={handleChange('size')}
-                                        input={
-                                            <OutlinedInput
-                                                labelWidth={100}
-                                                name="size"
-                                                id="outlined-size"
-                                            />
-                                        }
-                                    >
-                                        <MenuItem value="">
-
-                                        </MenuItem>
-                                        <MenuItem value={'small'}>Pequeno</MenuItem>
-                                        <MenuItem value={'medium'}>Médio</MenuItem>
-                                        <MenuItem value={'big'}>Grande</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </form>
+                    {/* Buttons */}
+                    <Grid item container xs={10} alignItems='baseline' style={styles.divAction}>
+                        <Grid item container xs={6} justify='flex-start'>
+                            <Button onClick={this.back} style={styles.actionButton}>
+                                Voltar
+                                </Button>
                         </Grid>
-
-                        <Grid item container justify='center' style={styles.footer}>
-                            <Grid item>
-                                <Button children='Voltar' color='primary' variant='outlined'
-                                    style={styles.button} onClick={this.back} />
-                            </Grid>
-                            <Grid item>
-                                <Button children='Continuar' color='primary' variant='outlined'
-                                    style={styles.button} onClick={this.continue} />
-                            </Grid>
+                        <Grid item container xs={6} justify='flex-end'>
+                            <Button onClick={this.continue} style={styles.actionButton}>
+                                Continuar
+                                </Button>
                         </Grid>
                     </Grid>
-                </Grid>
+                    {/* End Buttons */}
 
-                {/* Footer */}
-                <Footer />
-            </div>
+                </Grid>
+            </Grid>
         )
     }
 }
 
 const styles = {
-    header: {
-        backgroundColor: '#3d3029',
-        height: 76
-    },
-    h1: {
-        textAlign: 'center',
-        backgroundColor: '#3d3029',
-        color: '#fff',
-        fontWeight: 100,
-        padding: '20px 10px',
-        marginBottom: 30
-    },
-    formPage: {
-        paddingTop: 76,
-    },
-    banner: {
-        backgroundColor: '#d3d3d3',
-        margin: '0 10px',
-        display: 'flex',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
-    formInput: {
-        width: '100%'
-    },
-    inputDate: {
-        margin: '12px 0'
-    },
-    radioGroup: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
     button: {
-        margin: 15
+        height: '82px',
+        width: '85px',
+        maxWidth: '85px',
+        maxHeight: '82px',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        margin: '10px',
+        background: '#fff',
+        border: '1px solid #282222'
     },
-    footer: {
-        marginBottom: 30
+    photo: {
+        height: '82px',
+        width: '85px',
+        maxWidth: '85px',
+        maxHeight: '82px',
+        objectFit: 'cover',
+        borderRadius: '50%',
+        margin: '10px'
     },
-    selectSize: {
-        width: '100%'
+    icon: {
+        height: '82px',
+        width: '85px',
+        maxWidth: '85px',
+        maxHeight: '82px',
+        objectFit: 'contain',
+        borderRadius: '50%',
+        margin: '10px',
+    },
+    actionButton: {
+        background: '#282222',
+        boxShadow: '4px 5px 15px rgba(0, 0, 0, 0.25)',
+        borderRadius: '4px',
+        color: '#fff',
+        textTransform: 'none',
+        width: '80%'
+    },
+    divAction: {
+        marginTop: '24px'
     }
 }
 
