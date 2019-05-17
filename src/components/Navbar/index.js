@@ -118,7 +118,7 @@ class Navbar extends React.Component {
                 <div className={`link_dropdown_option option_login ${this.state.menuOptionLogin ? 'openOptionLogin' : ''}`}>
                     <ul className="link_dropdown_list">
                       <li className="link_dropdown_list-item submenu">P / de Serviço</li>
-                      <li className="link_dropdown_list-item submenu">Usuário</li>
+                      <li className="link_dropdown_list-item submenu"><a href="/userLogin" className="link_dropdown_list-item" >Usuário</a></li>
                     </ul>
                   </div>
                 </li>

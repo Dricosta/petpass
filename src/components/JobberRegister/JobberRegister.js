@@ -8,7 +8,7 @@ import { Grid, Hidden } from '@material-ui/core'
 import './page.scss'
 import '../../reset.scss'
 
-export class UserRegister extends Component {
+export class JobberRegister extends Component {
     state = {
         step: 1,
         name: '',
@@ -26,6 +26,17 @@ export class UserRegister extends Component {
         gender: '',
         photo: '',
         photoPreview: '',
+        weekDays: {
+            sunday: false,
+            monday: false, 
+            tuesday: false, 
+            wednesday: false, 
+            thursday: false, 
+            friday: false, 
+            saturday: false
+        },
+        startTime: '',
+        endTime: ''
     }
 
     nextStep = () => {
@@ -202,4 +213,4 @@ export class UserRegister extends Component {
     }
 }
 
-export default UserRegister
+export default JobberRegister
