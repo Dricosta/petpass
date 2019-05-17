@@ -3,6 +3,7 @@ import '../../reset.scss'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
 import Grid from '@material-ui/core/Grid'
+import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,12 +13,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput'
+import api from '../../services/api'
 
 export class PetDetails extends Component {
     state = {
         idOwner: '',
         name: '',
-        animalRegister: '',
         description: '',
         photo: '',
         photoPreview: '',
@@ -27,9 +28,39 @@ export class PetDetails extends Component {
         animalType: ''
     }
 
+    componentDidMount() {
+        const id = localStorage.getItem('idOwner')
+        this.setState({ idOwner: id })
+    }
+
     continue = e => {
         e.preventDefault()
+
+        let payload = {
+            'idOwner': this.state.idOwner,
+            'name': this.state.name,
+            'description': this.state.description,
+            'photo': '',
+            'breed': this.state.breed,
+            'weight': this.state.weight,
+            'animalSize': this.state.animalSize,
+            'animalType': this.state.animalType
+        }
+
+        const photo = this.props.values.photo
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            payload.photo = reader.result
+            console.log(payload)
+            api.post('animal/create', payload)
+                .then(function (response) {
+                    console.log(response.data.result.photo)
+                });
+        }
+        reader.readAsDataURL(photo);
+
         this.props.nextStep()
+        console.log(this.state)
     }
 
     back = e => {
@@ -91,6 +122,78 @@ export class PetDetails extends Component {
                         />
                     </Grid>
 
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Descrição'
+                            type='text'
+                            required
+                            value={this.state.description}
+                            onChange={this.handleChange('description')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Raça'
+                            type='text'
+                            required
+                            value={this.state.breed}
+                            onChange={this.handleChange('breed')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Peso'
+                            type='text'
+                            required
+                            value={this.state.weight}
+                            onChange={this.handleChange('weight')}
+                            margin='normal'
+                            fullWidth
+                        />
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <FormControl style={styles.select} >
+                            <InputLabel htmlFor="animalSize">Tipo</InputLabel>
+                            <Select
+                                value={this.state.animalType}
+                                onChange={this.handleChange('animalType')}
+                                input={<Input name="animalType" id="animalType" />}
+                                autoWidth
+                            >
+                                <MenuItem value=""> </MenuItem>
+                                <MenuItem value={'dog'}>Cachorro</MenuItem>
+                                <MenuItem value={'cat'}>Gato</MenuItem>
+                                <MenuItem value={'other'}>Outro</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <FormControl style={styles.select} >
+                            <InputLabel htmlFor="animalSize">Porte</InputLabel>
+                            <Select
+                                value={this.state.animalSize}
+                                onChange={this.handleChange('animalSize')}
+                                input={<Input name="animalSize" id="animalSize" />}
+                                autoWidth
+                            >
+                                <MenuItem value=""> </MenuItem>
+                                <MenuItem value={'p'}>Pequeno</MenuItem>
+                                <MenuItem value={'m'}>Médio</MenuItem>
+                                <MenuItem value={'g'}>Grande</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+
+
 
                     {/* Buttons */}
                     <Grid item container xs={10} alignItems='baseline' style={styles.divAction}>
@@ -135,8 +238,8 @@ const styles = {
         margin: '10px'
     },
     icon: {
-        height: '82px',
-        width: '85px',
+        height: '100%',
+        width: '100%',
         maxWidth: '85px',
         maxHeight: '82px',
         objectFit: 'contain',
@@ -153,6 +256,10 @@ const styles = {
     },
     divAction: {
         marginTop: '24px'
+    },
+    select: {
+        width: '100%',
+        marginTop: '10px'
     }
 }
 

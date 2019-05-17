@@ -5,14 +5,14 @@ import { List, ListItem, ListItemText } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import api from '../../services/api'
 
-export class AccountDetails extends Component {
+export class Confirm extends Component {
     continue = e => {
         e.preventDefault()
         //PROCESS FORM
-        /* this.props.nextStep() */
+        /*  */
         const parseBirthday = new Date(this.props.values.birthday)
-        api.post('user/signup', {
 
+        let payload = {
             'name': this.props.values.name,
             'email': this.props.values.email,
             'password': this.props.values.password,
@@ -22,13 +22,27 @@ export class AccountDetails extends Component {
             'agency': this.props.values.agency,
             'bankCode': this.props.values.bankCode,
             'birthday': Date.parse(parseBirthday),
-            'lat': 20.592630,
-            'lng': -100.409660,
+            'lat': this.props.values.lat,
+            'lng': this.props.values.lng,
             'phone': this.props.values.phone,
             'gender': this.props.values.gender,
-            'photo': this.props.values.photo,
+        }
 
-        }).then(response => console.log(response.data.result._id))
+        const photo = this.props.values.photo
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            payload.photo = reader.result
+            console.log(payload)
+            api.post('user/signup', payload)
+            .then(function(response){
+                console.log(response.data.result.photo)
+                localStorage.setItem('idOwner', response.data.result._id);
+                // localStorage.setItem('userToken', response.data.result.token)
+            });  
+        }
+        reader.readAsDataURL(photo);
+        console.log(localStorage.getItem('idOwner'))
+        this.props.nextStep()
     }
 
     back = e => {
@@ -144,4 +158,4 @@ const styles = {
     }
 }
 
-export default AccountDetails
+export default Confirm

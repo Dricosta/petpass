@@ -11,7 +11,7 @@ import '../../reset.scss'
 
 export class UserTest extends Component {
     state = {
-        step: 4,
+        step: 1,
         name: '',
         email: '',
         password: '',
@@ -52,7 +52,18 @@ export class UserTest extends Component {
     handleUpload = input => e => {
         if (input === 'photo') {
             const file = e.target.files[0]
-            this.setState({ photoPreview: URL.createObjectURL(file), photo: e.target.files[0] })
+            if(file !== undefined){
+                this.setState({ photoPreview: URL.createObjectURL(file), photo: e.target.files[0] })
+            }
+        }
+    }
+
+    componentDidMount() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position)=>{
+                this.setState({ lat: position.coords.latitude }) 
+                this.setState({ lng: position.coords.longitude })
+            })
         }
     }
 
