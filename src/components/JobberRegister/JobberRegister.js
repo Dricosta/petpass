@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import UserDetails from './UserDetails'
+import PersonalDetails from './PersonalDetails'
 import AccountDetails from './AccountDetails'
-import PetDetails from './PetDetails'
-import UserLogin from '../UserLogin/UserLogin'
+import WorkDetails from './WorkDetails'
+import ServiceDetails from './ServiceDetails'
+import Login from '../JobberLogin/JobberLogin'
 import logo from '../../assets/mypetpass.png'
 import { Grid, Hidden } from '@material-ui/core'
 import './page.scss'
@@ -10,7 +11,7 @@ import '../../reset.scss'
 
 export class JobberRegister extends Component {
     state = {
-        step: 1,
+        step: 3,
         name: '',
         email: '',
         password: '',
@@ -26,15 +27,6 @@ export class JobberRegister extends Component {
         gender: '',
         photo: '',
         photoPreview: '',
-        weekDays: {
-            sunday: false,
-            monday: false, 
-            tuesday: false, 
-            wednesday: false, 
-            thursday: false, 
-            friday: false, 
-            saturday: false
-        },
         startTime: '',
         endTime: ''
     }
@@ -44,6 +36,7 @@ export class JobberRegister extends Component {
         this.setState({
             step: step + 1
         })
+        console.log(this.state)
     }
 
     prevStep = () => {
@@ -51,6 +44,7 @@ export class JobberRegister extends Component {
         this.setState({
             step: step - 1
         })
+        console.log(this.state)
     }
 
     handleChange = input => e => {
@@ -84,7 +78,8 @@ export class JobberRegister extends Component {
 
     render() {
         const { step } = this.state
-        const { name,
+        const {
+            name,
             email,
             password,
             description,
@@ -98,7 +93,11 @@ export class JobberRegister extends Component {
             phone,
             gender,
             photo,
-            photoPreview } = this.state
+            photoPreview,
+            weekDays,
+            startTime,
+            endTime
+        } = this.state
 
         const values = {
             name,
@@ -115,7 +114,10 @@ export class JobberRegister extends Component {
             phone,
             gender,
             photo,
-            photoPreview
+            photoPreview,
+            weekDays,
+            startTime,
+            endTime
         }
 
         switch (step) {
@@ -139,7 +141,7 @@ export class JobberRegister extends Component {
                                 item container xs={12} sm={6}
                                 justify='center' alignItems='center'
                                 className='form'>
-                                <UserDetails
+                                <PersonalDetails
                                     nextStep={this.nextStep}
                                     prevStep={this.prevStep}
                                     handleChange={this.handleChange}
@@ -194,7 +196,35 @@ export class JobberRegister extends Component {
                                 item container xs={12} sm={6}
                                 justify='center' alignItems='center'
                                 className='form'>
-                                <PetDetails
+                                <WorkDetails
+                                    nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                )
+            case 4:
+                return (
+                    <Grid className='page'>
+                        <Grid
+                            item container xs={10}
+                            className='box'>
+                            <Hidden xsDown>
+                                <Grid
+                                    item container sm={6}
+                                    justify='center' alignItems='center'>
+                                    <img src={logo} alt='logo' />
+                                </Grid>
+                            </Hidden>
+
+                            <Grid
+                                item container xs={12} sm={6}
+                                justify='center' alignItems='center'
+                                className='form'>
+                                <ServiceDetails
                                     nextStep={this.nextStep}
                                     prevStep={this.prevStep}
                                     handleChange={this.handleChange}
@@ -203,9 +233,9 @@ export class JobberRegister extends Component {
                         </Grid>
                     </Grid>
                 )
-            case 4:
+            case 5:
                 return (
-                    <UserLogin msg="Obrigado por se cadastrar no petpass!" />
+                    <Login msg="Obrigado por se cadastrar no petpass!" />
                 )
             default:
                 return ''
