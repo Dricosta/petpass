@@ -8,8 +8,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import './style.scss'
 
-const ModalEditPet = ({ openModal, handleModal }) => {
+const ModalEditPet = ({ openModal, handleModal, handleSubmitEditPet, editar, loading }) => {
     return (
             <Dialog open={openModal} onClose={handleModal}>
                 <DialogTitle>Editar seu Pet</DialogTitle>
@@ -25,52 +27,54 @@ const ModalEditPet = ({ openModal, handleModal }) => {
                             </IconButton>
                         </label>
                     </div>
-                    <form>
-                    <TextField
-                    margin="dense"
-                    id="name"
-                    label="Nome"
-                    type="email"
-                    fullWidth
-                    />
-                    <TextField
-                    margin="dense"
-                    id="name"
-                    label="Raça"
-                    type="email"
-                    fullWidth
-                    />
-                    <TextField
-                    margin="dense"
-                    id="name"
-                    label="Peso"
-                    type="email"
-                    fullWidth
-                    />
-                     <TextField
-                    margin="dense"
-                    id="name"
-                    label="Porte"
-                    type="email"
-                    fullWidth
-                    />
-                     <TextField
-                    margin="dense"
-                    id="name"
-                    label="Descrição"
-                    type="email"
-                    fullWidth
-                    />
+                    <form onSubmit={handleSubmitEditPet}>
+                        <TextField
+                        margin="dense"
+                        id="name"
+                        label="Nome"
+                        fullWidth
+                        />
+                        <TextField
+                        margin="dense"
+                        id="breed"
+                        label="Raça"
+                        fullWidth
+                        />
+                        <TextField
+                        margin="dense"
+                        id="weight"
+                        label="Peso"
+                        fullWidth
+                        />
+                        <TextField
+                        margin="dense"
+                        id="animalSize"
+                        label="Porte"
+                        fullWidth
+                        />
+                        <TextField
+                        margin="dense"
+                        id="description"
+                        label="Descrição"
+                        fullWidth
+                        />
+                        <TextField
+                        margin="dense"
+                        id="animalType"
+                        label="Tipo do Pet"
+                        fullWidth
+                        />
+                        <div className="btn-group">
+                            <button className="btn-group_cancelar" type="button" onClick={handleModal}>
+                                Cancelar
+                            </button>
+                            <button className="btn-group_editar" type="submit" variant="contained" color="primary">
+                                {!!loading && <CircularProgress className="loading"/>}
+                                {editar}
+                            </button>
+                        </div>
                     </form>
                 </DialogContent>
-                <DialogActions className="DialogActionsButtons">
-                    <Button onClick={handleModal} variant="contained" color="secondary">
-                    Cancelar
-                    </Button>
-                    <Button  variant="contained" color="primary">
-                    Editar
-                    </Button>
-                </DialogActions>
             </Dialog>
         
     );

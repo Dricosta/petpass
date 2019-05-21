@@ -40,36 +40,42 @@ const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, loading, cada
                     id="name"
                     label="Nome"
                     fullWidth
+                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="breed"
                     label="Raça"
                     fullWidth
+                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="weight"
                     label="Peso"
                     fullWidth
+                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="animalSize"
                     label="Porte"
                     fullWidth
+                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="description"
                     label="Descrição"
                     fullWidth
+                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="animalType"
                     label="Tipo do Pet"
                     fullWidth
+                    autocomplete="off"
                     />
                     <div className="btn-group">
                         <button type="submit" className="btn-cadastrar">
