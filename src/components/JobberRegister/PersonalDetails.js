@@ -6,7 +6,7 @@ import {
     FormControlLabel, FormLabel, Button
 } from '@material-ui/core'
 
-export class UserDetails extends Component {
+export class PersonalDetails extends Component {
     continue = e => {
         e.preventDefault()
         this.props.nextStep()
@@ -24,8 +24,9 @@ export class UserDetails extends Component {
                     item xs={12} container
                     justify='center' alignItems='center'>
 
-                    <h2>Preencha com seus dados</h2>
-
+                    <Grid item container xs={12} justify='center'>
+                        <h2>Preencha com seus dados</h2>
+                    </Grid>
                     {/* Avatar */}
                     {
                         values.photoPreview &&
@@ -224,4 +225,4 @@ const styles = {
     }
 }
 
-export default UserDetails
+export default PersonalDetails

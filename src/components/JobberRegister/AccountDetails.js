@@ -1,40 +1,10 @@
 import React, { Component } from 'react'
 import '../../reset.scss'
-import api from '../../services/api'
 import { Grid, TextField, Button } from '@material-ui/core'
 
 export class AccountDetails extends Component {
     continue = e => {
         e.preventDefault()
-        //PROCESS FORM
-        const parseBirthday = new Date(this.props.values.birthday)
-
-        let newUser = {
-            'name': this.props.values.name,
-            'email': this.props.values.email,
-            'password': this.props.values.password,
-            'description': this.props.values.description,
-            'accountNumber': this.props.values.accountNumber,
-            'digit': this.props.values.digit,
-            'agency': this.props.values.agency,
-            'bankCode': this.props.values.bankCode,
-            'birthday': Date.parse(parseBirthday),
-            'lat': this.props.values.lat,
-            'lng': this.props.values.lng,
-            'phone': this.props.values.phone,
-            'gender': this.props.values.gender,
-        }
-
-        const photo = this.props.values.photo
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            newUser.photo = reader.result
-            api.post('user/signup', newUser)
-                .then(function (response) {
-                    localStorage.setItem('idOwner', response.data.result._id);
-                });
-        }
-        reader.readAsDataURL(photo);
         this.props.nextStep()
     }
 
@@ -54,8 +24,12 @@ export class AccountDetails extends Component {
                 <Grid item xs={12} container
                     justify='center' alignItems='center'>
 
-                    <h2>Informe sua conta</h2>
-                    <h4>(para compra de créditos)</h4>
+                    <Grid item container xs={12} justify='center'>
+                        <h2>Informe sua conta</h2>
+                    </Grid>
+                    <Grid item container xs={12} justify='center'>
+                        <h4>(para pagamento pelos serviços prestados)</h4>
+                    </Grid>
 
                     {/* Inputs */}
                     <Grid item xs={10}>
