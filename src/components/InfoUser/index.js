@@ -7,7 +7,7 @@ import IconPets from '@material-ui/icons/Pets';
 import ModalAddPet from '../ModalAddPet/index';
 import ModalDeletePet from '../ModalDeletePet/index';
 import ModalEditPet from '../ModalEditPet/index';
-import MsgSuccess from '../MsgSuccess/index';
+import MsgNotification from '../MsgNotification/index';
 import api from '../../services/api';
 import './style.scss'
 
@@ -21,8 +21,13 @@ class InfoUser extends Component {
             ModalDeletePet: false,
             ModalEditPet: false,
             loadingAddPet: false,
-            PetAddSuccess: false,
+            loadingEditPet: false,
+            PetNotification: false,
+            PetMsg: '',
+            PetMsgColor: true,
+            PetNotificationIcon: true,
             cadastrar: 'Cadastrar',
+            Editar: 'Editar',
             PetsOwner: []
         }
     }
@@ -33,7 +38,7 @@ class InfoUser extends Component {
         this.setState({
             PetsOwner: response.data.result
         })
-        console.log(this.state.PetsOwner)
+        console.log('msg:', this.state.PetSuccessMsg)
     }
    
     handleAddPet = () => {
@@ -87,12 +92,21 @@ class InfoUser extends Component {
                     }, 800);
 
                     this.setState({
-                        PetAddSuccess: true,
+                        PetMsgColor: true,
+                        PetNotification: true,
+                        PetNotificationIcon: true,
+                        PetMsg: 'Pet cadastrado com sucesso',
                         PetsOwner: this.state.PetsOwner.concat(newPets),
                     }, () => {
+                        // atualiza os novos Pets que foram inseridos no banco
+                        api.get(`user/animals/5ca8c905725d7b51b271c31e`).then((response) => {
+                            this.setState({
+                                PetsOwner: response.data.result
+                            })
+                        })
                         setTimeout(() => {
                             this.setState({
-                                PetAddSuccess: false
+                                PetNotification: false
                             })
                         }, 3000);
                     })
@@ -101,12 +115,97 @@ class InfoUser extends Component {
         })
     }
 
-    DeletePet = () => {
-        console.log('delete pet')
-        api.delete(`/animal/5cb9e24da3afe3613a459bcd`, {
-             
-        })
+
+    GetId = (id) => (e) => {
+        e.preventDefault()
+        this.handleEditPet()
+
+        this.handleSubmitEditPet = (e) => {
+            e.preventDefault()
+            
+            const { name, breed, weight, animalSize, animalType, description } = e.target
+            const PetEdit = {
+                idOwner: "5ca8c905725d7b51b271c31e",
+                name: name.value,
+                breed: breed.value,
+                weight: weight.value,
+                animalSize: animalSize.value,
+                animalType: animalType.value,
+                description: description.value
+            }
+
+            api.put(`animal/edit/${id}`, {
+                ...PetEdit
+            }).then((response) => {
+                this.setState(state => ({
+                    Editar: '',
+                    loadingEditPet: !state.loadingEditPet
+                }))
+                setTimeout(() => {
+                    if(response.status === 200){
+                        this.setState(state => ({
+                            Editar: 'Editar',
+                            loadingEditPet: !state.loadingEditPet
+                        }))
+                        setTimeout(() => {
+                            this.handleEditPet()
+                        }, 800);
+                        // atualiza os novos Pets que foram inseridos no banco
+                        api.get(`user/animals/5ca8c905725d7b51b271c31e`).then((response) => {
+                            this.setState({
+                                PetMsgColor: true,
+                                PetNotification: true,
+                                PetNotificationIcon: true,
+                                PetMsg: 'Pet editado com sucesso',
+                                PetsOwner: response.data.result
+                            }, () => {
+                                console.log('state:', this.state.PetsOwner)
+                                setTimeout(() => {
+                                    this.setState({
+                                        PetNotification: false
+                                    })
+                                }, 3000);
+                            })
+                        })
+                    }
+                }, 2000)
+            })
+        }
     }
+
+    
+    DeletePet = (PetToBeDelet) => (e) => {
+        e.preventDefault()
+        console.log(PetToBeDelet, e)
+
+        const PetsCadastrados = this.state.PetsOwner.length;
+        
+
+        if (PetsCadastrados === 1) {
+            this.setState({
+                PetNotificationIcon: false,
+                PetNotification: true,
+                PetMsg: 'Desculpe, você não pode deletar todos os seus pets',
+                PetMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        PetNotification: false
+                    })
+                }, 3000);
+            })
+            return false 
+        } else {
+            api.delete(`animal/delete?id=${PetToBeDelet}`).then((response) => {
+                if(response.status === 200){
+                    this.setState({
+                        PetsOwner: this.state.PetsOwner.filter(Pet => Pet._id !== PetToBeDelet)
+                    })
+                }
+            })
+        }
+    }
+
 
     render() {
         return (
@@ -121,8 +220,8 @@ class InfoUser extends Component {
                             return (
                                 <MyPets
                                 key={index}
-                                handleDelete={this.handleDeletePet}
-                                handleEdit={this.handleEditPet}
+                                handleDelete={this.DeletePet(pet._id)}
+                                handleEdit={this.GetId(pet._id)}
                                 name={pet.name}
                                 breed={pet.breed}
                                 weight={pet.weight}
@@ -144,19 +243,26 @@ class InfoUser extends Component {
                 handleSubmitPetAdd={this.handleSubmitPetAdd}
                 loading={this.state.loadingAddPet}
                 cadastrar={this.state.cadastrar}/>
-                
+        
                 <ModalDeletePet
                 openDeleteModal={this.state.ModalDeletePet}
                 handleDeleteModal={this.handleDeletePet}
                 DeletePet={this.DeletePet}/>
-
+                    
                 <ModalEditPet
                 openModal={this.state.ModalEditPet}
-                handleModal={this.handleEditPet}/>
+                handleModal={this.handleEditPet}
+                handleSubmitEditPet={this.handleSubmitEditPet}
+                loading={this.state.loadingEditPet}
+                editar={this.state.Editar}/>
 
-                <MsgSuccess 
-                PetAddSuccess={this.state.PetAddSuccess}/>
-                
+                <MsgNotification 
+                PetNotification={this.state.PetNotification} 
+                PetMsg={this.state.PetMsg}
+                PetMsgColor={this.state.PetMsgColor}
+                PetNotificationIcon={this.state.PetNotificationIcon}/>
+
+
             </div>
         );
     }

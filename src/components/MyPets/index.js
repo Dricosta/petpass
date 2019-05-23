@@ -6,7 +6,7 @@ import CreateIncon from '@material-ui/icons/Create'
 import Button from '@material-ui/core/Button';
 import './style.scss'
 
-const MyPets = ({ handleDelete, handleEdit, animalSize, animalType, description, breed, weight, name }) => { 
+const MyPets = ({ handleDelete, handleEdit, animalSize, animalType, description, breed, weight, name, Pet_id }) => { 
     const stylesUser = {
         backgroundImage: 'url(' + dog + ')',
         backgroundSize: 'cover'
