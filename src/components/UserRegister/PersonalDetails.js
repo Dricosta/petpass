@@ -23,8 +23,9 @@ export class UserDetails extends Component {
                 <Grid
                     item xs={12} container
                     justify='center' alignItems='center'>
-
-                    <h2>Preencha com seus dados</h2>
+                    <Grid item container xs={12} justify='center' >
+                        <h2>Preencha com seus dados</h2>
+                    </Grid>
 
                     {/* Avatar */}
                     {
@@ -104,7 +105,7 @@ export class UserDetails extends Component {
 
                     <Grid item xs={10}>
                         <TextField
-                            label='Apresentação'
+                            label='Descrição'
                             multiline
                             value={values.description}
                             onChange={handleChange('description')}

@@ -5,7 +5,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import {
     Grid, Input, InputLabel, TextField,
     MenuItem, FormControl, Select,
-    Button
+    Button, InputAdornment
 } from '@material-ui/core'
 
 export class PetDetails extends Component {
@@ -46,7 +46,9 @@ export class PetDetails extends Component {
             newPet.photo = reader.result
             api.post('animal/create', newPet)
                 .then(function (response) {
+                    console.log(newPet)
                     console.log('Pet cadastrado!')
+                    console.log(response)
                 });
         }
         reader.readAsDataURL(photo);
@@ -80,7 +82,10 @@ export class PetDetails extends Component {
                 style={styles.formPage}>
                 <Grid item container xs={12}
                     justify='center' alignItems='center'>
-                    <h2>Registre seu pet</h2>
+
+                    <Grid item container xs={12} justify='center'>
+                        <h2>Registre seu pet</h2>
+                    </Grid>
 
                     {/* Avatar */}
                     {
@@ -90,7 +95,7 @@ export class PetDetails extends Component {
                             <label htmlFor="photo">
                                 <img
                                     src={this.state.photoPreview}
-                                    alt='Foto de perfil'
+                                    alt='Foto do seu pet'
                                     style={styles.photo} />
                             </label>
                         </Grid>
@@ -158,18 +163,21 @@ export class PetDetails extends Component {
                     <Grid item xs={10}>
                         <TextField
                             label='Peso'
-                            type='text'
+                            type='number'
                             required
                             value={this.state.weight}
                             onChange={this.handleChange('weight')}
                             margin='normal'
                             fullWidth
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
+                            }}
                         />
                     </Grid>
 
                     <Grid item xs={10}>
                         <FormControl style={styles.select} >
-                            <InputLabel htmlFor="animalSize">
+                            <InputLabel htmlFor="animalType">
                                 Tipo
                             </InputLabel>
                             <Select

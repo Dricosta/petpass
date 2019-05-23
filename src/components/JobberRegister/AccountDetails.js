@@ -27,7 +27,7 @@ export class AccountDetails extends Component {
                     <Grid item container xs={12} justify='center'>
                         <h2>Informe sua conta</h2>
                     </Grid>
-                    <Grid item container xs={12} justify='center'>
+                    <Grid item container xs={10} justify='center'>
                         <h4>(para pagamento pelos serviços prestados)</h4>
                     </Grid>
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import '../../reset.scss'
 import api from '../../services/api'
 import { Grid, TextField, Button } from '@material-ui/core'
-//test@login.com 123
 
 export class LoginForm extends Component {
     continue = e => {
@@ -15,8 +14,8 @@ export class LoginForm extends Component {
         }
         api.post('user/signin', formData)
             .then(function (response) {
-                console.log(response)
-                if(response.data.statusCode === 200) {
+                if (response.data.statusCode === 200) {
+                    console.log(response)
                     formData.redirect()
                 }
             })
@@ -34,9 +33,13 @@ export class LoginForm extends Component {
                     justify='center' alignItems='center'>
                     {
                         msg &&
-                        <h3>{msg}</h3>
+                        <Grid item container xs={10} justify='center'>
+                            <h3>{msg}</h3>
+                        </Grid>
                     }
-                    <h2 style={styles.h2}>Entre com sua conta</h2>
+                    <Grid item container xs={10} justify='center'>
+                        <h2 style={styles.h2}>Entre com sua conta</h2>
+                    </Grid>
 
                     {/* Inputs */}
                     <Grid item xs={10}>

@@ -32,6 +32,7 @@ export class AccountDetails extends Component {
             api.post('user/signup', newUser)
                 .then(function (response) {
                     localStorage.setItem('idOwner', response.data.result._id);
+                    console.log(response)
                 });
         }
         reader.readAsDataURL(photo);
@@ -54,8 +55,13 @@ export class AccountDetails extends Component {
                 <Grid item xs={12} container
                     justify='center' alignItems='center'>
 
-                    <h2>Informe sua conta</h2>
-                    <h4>(para compra de créditos)</h4>
+                    <Grid item container xs={12} justify='center'>
+                        <h2>Informe sua conta</h2>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <h4>(para compra de créditos)</h4>
+                    </Grid>
 
                     {/* Inputs */}
                     <Grid item xs={10}>

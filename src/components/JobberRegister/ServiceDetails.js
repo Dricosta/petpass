@@ -1,56 +1,14 @@
 import React, { Component } from 'react'
-import api from '../../services/api'
 import '../../reset.scss'
-import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import {
     Grid, Input, InputLabel, TextField,
     MenuItem, FormControl, Select,
-    Button
+    Button, InputAdornment
 } from '@material-ui/core'
 
-export class PetDetails extends Component {
-    state = {
-        idOwner: '',
-        name: '',
-        description: '',
-        photo: '',
-        photoPreview: '',
-        breed: '',
-        weight: '',
-        animalSize: '',
-        animalType: ''
-    }
-
-    componentDidMount() {
-        const id = localStorage.getItem('idOwner')
-        this.setState({ idOwner: id })
-    }
-
+export class ServiceDetails extends Component {
     continue = e => {
         e.preventDefault()
-
-        let newPet = {
-            'idOwner': this.state.idOwner,
-            'name': this.state.name,
-            'description': this.state.description,
-            'photo': '',
-            'breed': this.state.breed,
-            'weight': this.state.weight,
-            'animalSize': this.state.animalSize,
-            'animalType': this.state.animalType
-        }
-
-        const photo = this.state.photo
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            newPet.photo = reader.result
-            api.post('animal/create', newPet)
-                .then(function (response) {
-                    console.log('Pet cadastrado!')
-                });
-        }
-        reader.readAsDataURL(photo);
-
         this.props.nextStep()
     }
 
@@ -59,148 +17,102 @@ export class PetDetails extends Component {
         this.props.prevStep()
     }
 
-    handleChange = input => e => {
-        this.setState({ [input]: e.target.value })
-    }
-
-    handleUpload = input => e => {
-        if (input === 'photo') {
-            const file = e.target.files[0]
-            this.setState({
-                photoPreview: URL.createObjectURL(file),
-                photo: e.target.files[0]
-            })
-        }
-    }
-
     render() {
+        const { values, handleChange } = this.props
+
         return (
             <Grid container item xs={12}
                 justify='center' alignItems='center'
                 style={styles.formPage}>
                 <Grid item container xs={12}
                     justify='center' alignItems='center'>
-                    <h2>Registre seu pet</h2>
 
-                    {/* Avatar */}
-                    {
-                        this.state.photoPreview &&
-                        <Grid item container xs={10}
-                            justify='flex-end' alignItems='center'>
-                            <label htmlFor="photo">
-                                <img
-                                    src={this.state.photoPreview}
-                                    alt='Foto de perfil'
-                                    style={styles.photo} />
-                            </label>
-                        </Grid>
-                    }
-
-                    <Grid item container xs={10}
-                        justify='flex-end' alignItems='center'>
-                        <input
-                            accept="image/*"
-                            id="photo"
-                            multiple
-                            type="file"
-                            onChange={this.handleUpload('photo')}
-                            hidden />
-                        {
-                            !this.state.photoPreview &&
-                            <label htmlFor="photo">
-                                <Button variant="contained"
-                                    component="span"
-                                    fullWidth
-                                    style={styles.button}>
-                                    <PhotoCamera style={styles.icon} />
-                                </Button>
-                            </label>
-                        }
+                    <Grid item container xs={12} justify='center'>
+                        <h2>Registro de serviço</h2>
                     </Grid>
-                    {/* End Avatar */}
+
                     {/* Inputs */}
                     <Grid item xs={10}>
-                        <TextField
-                            label='Nome'
-                            type='text'
-                            required
-                            value={this.state.name}
-                            onChange={this.handleChange('name')}
-                            margin='normal'
-                            fullWidth
-                        />
+                        <FormControl style={styles.select} >
+                            <InputLabel htmlFor="serviceName">
+                                Nome
+                            </InputLabel>
+                            <Select
+                                value={values.serviceName}
+                                onChange={handleChange('serviceName')}
+                                input={<Input name="serviceName" id="serviceName" />}
+                                autoWidth>
+                                <MenuItem value=""> </MenuItem>
+                                <MenuItem value={'passeio'}>Passeio</MenuItem>
+                                <MenuItem value={'banho/tosa'}>Banho / Tosa</MenuItem>
+                                <MenuItem value={'petsitter'}>Pet Sitter</MenuItem>
+                                <MenuItem value={'hospedagem'}>Hospedagem</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
 
                     <Grid item xs={10}>
                         <TextField
                             label='Descrição'
                             type='text'
+                            multiline
                             required
-                            value={this.state.description}
-                            onChange={this.handleChange('description')}
+                            value={values.serviceDescription}
+                            onChange={handleChange('serviceDescription')}
                             margin='normal'
                             fullWidth
+                        />
+                    </Grid>
+
+                    <Grid item container xs={10} justify='center'>
+                        <p>Informe os valores em Real para diferentes portes.</p>
+                    </Grid>
+                    
+                    <Grid item xs={10}>
+                        <TextField
+                            label='Pequeno'
+                            type='number'
+                            required
+                            value={values.serviceValueSm}
+                            onChange={handleChange('serviceValueSm')}
+                            margin='normal'
+                            fullWidth
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                            }}
                         />
                     </Grid>
 
                     <Grid item xs={10}>
                         <TextField
-                            label='Raça'
-                            type='text'
+                            label='Médio'
+                            type='number'
                             required
-                            value={this.state.breed}
-                            onChange={this.handleChange('breed')}
+                            value={values.serviceValueMd}
+                            onChange={handleChange('serviceValueMd')}
                             margin='normal'
                             fullWidth
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                            }}
                         />
                     </Grid>
 
                     <Grid item xs={10}>
                         <TextField
-                            label='Peso'
-                            type='text'
+                            label='Grande'
+                            type='number'
                             required
-                            value={this.state.weight}
-                            onChange={this.handleChange('weight')}
+                            value={values.serviceValueLg}
+                            onChange={handleChange('serviceValueLg')}
                             margin='normal'
                             fullWidth
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                            }}
                         />
                     </Grid>
-
-                    <Grid item xs={10}>
-                        <FormControl style={styles.select} >
-                            <InputLabel htmlFor="animalSize">
-                                Tipo
-                            </InputLabel>
-                            <Select
-                                value={this.state.animalType}
-                                onChange={this.handleChange('animalType')}
-                                input={<Input name="animalType" id="animalType" />}
-                                autoWidth>
-                                <MenuItem value=""> </MenuItem>
-                                <MenuItem value={'dog'}>Cachorro</MenuItem>
-                                <MenuItem value={'cat'}>Gato</MenuItem>
-                                <MenuItem value={'other'}>Outro</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={10}>
-                        <FormControl style={styles.select} >
-                            <InputLabel htmlFor="animalSize">Porte</InputLabel>
-                            <Select
-                                value={this.state.animalSize}
-                                onChange={this.handleChange('animalSize')}
-                                input={<Input name="animalSize" id="animalSize" />}
-                                autoWidth>
-                                <MenuItem value=""> </MenuItem>
-                                <MenuItem value={'p'}>Pequeno</MenuItem>
-                                <MenuItem value={'m'}>Médio</MenuItem>
-                                <MenuItem value={'g'}>Grande</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-
+                    
                     {/* Buttons */}
                     <Grid item container xs={10}
                         alignItems='baseline'
@@ -277,4 +189,4 @@ const styles = {
     }
 }
 
-export default PetDetails
+export default ServiceDetails

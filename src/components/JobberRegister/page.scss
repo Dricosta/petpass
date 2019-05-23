@@ -2,9 +2,21 @@ html, body, #root, .App {
     height: 100%;
 }
 
-h2, h4 {
+h2, h4, h5 {
     font-weight: 300;
     color: #282222;
+    margin: 10px 0px;
+    text-align: center;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
+
+p {
+    font-weight: 200;
+    color: #282222;
+    margin: 20px 0px;
 }
 
 .page {
@@ -28,6 +40,10 @@ h2, h4 {
     padding: 16px;
 }
 
+.weeklabel {
+    text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -42,11 +58,18 @@ h2, h4 {
 }
 
 
-@media (max-width: 767px) {
+@media (max-width: 599px) {
 
     .box {
         background: #fff;
         height: 90%;
     }
-    
+}
+
+@media (min-width: 600px) {
+
+    .box-brown {
+        background: #282222;
+    }
+
 }
