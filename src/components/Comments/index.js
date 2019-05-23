@@ -33,19 +33,19 @@ class Comments extends Component {
                 <div className="Comments_info-group">
                     <Avatar className="Comments_avatar" style={stylesUser}/>
                     <div className="Comments_info">
-                        <span className="Comments_info-name">Adriano da Costa</span>
-                        <span className="Comments_info-time">há 13 min</span>
+                        <span className="Comments_info-name">{this.props.name}</span>
+                        <span className="Comments_info-time">{this.props.hour}</span>
                     </div>
                     <StarRatings
                     className="Comments_stars"
-                    rating={this.state.rating}
-                    starRatedColor="brown"
-                    changeRating={this.changeRating}
+                    rating={this.props.rate}
+                    starRatedColor="gold"
+                    // changeRating={this.changeRating}
                     numberOfStars={5}
                     name='rating'
                     />
                 </div>
-                <p className="Comments_data">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p className="Comments_data">{this.props.comments}</p>
             </div>
         );
     }

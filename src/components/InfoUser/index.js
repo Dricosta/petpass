@@ -8,6 +8,8 @@ import ModalAddPet from '../ModalAddPet/index';
 import ModalDeletePet from '../ModalDeletePet/index';
 import ModalEditPet from '../ModalEditPet/index';
 import MsgNotification from '../MsgNotification/index';
+import { distanceInWords } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import api from '../../services/api';
 import './style.scss'
 
@@ -28,17 +30,59 @@ class InfoUser extends Component {
             PetNotificationIcon: true,
             cadastrar: 'Cadastrar',
             Editar: 'Editar',
-            PetsOwner: []
+            PetsOwner: [],
+            Comments: [],
+            CommentsJobber: [],
+            CommentsOwner: [],
         }
     }
     
 
     async componentDidMount(){
         const response = await api.get(`user/animals/5ca8c905725d7b51b271c31e`)
+        const responseComments = await api.get(`user/comments/5ca8c905725d7b51b271c31e`)
+
+        const idCommentJobber = this.state.Comments.map((id) => id.idUserJobber)
+        const idCommentOwner = this.state.Comments.map((id) => id.idUserOwner)
+
         this.setState({
             PetsOwner: response.data.result
         })
-        console.log('msg:', this.state.PetSuccessMsg)
+            
+        this.setState({
+          Comments: responseComments.data.result  
+        })
+
+
+        idCommentJobber.map( async (id) => {
+            // console.log(id)
+            const GetJobbers = await api.get(`jobber/${id}`).then((response)=>{return response.data.result})
+            console.log('comentarios:', this.state.Comments)
+            this.setState({
+                CommentsJobber: this.state.CommentsJobber.concat(GetJobbers)
+            })
+
+        })
+
+        // console.log(this.state.CommentsJobber)
+
+
+        // const CommentJobber = await api.get(`jobber/${idCommentJobber}`)
+        // const CommentOwner = await api.get(`user/${idCommentOwner}`)
+
+
+
+
+        // this.setState({
+        //     CommentsJobber: this.state.CommentsJobber.concat(CommentJobber.data.result),
+        //     CommentsOwner: this.state.CommentsOwner.concat(CommentOwner.data.result)
+        // })
+
+
+        // console.log('Comentario:', this.state.Comments)
+        // console.log('jobber comentou', this.state.CommentsJobber)
+        // console.log('owner comentou', this.state.CommentsOwner)
+     
     }
    
     handleAddPet = () => {
@@ -179,7 +223,6 @@ class InfoUser extends Component {
         console.log(PetToBeDelet, e)
 
         const PetsCadastrados = this.state.PetsOwner.length;
-        
 
         if (PetsCadastrados === 1) {
             this.setState({
@@ -213,7 +256,35 @@ class InfoUser extends Component {
                 <PerfilOwner/>
                 <div className="InfoUser_group">
                     <div className="InfoUser_group-comments">
-                        <Comments/>
+                
+
+                    {this.state.Comments.map((comments) => {
+                        return comments.direction === "JO" ?
+                            <div key={comments._id}>
+                                {this.state.CommentsJobber.map((commentJobber, index) =>  {
+                                    return ( <Comments
+                                        key={index}
+                                        rate={comments.rate}
+                                        name={commentJobber.name}
+                                        hour={distanceInWords(comments.date, new Date(), {locale: pt} )}
+                                        comments={comments.comment}/>
+                                    )
+                                })}
+                            </div>
+                            :
+                            <div key={comments._id}>
+                                {this.state.CommentsOwner.map((commentOwner, index) => {
+                                    return ( <Comments
+                                    key={index}
+                                    rate={comments.rate}
+                                    name={commentOwner.name}
+                                    hour={distanceInWords(comments.date, new Date(), {locale: pt} )}
+                                    comments={comments.comment}/>
+                                    )
+                                })}
+                            </div>
+                    })}
+
                     </div>
                     <div className="InfoUser_group-pets">
                         {this.state.PetsOwner.map((pet, index) => {
