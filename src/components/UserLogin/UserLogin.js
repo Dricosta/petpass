@@ -39,8 +39,10 @@ export class UserLogin extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial'>
+                                        <img src={logo} alt='logo' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -58,7 +60,7 @@ export class UserLogin extends Component {
                     </Grid>
                 )
             case 2:
-                return(
+                return (
                     <Redirect to='/dashboard' />
                 )
             default:

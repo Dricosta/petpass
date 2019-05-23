@@ -11,7 +11,7 @@ import '../../reset.scss'
 
 export class JobberRegister extends Component {
     state = {
-        step: 3,
+        step: 1,
         name: '',
         email: '',
         password: '',
@@ -27,8 +27,15 @@ export class JobberRegister extends Component {
         gender: '',
         photo: '',
         photoPreview: '',
-        startTime: '',
-        endTime: ''
+        startTimeHour: '',
+        startTimeMinute: '',
+        endTimeHour: '',
+        endTimeMinute: '',
+        serviceName: '',
+        serviceDescription: '',
+        serviceValueSm: '',
+        serviceValueMd: '',
+        serviceValueLg: ''
     }
 
     nextStep = () => {
@@ -36,7 +43,6 @@ export class JobberRegister extends Component {
         this.setState({
             step: step + 1
         })
-        console.log(this.state)
     }
 
     prevStep = () => {
@@ -44,7 +50,6 @@ export class JobberRegister extends Component {
         this.setState({
             step: step - 1
         })
-        console.log(this.state)
     }
 
     handleChange = input => e => {
@@ -95,8 +100,15 @@ export class JobberRegister extends Component {
             photo,
             photoPreview,
             weekDays,
-            startTime,
-            endTime
+            startTimeHour,
+            startTimeMinute,
+            endTimeHour,
+            endTimeMinute,
+            serviceName,
+            serviceDescription,
+            serviceValueSm,
+            serviceValueMd,
+            serviceValueLg
         } = this.state
 
         const values = {
@@ -116,8 +128,15 @@ export class JobberRegister extends Component {
             photo,
             photoPreview,
             weekDays,
-            startTime,
-            endTime
+            startTimeHour,
+            startTimeMinute,
+            endTimeHour,
+            endTimeMinute,
+            serviceName,
+            serviceDescription,
+            serviceValueSm,
+            serviceValueMd,
+            serviceValueLg
         }
 
         switch (step) {
@@ -132,8 +151,10 @@ export class JobberRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial' >
+                                        <img src={logo} alt='logo' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -160,8 +181,10 @@ export class JobberRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial' >
+                                        <img src={logo} alt='logo' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -187,8 +210,39 @@ export class JobberRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial' >
+                                        <img src={logo} alt='logo' />
+                                    </a>
+                                </Grid>
+                            </Hidden>
+
+                            <Grid
+                                item container xs={12} sm={6}
+                                justify='center' alignItems='center'
+                                className='form'>
+                                <ServiceDetails
+                                    nextStep={this.nextStep}
+                                    prevStep={this.prevStep}
+                                    handleChange={this.handleChange}
+                                    values={values} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                )
+            case 4:
+                return (
+                    <Grid className='page'>
+                        <Grid
+                            item container xs={10}
+                            className='box'>
+                            <Hidden xsDown>
+                                <Grid
+                                    item container sm={6}
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial' >
+                                        <img src={logo} alt='logo' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -205,33 +259,6 @@ export class JobberRegister extends Component {
                         </Grid>
                     </Grid>
 
-                )
-            case 4:
-                return (
-                    <Grid className='page'>
-                        <Grid
-                            item container xs={10}
-                            className='box'>
-                            <Hidden xsDown>
-                                <Grid
-                                    item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
-                                </Grid>
-                            </Hidden>
-
-                            <Grid
-                                item container xs={12} sm={6}
-                                justify='center' alignItems='center'
-                                className='form'>
-                                <ServiceDetails
-                                    nextStep={this.nextStep}
-                                    prevStep={this.prevStep}
-                                    handleChange={this.handleChange}
-                                    values={values} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
                 )
             case 5:
                 return (

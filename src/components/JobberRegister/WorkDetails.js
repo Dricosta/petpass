@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import '../../reset.scss'
 import api from '../../services/api'
-import { Grid, TextField, Button, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup } from '@material-ui/core'
-import green from '@material-ui/core/colors/green'
+import {
+    Grid, TextField, Button, FormControlLabel,
+    Checkbox, FormControl, FormLabel
+} from '@material-ui/core'
 
 export class WorkDetails extends Component {
     state = {
@@ -39,17 +41,24 @@ export class WorkDetails extends Component {
             'phone': this.props.values.phone,
             'gender': this.props.values.gender,
             'weekDays': this.state,
-            'startTime': this.props.values.startTime,
-            'endTime': this.props.values.endTime
+            'serviceName': this.props.values.serviceName,
+            'serviceDescription': this.props.values.serviceDescription,
+            'serviceValueSm': this.props.values.serviceValueSm,
+            'serviceValueMd': this.props.values.serviceValueMd,
+            'serviceValueLg': this.props.values.serviceValueLg,
+            'startTime': `${this.props.values.startTimeHour} : ${this.props.values.startTimeMinute}`,
+            'endTime': `${this.props.values.endTimeHour} : ${this.props.values.endTimeMinute}`
         }
 
         const photo = this.props.values.photo
         var reader = new FileReader();
         reader.onloadend = function () {
             newUser.photo = reader.result
-            api.post('user/signup', newUser)
+            api.post('jobber/signup', newUser)
                 .then(function (response) {
-                    localStorage.setItem('idOwner', response.data.result._id);
+                    console.log('OBJETO QUE ESTÁ SENDO ENVIADO: ',newUser)
+                    console.log('RESPOSTA: ',response)
+                    localStorage.setItem('idJobber', response.data.result._id);
                 });
         }
         reader.readAsDataURL(photo);
@@ -75,15 +84,15 @@ export class WorkDetails extends Component {
                     <Grid item container xs={12} justify='center'>
                         <h2>Informações de serviço</h2>
                     </Grid>
-                    <Grid item container xs={12} justify='center'>
-                        <h4>Dia / Horário</h4>
+                    <Grid item container xs={10} justify='center'>
+                        <h5>Dia / Horário</h5>
                     </Grid>
 
                     {/* Checkboxes */}
                     <Grid item container xs={10}
                         justify='center' alignItems='center'>
                         <FormControl component="fieldset">
-                            <FormLabel component="legend">
+                            <FormLabel component="legend" className='weeklabel'>
                                 Dias da semana
                         </FormLabel>
                             <Grid item container xs={12} justify='center' alignItems='baseline'>
@@ -172,6 +181,79 @@ export class WorkDetails extends Component {
                                 </Grid>
                             </Grid>
                         </FormControl>
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <h4>Horário de Início</h4>
+                    </Grid>
+
+                    <Grid item container xs={10} justify='center' alignItems='center'>
+
+                        <Grid item xs={2}>
+                            <TextField
+                                type='number'
+                                required
+                                value={values.startTimeHour}
+                                onChange={handleChange('startTimeHour')}
+                                margin='normal'
+                                fullWidth
+                                maxLength='2'
+                                InputProps={{ inputProps: { min: 1, max: 24 } }}
+                            />
+                        </Grid>
+
+                        <Grid item container xs={2} justify='center'>
+                            <span>:</span>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <TextField
+                                type='number'
+                                required
+                                value={values.startTimeMinute}
+                                onChange={handleChange('startTimeMinute')}
+                                margin='normal'
+                                fullWidth
+                                InputProps={{ inputProps: { min: 0, max: 59 } }}
+                            />
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <h4>Horário de Término</h4>
+                    </Grid>
+
+                    <Grid item container xs={10} justify='center' alignItems='center'>
+
+                        <Grid item xs={2}>
+                            <TextField
+                                type='number'
+                                required
+                                value={values.endTimeHour}
+                                onChange={handleChange('endTimeHour')}
+                                margin='normal'
+                                fullWidth
+                                InputProps={{ inputProps: { min: 1, max: 24 } }}
+                            />
+                        </Grid>
+
+                        <Grid item container xs={2} justify='center'>
+                            <span>:</span>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <TextField
+                                type='number'
+                                required
+                                value={values.endTimeMinute}
+                                onChange={handleChange('endTimeMinute')}
+                                margin='normal'
+                                fullWidth
+                                InputProps={{ inputProps: { min: 0, max: 59 } }}
+                            />
+                        </Grid>
+
                     </Grid>
 
                     {/* Buttons */}

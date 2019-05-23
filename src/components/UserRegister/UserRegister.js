@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import UserDetails from './UserDetails'
+import PersonalDetails from './PersonalDetails'
 import AccountDetails from './AccountDetails'
 import PetDetails from './PetDetails'
 import UserLogin from '../UserLogin/UserLogin'
@@ -119,8 +119,10 @@ export class UserRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial'>
+                                        <img src={logo} alt='Logo Petpass' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -128,7 +130,7 @@ export class UserRegister extends Component {
                                 item container xs={12} sm={6}
                                 justify='center' alignItems='center'
                                 className='form'>
-                                <UserDetails
+                                <PersonalDetails
                                     nextStep={this.nextStep}
                                     prevStep={this.prevStep}
                                     handleChange={this.handleChange}
@@ -147,8 +149,10 @@ export class UserRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial'>
+                                        <img src={logo} alt='Logo Petpass' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
@@ -174,8 +178,10 @@ export class UserRegister extends Component {
                             <Hidden xsDown>
                                 <Grid
                                     item container sm={6}
-                                    justify='center' alignItems='center'>
-                                    <img src={logo} alt='logo' />
+                                    justify='center' alignItems='center' className='box-brown'>
+                                    <a href='/' title='Página Inicial'>
+                                        <img src={logo} alt='Logo Petpass' />
+                                    </a>
                                 </Grid>
                             </Hidden>
 
