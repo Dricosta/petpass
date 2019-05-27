@@ -1,17 +1,15 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import './style.scss'
 
-const ModalEditPet = ({ openModal, handleModal, handleSubmitEditPet, editar, loading }) => {
+const ModalEditPet = ({ openModal, handleModal, handleSubmitEditPet, handleUpload, editar, loading }) => {
     return (
             <Dialog open={openModal} onClose={handleModal}>
                 <DialogTitle>Editar seu Pet</DialogTitle>
@@ -20,7 +18,7 @@ const ModalEditPet = ({ openModal, handleModal, handleSubmitEditPet, editar, loa
                         Edite as informação do seu Pet aqui mesmo.
                     </DialogContentText>
                     <div className="UploadPhotoPet">
-                        <input accept="image/*" id="btn-banner" type="file" hidden />
+                        <input accept="image/*" id="btn-banner" type="file" hidden onChange={handleUpload} />
                         <label htmlFor="btn-banner"> Foto do Pet
                             <IconButton color="primary" component="span">
                                 <PhotoCamera />

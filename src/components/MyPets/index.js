@@ -1,20 +1,18 @@
 import React from 'react';
-import dog from '../../assets/dog.png';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIncon from '@material-ui/icons/Create'
 import Button from '@material-ui/core/Button';
 import './style.scss'
 
-const MyPets = ({ handleDelete, handleEdit, animalSize, animalType, description, breed, weight, name, Pet_id }) => { 
+const MyPets = ({ handleDelete, handleEdit, animalSize, animalType, description, breed, weight, name, photo }) => { 
     const stylesUser = {
-        backgroundImage: 'url(' + dog + ')',
         backgroundSize: 'cover'
     }
     return (
         <div className="MyPets">
             <div className="MyPets_info">
-                <Avatar className="MyPets_avatar" style={stylesUser}/>
+                <Avatar className="MyPets_avatar" src={`${photo}`} style={stylesUser}/>
                 <div className="MyPets_info-main">
                     <span className="MyPets_info-main_name">{name}</span>
                     <span className="MyPets_info-main_description">{description}</span>

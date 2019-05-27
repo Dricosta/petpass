@@ -15,7 +15,7 @@ export class LoginForm extends Component {
         api.post('jobber/signin', formData)
             .then(function (response) {
                 if (response.data.statusCode === 200) {
-                    console.log(response)
+                    console.log('result:', response)
                     formData.redirect()
                 }
             })

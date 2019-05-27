@@ -4,15 +4,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss'
 import InfoUser from '../../components/InfoUser/'
+import api from '../../services/api';
 
 library.add(faUser, faLightbulb, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard)
-
+const idLocalStorage = localStorage.getItem("idLogin")
 
 class Dashboard extends Component {
     constructor(props){
         super(props)
         this.state = {
-            light: false
+            light: false,
+            photoUser: ''
         }
     }
 
@@ -22,11 +24,26 @@ class Dashboard extends Component {
         }))
     }
 
+    async componentWillMount(){
+        const responseUser = await api.get(`user/${idLocalStorage}`)
+
+        this.setState({
+            photoUser: responseUser.data.result.photo
+        })
+    }
+
 
     render() {
         return (
             <div className={`dashboard ${this.state.light ? 'dashboard-dark' : 'dashboard-light'}`}>                
-                <NavbarDash handleLight={this.handleLight} Light={this.state.light}/>
+                <NavbarDash 
+                handleLight={this.handleLight} 
+                Light={this.state.light}
+                Photo={this.state.photoUser}
+                />
+
+
+
                 <InfoUser/>
             </div>
         );

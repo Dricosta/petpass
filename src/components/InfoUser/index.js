@@ -13,7 +13,7 @@ import pt from 'date-fns/locale/pt';
 import api from '../../services/api';
 import './style.scss'
 
-
+const idLocalStorage = localStorage.getItem("idLogin")
 
 class InfoUser extends Component {
     constructor(){
@@ -30,59 +30,45 @@ class InfoUser extends Component {
             PetNotificationIcon: true,
             cadastrar: 'Cadastrar',
             Editar: 'Editar',
+            PhotoPreview: '',
+            Photo: '',
             PetsOwner: [],
             Comments: [],
             CommentsJobber: [],
             CommentsOwner: [],
+            UserLogado: [],
+            GenderUserLogado: ''
         }
     }
     
+     
 
     async componentDidMount(){
-        const response = await api.get(`user/animals/5ca8c905725d7b51b271c31e`)
-        const responseComments = await api.get(`user/comments/5ca8c905725d7b51b271c31e`)
-
-        const idCommentJobber = this.state.Comments.map((id) => id.idUserJobber)
-        const idCommentOwner = this.state.Comments.map((id) => id.idUserOwner)
+        const response = await api.get(`user/animals/${idLocalStorage}`)
+        const responseComments = await api.get(`user/comments/${idLocalStorage}`)
+        const responseUser = await api.get(`user/${idLocalStorage}`)
 
         this.setState({
-            PetsOwner: response.data.result
-        })
-            
-        this.setState({
-          Comments: responseComments.data.result  
-        })
-
-
-        idCommentJobber.map( async (id) => {
-            // console.log(id)
-            const GetJobbers = await api.get(`jobber/${id}`).then((response)=>{return response.data.result})
-            console.log('comentarios:', this.state.Comments)
-            this.setState({
-                CommentsJobber: this.state.CommentsJobber.concat(GetJobbers)
-            })
-
+            PetsOwner: response.data.result,
+            Comments: responseComments.data.result,
+            UserLogado: responseUser.data.result
+        }, () => {
+            if (responseUser.data.result.gender === "h") {
+                this.setState({
+                    GenderUserLogado: 'Masculino'
+                })
+            } else {
+                this.setState({
+                    GenderUserLogado: 'Feminino'
+                })
+            } 
         })
 
-        // console.log(this.state.CommentsJobber)
+        // console.log('usuario logado:', this.state.UserLogado)
+        // console.log('animais do usuario:', this.state.PetsOwner)
+        // console.log('photoPreview:', this.state.PhotoPreview)
+        console.log('comentarios:', this.state.Comments)
 
-
-        // const CommentJobber = await api.get(`jobber/${idCommentJobber}`)
-        // const CommentOwner = await api.get(`user/${idCommentOwner}`)
-
-
-
-
-        // this.setState({
-        //     CommentsJobber: this.state.CommentsJobber.concat(CommentJobber.data.result),
-        //     CommentsOwner: this.state.CommentsOwner.concat(CommentOwner.data.result)
-        // })
-
-
-        // console.log('Comentario:', this.state.Comments)
-        // console.log('jobber comentou', this.state.CommentsJobber)
-        // console.log('owner comentou', this.state.CommentsOwner)
-     
     }
    
     handleAddPet = () => {
@@ -109,55 +95,89 @@ class InfoUser extends Component {
         
 
         const newPets = {
-            idOwner: "5ca8c905725d7b51b271c31e",
+            idOwner: idLocalStorage,
             name: name.value,
             breed: breed.value,
             weight: weight.value,
             animalSize: animalSize.value,
             animalType: animalType.value,
-            description: description.value
+            description: description.value,
+            photo: ''
         }
-        
-        api.post(`/animal/create`, {
-            ...newPets
-        }).then((response) => {
-            this.setState(state => ({
-                cadastrar: '',
-                loadingAddPet: !state.loadingAddPet
-            }))
-            setTimeout(() => {
-                if(response.status === 200){
-                    this.setState(state => ({
-                        cadastrar: 'Cadastrar',
-                        loadingAddPet: !state.loadingAddPet
-                    }))
-                    setTimeout(() => {
-                        this.handleAddPet()
-                    }, 800);
 
+        if ((name.value && breed.value && weight.value && animalSize.value && animalType.value && description.value) === '' ) {
+            this.setState({
+                PetNotificationIcon: false,
+                PetNotification: true,
+                PetMsg: 'Preencha todos os dados',
+                PetMsgColor: false
+            }, () => {
+                setTimeout(() => {
                     this.setState({
-                        PetMsgColor: true,
-                        PetNotification: true,
-                        PetNotificationIcon: true,
-                        PetMsg: 'Pet cadastrado com sucesso',
-                        PetsOwner: this.state.PetsOwner.concat(newPets),
-                    }, () => {
-                        // atualiza os novos Pets que foram inseridos no banco
-                        api.get(`user/animals/5ca8c905725d7b51b271c31e`).then((response) => {
-                            this.setState({
-                                PetsOwner: response.data.result
-                            })
-                        })
-                        setTimeout(() => {
-                            this.setState({
-                                PetNotification: false
-                            })
-                        }, 3000);
+                        PetNotification: false
                     })
-                } 
-            }, 2000);
-        })
+                }, 2000)
+            })
+            return false
+        }
+
+        let reader = new FileReader();
+        reader.onloadend = () => {
+            newPets.photo = reader.result
+            api.post(`/animal/create`, {
+                ...newPets
+            }).then((response) => {
+                this.setState(state => ({
+                    cadastrar: '',
+                    loadingAddPet: !state.loadingAddPet
+                }))
+                setTimeout(() => {
+                    if(response.status === 200){
+                        this.setState(state => ({
+                            cadastrar: 'Cadastrar',
+                            loadingAddPet: !state.loadingAddPet
+                        }))
+                        setTimeout(() => {
+                            this.handleAddPet()
+                        }, 800);
+
+                        this.setState({
+                            PhotoPreview: URL.createObjectURL(this.state.Photo),
+                            PetMsgColor: true,
+                            PetNotification: true,
+                            PetNotificationIcon: true,
+                            PetMsg: 'Pet cadastrado com sucesso',
+                            PetsOwner: this.state.PetsOwner.concat(newPets),
+                        }, () => {
+                            // atualiza os novos Pets que foram inseridos no banco
+                            api.get(`user/animals/${idLocalStorage}`).then((response) => {
+                                this.setState({
+                                    PetsOwner: response.data.result
+                                })
+                            })
+                            setTimeout(() => {
+                                this.setState({
+                                    PetNotification: false
+                                })
+                            }, 3000);
+                        })
+                    } 
+                }, 2000);
+            })
+        }
+        reader.readAsDataURL(this.state.Photo);
     }
+
+    handleUpload = input => e => {
+        if (input === 'photo') {
+            this.setState({
+                Photo: e.target.files[0]
+            }, () => {
+                console.log('Photo:', this.state.Photo)
+            })
+        }
+    }
+    
 
 
     GetId = (id) => (e) => {
@@ -169,53 +189,78 @@ class InfoUser extends Component {
             
             const { name, breed, weight, animalSize, animalType, description } = e.target
             const PetEdit = {
-                idOwner: "5ca8c905725d7b51b271c31e",
+                idOwner: idLocalStorage,
                 name: name.value,
                 breed: breed.value,
                 weight: weight.value,
                 animalSize: animalSize.value,
                 animalType: animalType.value,
-                description: description.value
+                description: description.value,
+                photo: ''
             }
 
-            api.put(`animal/edit/${id}`, {
-                ...PetEdit
-            }).then((response) => {
-                this.setState(state => ({
-                    Editar: '',
-                    loadingEditPet: !state.loadingEditPet
-                }))
-                setTimeout(() => {
-                    if(response.status === 200){
-                        this.setState(state => ({
-                            Editar: 'Editar',
-                            loadingEditPet: !state.loadingEditPet
-                        }))
-                        setTimeout(() => {
-                            this.handleEditPet()
-                        }, 800);
-                        // atualiza os novos Pets que foram inseridos no banco
-                        api.get(`user/animals/5ca8c905725d7b51b271c31e`).then((response) => {
-                            this.setState({
-                                PetMsgColor: true,
-                                PetNotification: true,
-                                PetNotificationIcon: true,
-                                PetMsg: 'Pet editado com sucesso',
-                                PetsOwner: response.data.result
-                            }, () => {
-                                console.log('state:', this.state.PetsOwner)
-                                setTimeout(() => {
-                                    this.setState({
-                                        PetNotification: false
-                                    })
-                                }, 3000);
-                            })
+            if ((name.value && breed.value && weight.value && animalSize.value && animalType.value && description.value) === '' ) {
+                this.setState({
+                    PetNotificationIcon: false,
+                    PetNotification: true,
+                    PetMsg: 'Preencha todos os dados',
+                    PetMsgColor: false
+                }, () => {
+                    setTimeout(() => {
+                        this.setState({
+                            PetNotification: false
                         })
-                    }
-                }, 2000)
-            })
+                    }, 2000)
+                })
+                return false
+            }
+
+
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                PetEdit.photo = reader.result
+                console.log('readerResult:', reader.result)
+                api.put(`animal/edit/${id}`, {
+                    ...PetEdit
+                }).then((response) => {
+                    this.setState(state => ({
+                        Editar: '',
+                        loadingEditPet: !state.loadingEditPet
+                    }))
+                    setTimeout(() => {
+                        if(response.status === 200){
+                            this.setState(state => ({
+                                Editar: 'Editar',
+                                loadingEditPet: !state.loadingEditPet
+                            }))
+                            setTimeout(() => {
+                                this.handleEditPet()
+                            }, 800);
+                            // atualiza os novos Pets que foram inseridos no banco
+                            api.get(`user/animals/${idLocalStorage}`).then((response) => {
+                                this.setState({
+                                    PetMsgColor: true,
+                                    PetNotification: true,
+                                    PetNotificationIcon: true,
+                                    PetMsg: 'Pet editado com sucesso',
+                                    PetsOwner: response.data.result
+                                }, () => {
+                                    console.log('state:', this.state.PetsOwner)
+                                    setTimeout(() => {
+                                        this.setState({
+                                            PetNotification: false
+                                        })
+                                    }, 3000);
+                                })
+                            })
+                        }
+                    }, 2000)
+                })
+            }
+            reader.readAsDataURL(this.state.Photo);
         }
     }
+
 
     
     DeletePet = (PetToBeDelet) => (e) => {
@@ -251,38 +296,37 @@ class InfoUser extends Component {
 
 
     render() {
+        const { UserLogado } = this.state;
+        const date = new Date();
+        const birthDate = {
+            day: date.getDay(UserLogado.birthday),
+            month: date.getMonth(UserLogado.birthday),
+            year: date.getFullYear(UserLogado.birthday)
+        }
         return (
             <div className="InfoUser">
-                <PerfilOwner/>
+
+                <PerfilOwner 
+                photo={UserLogado.photo}
+                name={UserLogado.name}
+                description={UserLogado.description}
+                genero={this.state.GenderUserLogado}
+                birthDate={`${birthDate.day}/${birthDate.month}/${birthDate.year}`}
+                rate={UserLogado.rate}
+                creditos={UserLogado.qtdCredit}/>
+
+
                 <div className="InfoUser_group">
                     <div className="InfoUser_group-comments">
-                
-
                     {this.state.Comments.map((comments) => {
-                        return comments.direction === "JO" ?
-                            <div key={comments._id}>
-                                {this.state.CommentsJobber.map((commentJobber, index) =>  {
-                                    return ( <Comments
-                                        key={index}
-                                        rate={comments.rate}
-                                        name={commentJobber.name}
-                                        hour={distanceInWords(comments.date, new Date(), {locale: pt} )}
-                                        comments={comments.comment}/>
-                                    )
-                                })}
-                            </div>
-                            :
-                            <div key={comments._id}>
-                                {this.state.CommentsOwner.map((commentOwner, index) => {
-                                    return ( <Comments
-                                    key={index}
-                                    rate={comments.rate}
-                                    name={commentOwner.name}
-                                    hour={distanceInWords(comments.date, new Date(), {locale: pt} )}
-                                    comments={comments.comment}/>
-                                    )
-                                })}
-                            </div>
+                        return(<Comments
+                            key={comments._id}
+                            photo={comments.photo}
+                            rate={comments.rate}
+                            name={comments.userName}
+                            hour={distanceInWords(comments.date, new Date(), {locale: pt} )}
+                            comments={comments.comment}/>
+                        )
                     })}
 
                     </div>
@@ -299,6 +343,7 @@ class InfoUser extends Component {
                                 animalSize={pet.animalSize}
                                 animalType={pet.animalType}
                                 description={pet.description}
+                                photo={pet.photo}
                                 /> 
                             )
                         })}
@@ -313,7 +358,8 @@ class InfoUser extends Component {
                 handleModal={this.handleAddPet}
                 handleSubmitPetAdd={this.handleSubmitPetAdd}
                 loading={this.state.loadingAddPet}
-                cadastrar={this.state.cadastrar}/>
+                cadastrar={this.state.cadastrar}
+                handleUpload={this.handleUpload('photo')}/>
         
                 <ModalDeletePet
                 openDeleteModal={this.state.ModalDeletePet}
@@ -325,7 +371,8 @@ class InfoUser extends Component {
                 handleModal={this.handleEditPet}
                 handleSubmitEditPet={this.handleSubmitEditPet}
                 loading={this.state.loadingEditPet}
-                editar={this.state.Editar}/>
+                editar={this.state.Editar}
+                handleUpload={this.handleUpload('photo')}/>
 
                 <MsgNotification 
                 PetNotification={this.state.PetNotification} 

@@ -13,7 +13,7 @@ import './style.scss';
 
 
 
-const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, loading, cadastrar}) => {
+const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, handleUpload, loading, cadastrar}) => {
     return (
         <Dialog open={openModal} onClose={handleModal}>
             <div className="header_modal">
@@ -27,7 +27,7 @@ const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, loading, cada
                 Cadastre seu novo Pet aqui mesmo, após o cadastro ele aparecerá ao lado direito do seu perfil.
                 </DialogContentText>
                 <div className="UploadPhotoPet">
-                    <input accept="image/*" id="btn-banner" type="file" hidden />
+                    <input accept="image/*" id="btn-banner" type="file" hidden onChange={handleUpload} />
                     <label htmlFor="btn-banner"> Foto do Pet
                         <IconButton color="primary" component="span">
                             <PhotoCamera />
@@ -40,42 +40,36 @@ const ModalAddPet = ({ openModal, handleModal, handleSubmitPetAdd, loading, cada
                     id="name"
                     label="Nome"
                     fullWidth
-                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="breed"
                     label="Raça"
                     fullWidth
-                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="weight"
                     label="Peso"
                     fullWidth
-                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="animalSize"
                     label="Porte"
                     fullWidth
-                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="description"
                     label="Descrição"
                     fullWidth
-                    autocomplete="off"
                     />
                     <TextField
                     margin="dense"
                     id="animalType"
                     label="Tipo do Pet"
                     fullWidth
-                    autocomplete="off"
                     />
                     <div className="btn-group">
                         <button type="submit" className="btn-cadastrar">

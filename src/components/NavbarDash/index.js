@@ -2,20 +2,20 @@ import React from 'react'
 import './navbardash.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Avatar from '@material-ui/core/Avatar'
-import bgJulio from '../../assets/bgJulio.jpeg'
 
 
 // bgUrl is expect for update image user
 const stylesUser = {
-    backgroundImage: 'url(' + bgJulio + ')',
-    backgroundSize: 'cover'
+    margin: 10,
+    width: 60,
+    height: 60,
 }
 
-const NavbarDash = ({ handleLight, Light }) => {
+const NavbarDash = ({ handleLight, Light, Photo }) => {
     return (
         <div className="navbardash">
             <div className="navbardash_logo">
-                <Avatar alt="Remy Sharp" className="navbardash_circle" style={stylesUser} />
+                <Avatar src={`${Photo}`} style={stylesUser} />
             </div>
             <ul className="navbardash_menu">
                 <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="user" /></a></li>

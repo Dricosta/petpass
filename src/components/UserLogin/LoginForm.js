@@ -15,8 +15,9 @@ export class LoginForm extends Component {
         api.post('user/signin', formData)
             .then(function (response) {
                 if (response.data.statusCode === 200) {
-                    console.log(response)
+                    console.log('id:', response.data.result._id)
                     formData.redirect()
+                    localStorage.setItem('idLogin', response.data.result._id)
                 }
             })
     }
