@@ -15,7 +15,11 @@ export class LoginForm extends Component {
         api.post('jobber/signin', formData)
             .then(function (response) {
                 if (response.data.statusCode === 200) {
+<<<<<<< HEAD
                     console.log('result:', response)
+=======
+                    localStorage.setItem('idOwner', response.data.result._id)
+>>>>>>> 2c3888507c11ca3dd97edad60dd13a7c0a61c1e8
                     formData.redirect()
                 }
             })
