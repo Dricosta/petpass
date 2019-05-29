@@ -21,16 +21,16 @@ export class PetDetails extends Component {
         animalType: ''
     }
 
-    componentDidMount() {
-        const id = localStorage.getItem('idOwner')
-        this.setState({ idOwner: id })
-    }
+    // componentDidMount() {
+    //     const id = localStorage.getItem('idOwner')
+    //     this.setState({ idOwner: id })
+    // }
 
     continue = e => {
         e.preventDefault()
 
         let newPet = {
-            'idOwner': this.state.idOwner,
+            'idOwner': localStorage.getItem('idOwner'),
             'name': this.state.name,
             'description': this.state.description,
             'photo': '',
@@ -47,12 +47,12 @@ export class PetDetails extends Component {
             api.post('animal/create', newPet)
                 .then(function (response) {
                     console.log(newPet)
-                    console.log('Pet cadastrado!')
                     console.log(response)
                 });
         }
         reader.readAsDataURL(photo);
 
+        localStorage.clear()
         this.props.nextStep()
     }
 
