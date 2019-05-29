@@ -13,7 +13,7 @@ import pt from 'date-fns/locale/pt';
 import api from '../../services/api';
 import './style.scss'
 
-const idLocalStorage = localStorage.getItem("idLogin")
+const idLocalStorage = localStorage.getItem("idOwner")
 
 class InfoUser extends Component {
     constructor(){
@@ -45,13 +45,17 @@ class InfoUser extends Component {
 
     async componentDidMount(){
         const response = await api.get(`user/animals/${idLocalStorage}`)
-        const responseComments = await api.get(`user/comments/${idLocalStorage}`)
         const responseUser = await api.get(`user/${idLocalStorage}`)
+        const responseComments = await api.get(`user/comments/${idLocalStorage}`)
+
+          console.log('comentarios:', responseComments)
+
+        console.log('usuario:', responseUser)
 
         this.setState({
             PetsOwner: response.data.result,
-            Comments: responseComments.data.result,
-            UserLogado: responseUser.data.result
+            UserLogado: responseUser.data.result,
+            Comments: responseComments.data.result
         }, () => {
             if (responseUser.data.result.gender === "h") {
                 this.setState({
@@ -67,7 +71,7 @@ class InfoUser extends Component {
         // console.log('usuario logado:', this.state.UserLogado)
         // console.log('animais do usuario:', this.state.PetsOwner)
         // console.log('photoPreview:', this.state.PhotoPreview)
-        console.log('comentarios:', this.state.Comments)
+       
 
     }
    

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
-import bgJulio from '../../assets/bgJulio.jpeg'
 import Avatar from '@material-ui/core/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BuyCoins from '../BuyCoins/index';
@@ -8,7 +7,7 @@ import IconSmile from '@material-ui/icons/SentimentSatisfiedAlt';
 import api from '../../services/api';
 import './style.scss'
 
-const idLocalStorage = localStorage.getItem("idLogin")
+const idLocalStorage = localStorage.getItem("idOwner")
 
 class PerfilOwner extends Component {
     constructor(props){
@@ -62,7 +61,6 @@ class PerfilOwner extends Component {
         const { photo, name, description, genero, birthDate, rate } = this.props;
 
         const stylesUser = {
-            backgroundImage: 'url(' + bgJulio + ')',
             backgroundSize: 'cover'
         }
         return (
