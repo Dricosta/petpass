@@ -43,11 +43,9 @@ export class WorkDetails extends Component {
             'weekDays': this.state,
             'serviceName': this.props.values.serviceName,
             'serviceDescription': this.props.values.serviceDescription,
-            'serviceValueSm': this.props.values.serviceValueSm,
-            'serviceValueMd': this.props.values.serviceValueMd,
-            'serviceValueLg': this.props.values.serviceValueLg,
-            'startTime': `${this.props.values.startTimeHour} : ${this.props.values.startTimeMinute}`,
-            'endTime': `${this.props.values.endTimeHour} : ${this.props.values.endTimeMinute}`
+            'serviceValue': this.props.values.serviceValue,
+            'startTime': this.props.values.startTime,
+            'endTime': this.props.values.endTime
         }
 
         const photo = this.props.values.photo
@@ -193,28 +191,12 @@ export class WorkDetails extends Component {
                             <TextField
                                 type='number'
                                 required
-                                value={values.startTimeHour}
-                                onChange={handleChange('startTimeHour')}
+                                value={values.startTime}
+                                onChange={handleChange('startTime')}
                                 margin='normal'
                                 fullWidth
                                 maxLength='2'
                                 InputProps={{ inputProps: { min: 1, max: 24 } }}
-                            />
-                        </Grid>
-
-                        <Grid item container xs={2} justify='center'>
-                            <span>:</span>
-                        </Grid>
-
-                        <Grid item xs={2}>
-                            <TextField
-                                type='number'
-                                required
-                                value={values.startTimeMinute}
-                                onChange={handleChange('startTimeMinute')}
-                                margin='normal'
-                                fullWidth
-                                InputProps={{ inputProps: { min: 0, max: 59 } }}
                             />
                         </Grid>
 
@@ -230,27 +212,11 @@ export class WorkDetails extends Component {
                             <TextField
                                 type='number'
                                 required
-                                value={values.endTimeHour}
-                                onChange={handleChange('endTimeHour')}
+                                value={values.endTime}
+                                onChange={handleChange('endTime')}
                                 margin='normal'
                                 fullWidth
                                 InputProps={{ inputProps: { min: 1, max: 24 } }}
-                            />
-                        </Grid>
-
-                        <Grid item container xs={2} justify='center'>
-                            <span>:</span>
-                        </Grid>
-
-                        <Grid item xs={2}>
-                            <TextField
-                                type='number'
-                                required
-                                value={values.endTimeMinute}
-                                onChange={handleChange('endTimeMinute')}
-                                margin='normal'
-                                fullWidth
-                                InputProps={{ inputProps: { min: 0, max: 59 } }}
                             />
                         </Grid>
 
