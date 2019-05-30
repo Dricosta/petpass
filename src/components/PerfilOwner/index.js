@@ -7,7 +7,7 @@ import IconSmile from '@material-ui/icons/SentimentSatisfiedAlt';
 import api from '../../services/api';
 import './style.scss'
 
-const idLocalStorage = localStorage.getItem("idOwner")
+let idLocalStorage = ''
 
 class PerfilOwner extends Component {
     constructor(props){
@@ -18,7 +18,9 @@ class PerfilOwner extends Component {
         }
     }
     
+    
     async componentDidMount(){
+        idLocalStorage = localStorage.getItem("idOwner")
         const UserLogado = await api.get(`/user/${idLocalStorage}`)
 
         this.setState({

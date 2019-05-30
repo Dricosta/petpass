@@ -7,7 +7,7 @@ import InfoUser from '../../components/InfoUser/'
 import api from '../../services/api';
 
 library.add(faUser, faLightbulb, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard)
-const idLocalStorage = localStorage.getItem("idOwner")
+let idLocalStorage = ''
 
 class Dashboard extends Component {
     constructor(props){
@@ -25,6 +25,7 @@ class Dashboard extends Component {
     }
 
     async componentWillMount(){
+        idLocalStorage = localStorage.getItem("idOwner")
         const responseUser = await api.get(`user/${idLocalStorage}`)
 
         console.log(responseUser)

@@ -30,7 +30,6 @@ export class PetDetails extends Component {
         e.preventDefault()
 
         let newPet = {
-            // 'idOwner': this.state.idOwner,
             'idOwner': localStorage.getItem('idOwner'),
             'name': this.state.name,
             'description': this.state.description,
@@ -47,13 +46,12 @@ export class PetDetails extends Component {
             newPet.photo = reader.result
             api.post('animal/create', newPet)
                 .then(function (response) {
-                    console.log('Dados do Pet: ', newPet)
-                    console.log('Resposta: ', response)
+                    console.log(newPet)
+                    console.log(response)
                 });
         }
         reader.readAsDataURL(photo)
 
-        //Limpa o localStorage
         localStorage.clear()
         this.props.nextStep()
     }
