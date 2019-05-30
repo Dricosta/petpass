@@ -152,15 +152,15 @@ export class UserDetails extends Component {
                                 value={values.gender}
                                 onChange={handleChange('gender')}>
                                 <FormControlLabel
-                                    value="f"
+                                    value="Feminino"
                                     control={<Radio color='primary' />}
                                     label="Feminino" />
                                 <FormControlLabel
-                                    value="m"
+                                    value="Masculino"
                                     control={<Radio color='primary' />}
                                     label="Masculino" />
                                 <FormControlLabel
-                                    value="o"
+                                    value="Não informado"
                                     control={<Radio color='primary' />}
                                     label="Outro" />
                             </RadioGroup>

@@ -43,10 +43,11 @@ export class ServiceDetails extends Component {
                                 input={<Input name="serviceName" id="serviceName" />}
                                 autoWidth>
                                 <MenuItem value=""> </MenuItem>
-                                <MenuItem value={'passeio'}>Passeio</MenuItem>
-                                <MenuItem value={'banho/tosa'}>Banho / Tosa</MenuItem>
-                                <MenuItem value={'petsitter'}>Pet Sitter</MenuItem>
-                                <MenuItem value={'hospedagem'}>Hospedagem</MenuItem>
+                                <MenuItem value={'Passeio'}>Passeio</MenuItem>
+                                <MenuItem value={'Banho'}>Banho</MenuItem>
+                                <MenuItem value={'Tosa'}>Tosa</MenuItem>
+                                <MenuItem value={'Pet Sitter'}>Pet Sitter</MenuItem>
+                                <MenuItem value={'Hospedagem'}>Hospedagem</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
