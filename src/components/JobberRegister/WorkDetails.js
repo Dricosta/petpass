@@ -49,18 +49,29 @@ export class WorkDetails extends Component {
         }
 
         const photo = this.props.values.photo
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            newUser.photo = reader.result
+
+        if (photo !== '') {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                newUser.photo = reader.result
+                api.post('jobber/signup', newUser)
+                    .then(function (response) {
+                        console.log('OBJETO QUE ESTÁ SENDO ENVIADO: ', newUser)
+                        console.log('RESPOSTA: ', response)
+                        localStorage.setItem('idJobber', response.data.result._id);
+                    });
+            }
+            reader.readAsDataURL(photo);
+            this.props.nextStep()
+        } else {
             api.post('jobber/signup', newUser)
                 .then(function (response) {
-                    console.log('OBJETO QUE ESTÁ SENDO ENVIADO: ',newUser)
-                    console.log('RESPOSTA: ',response)
+                    console.log('OBJETO QUE ESTÁ SENDO ENVIADO: ', newUser)
+                    console.log('RESPOSTA: ', response)
                     localStorage.setItem('idJobber', response.data.result._id);
                 });
+            this.props.nextStep()
         }
-        reader.readAsDataURL(photo);
-        this.props.nextStep()
     }
 
     back = e => {

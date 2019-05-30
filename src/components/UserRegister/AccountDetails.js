@@ -26,17 +26,26 @@ export class AccountDetails extends Component {
         }
 
         const photo = this.props.values.photo
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            newUser.photo = reader.result
+        if (photo !== '') {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                newUser.photo = reader.result
+                api.post('user/signup', newUser)
+                    .then(function (response) {
+                        localStorage.setItem('idOwner', response.data.result._id);
+                        console.log(response)
+                    });
+            }
+            reader.readAsDataURL(photo);
+            this.props.nextStep()
+        } else {
             api.post('user/signup', newUser)
                 .then(function (response) {
                     localStorage.setItem('idOwner', response.data.result._id);
                     console.log(response)
                 });
+            this.props.nextStep()
         }
-        reader.readAsDataURL(photo);
-        this.props.nextStep()
     }
 
     back = e => {

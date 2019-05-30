@@ -41,19 +41,30 @@ export class PetDetails extends Component {
         }
 
         const photo = this.state.photo
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            newPet.photo = reader.result
+
+        if (photo !== '') {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                newPet.photo = reader.result
+                api.post('animal/create', newPet)
+                    .then(function (response) {
+                        console.log(newPet)
+                        console.log(response)
+                    });
+            }
+            reader.readAsDataURL(photo)
+
+            localStorage.clear()
+            this.props.nextStep()
+        } else {
             api.post('animal/create', newPet)
                 .then(function (response) {
                     console.log(newPet)
                     console.log(response)
                 });
+            localStorage.clear()
+            this.props.nextStep()
         }
-        reader.readAsDataURL(photo)
-
-        localStorage.clear()
-        this.props.nextStep()
     }
 
     back = e => {
