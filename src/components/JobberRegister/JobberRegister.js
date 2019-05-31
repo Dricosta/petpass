@@ -27,15 +27,11 @@ export class JobberRegister extends Component {
         gender: '',
         photo: '',
         photoPreview: '',
-        startTimeHour: '',
-        startTimeMinute: '',
-        endTimeHour: '',
-        endTimeMinute: '',
+        startTime: '',
+        endTime: '',
         serviceName: '',
         serviceDescription: '',
-        serviceValueSm: '',
-        serviceValueMd: '',
-        serviceValueLg: ''
+        serviceValue: '',
     }
 
     nextStep = () => {
@@ -53,6 +49,10 @@ export class JobberRegister extends Component {
     }
 
     handleChange = input => e => {
+        if((input === "startTime" || input === "endTime") && e.target.value > 24){
+            e.target.value = 24
+            // this.setState({ [input]: 24 })
+        }
         this.setState({ [input]: e.target.value })
     }
 
@@ -100,15 +100,11 @@ export class JobberRegister extends Component {
             photo,
             photoPreview,
             weekDays,
-            startTimeHour,
-            startTimeMinute,
-            endTimeHour,
-            endTimeMinute,
+            startTime,
+            endTime,
             serviceName,
             serviceDescription,
-            serviceValueSm,
-            serviceValueMd,
-            serviceValueLg
+            serviceValue
         } = this.state
 
         const values = {
@@ -128,15 +124,11 @@ export class JobberRegister extends Component {
             photo,
             photoPreview,
             weekDays,
-            startTimeHour,
-            startTimeMinute,
-            endTimeHour,
-            endTimeMinute,
+            startTime,
+            endTime,
             serviceName,
             serviceDescription,
-            serviceValueSm,
-            serviceValueMd,
-            serviceValueLg
+            serviceValue
         }
 
         switch (step) {

@@ -13,7 +13,7 @@ import pt from 'date-fns/locale/pt';
 import api from '../../services/api';
 import './style.scss'
 
-const idLocalStorage = localStorage.getItem("idOwner")
+let idLocalStorage = ''
 
 class InfoUser extends Component {
     constructor(){
@@ -44,6 +44,7 @@ class InfoUser extends Component {
      
 
     async componentDidMount(){
+        idLocalStorage = localStorage.getItem("idOwner")
         const response = await api.get(`user/animals/${idLocalStorage}`)
         const responseUser = await api.get(`user/${idLocalStorage}`)
         const responseComments = await api.get(`user/comments/${idLocalStorage}`)

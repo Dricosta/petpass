@@ -43,10 +43,11 @@ export class ServiceDetails extends Component {
                                 input={<Input name="serviceName" id="serviceName" />}
                                 autoWidth>
                                 <MenuItem value=""> </MenuItem>
-                                <MenuItem value={'passeio'}>Passeio</MenuItem>
-                                <MenuItem value={'banho/tosa'}>Banho / Tosa</MenuItem>
-                                <MenuItem value={'petsitter'}>Pet Sitter</MenuItem>
-                                <MenuItem value={'hospedagem'}>Hospedagem</MenuItem>
+                                <MenuItem value={'Passeio'}>Passeio</MenuItem>
+                                <MenuItem value={'Banho'}>Banho</MenuItem>
+                                <MenuItem value={'Tosa'}>Tosa</MenuItem>
+                                <MenuItem value={'Pet Sitter'}>Pet Sitter</MenuItem>
+                                <MenuItem value={'Hospedagem'}>Hospedagem</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -63,48 +64,14 @@ export class ServiceDetails extends Component {
                             fullWidth
                         />
                     </Grid>
-
-                    <Grid item container xs={10} justify='center'>
-                        <p>Informe os valores em Real para diferentes portes.</p>
-                    </Grid>
                     
                     <Grid item xs={10}>
                         <TextField
-                            label='Pequeno'
+                            label='Valor em Real'
                             type='number'
                             required
                             value={values.serviceValueSm}
                             onChange={handleChange('serviceValueSm')}
-                            margin='normal'
-                            fullWidth
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={10}>
-                        <TextField
-                            label='Médio'
-                            type='number'
-                            required
-                            value={values.serviceValueMd}
-                            onChange={handleChange('serviceValueMd')}
-                            margin='normal'
-                            fullWidth
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={10}>
-                        <TextField
-                            label='Grande'
-                            type='number'
-                            required
-                            value={values.serviceValueLg}
-                            onChange={handleChange('serviceValueLg')}
                             margin='normal'
                             fullWidth
                             InputProps={{
