@@ -5,9 +5,10 @@ import { faUser, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCar
 import './dashboard.scss'
 import InfoUser from '../../components/InfoUser/'
 import api from '../../services/api';
+import InfoJobber from '../../components/infoJobber';
 
 library.add(faUser, faLightbulb, faHandshake, faMapMarkedAlt, faSignOutAlt, faCoins, faCreditCard)
-let idLocalStorage = ''
+
 
 class Dashboard extends Component {
     constructor(props){
@@ -24,15 +25,42 @@ class Dashboard extends Component {
         }))
     }
 
+    handleLogout = () => {
+        console.log('limpou')
+        localStorage.clear()
+    }
+   
     async componentWillMount(){
-        idLocalStorage = localStorage.getItem("idOwner")
-        const responseUser = await api.get(`user/${idLocalStorage}`)
 
-        console.log(responseUser)
+        
+        if (localStorage.getItem("idJobber")) {
+            const idLocalStorage = localStorage.getItem("idJobber")
+            const responseJobber = await api.get(`jobber/${idLocalStorage}`)
+            this.setState({
+                photoUser: responseJobber.data.result.photo
+            })
+        } else if (localStorage.getItem("idOwner")) {
+            console.log('tem owner')
+            const idLocalStorage = localStorage.getItem("idOwner")
+             const responseUser = await api.get(`user/${idLocalStorage}`)
+              this.setState({
+                photoUser: responseUser.data.result.photo
+            })
+        }
 
-        this.setState({
-            photoUser: responseUser.data.result.photo
-        })
+        
+ 
+            // localStorage.getItem("idJobber") ? responseUser = await api.get(`jobber/${idLocalStorage}`) : await api.get(`user/${idLocalStorage}`)
+            // this.setState({
+            //     photoUser: responseUser.data.result.photo
+            // })
+    
+
+
+        // let responseUser = ''
+        // localStorage.getItem("idOwner") ? responseUser = await api.get(`user/${idLocalStorage}`) : await api.get(`jobber/${idLocalStorage}`)
+        // this.setState({ photoUser: responseUser.data.result.photo})
+        // console.log(responseUser)  
     }
 
 
@@ -41,13 +69,12 @@ class Dashboard extends Component {
             <div className={`dashboard ${this.state.light ? 'dashboard-dark' : 'dashboard-light'}`}>                
                 <NavbarDash 
                 handleLight={this.handleLight} 
+                handleLogout={this.handleLogout}
                 Light={this.state.light}
-                Photo={this.state.photoUser}
-                />
+                Photo={this.state.photoUser}/>
 
-
-
-                <InfoUser/>
+                { localStorage.getItem('idOwner') ?  <InfoUser/> : <InfoJobber/> }
+               
             </div>
         );
     }

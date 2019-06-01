@@ -11,7 +11,7 @@ const stylesUser = {
     height: 60,
 }
 
-const NavbarDash = ({ handleLight, Light, Photo }) => {
+const NavbarDash = ({ handleLight, handleLogout, Light, Photo }) => {
     return (
         <div className="navbardash">
             <div className="navbardash_logo">
@@ -22,7 +22,7 @@ const NavbarDash = ({ handleLight, Light, Photo }) => {
                 <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="handshake" /></a></li>
                 <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="map-marked-alt" /></a></li>
                 <li className="navbardash_menu-item" onClick={handleLight}><FontAwesomeIcon className={`${Light ? 'dark' : 'false'}`} icon="lightbulb" /></li>
-                <li className="navbardash_menu-item"><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
+                <li className="navbardash_menu-item" onClick={handleLogout}><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
             </ul>
         </div>
     );
