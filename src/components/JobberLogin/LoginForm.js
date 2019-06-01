@@ -16,6 +16,7 @@ export class LoginForm extends Component {
             .then(function (response) {
                 if (response.data.statusCode === 200) {
                     console.log('result:', response)
+                    localStorage.setItem('idJobber', response.data.result._id)
                     formData.redirect()
                 }
             })
