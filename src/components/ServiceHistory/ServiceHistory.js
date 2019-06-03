@@ -18,8 +18,6 @@ class ServiceHistory extends Component {
         }))
     }
 
-
-
     render() {
         return (
             <div className={`dashboard ${this.state.light ? 'dashboard-dark' : 'dashboard-light'}`}>                
