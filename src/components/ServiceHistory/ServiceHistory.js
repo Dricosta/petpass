@@ -3,7 +3,7 @@ import NavbarDash from '../../components/NavbarDash'
 import InfoServices from './InfoServices';
 
 
-class Services extends Component {
+class ServiceHistory extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -17,8 +17,6 @@ class Services extends Component {
             light: !state.light
         }))
     }
-
-
 
     render() {
         return (
@@ -36,4 +34,4 @@ class Services extends Component {
     }
 }
 
-export default Services;
+export default ServiceHistory;

@@ -6,7 +6,7 @@ import JobberRegister from './components/JobberRegister/JobberRegister'
 import UserLogin from './components/UserLogin/UserLogin'
 import JobberLogin from './components/JobberLogin/JobberLogin'
 import Dashboard from './pages/dashboard'
-import Services from './components/Services/Services'
+import ServiceHistory from './components/ServiceHistory/ServiceHistory'
 
 
 
