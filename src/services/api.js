@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL:'https://83792cd9.ngrok.io'});
+const api = axios.create({ baseURL:'https://af0caf63.ngrok.io/'});
 
 api.interceptors.request.use(async config => {
     const TOKEN_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicHBhIiwiaWF0IjoxNTU4NzMyMzM0fQ.fATFFmy8k7QSToovOCsdHVf5cdJ5e3OLK26ppm8VoXw";

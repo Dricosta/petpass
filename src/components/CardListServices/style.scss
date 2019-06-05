@@ -1,0 +1,127 @@
+.CardListServices{
+    background: white;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px 20px;
+   border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    z-index: 99;
+    min-width: 330px;
+    &::after{
+        content: '';
+        width: 18px;
+        height: 18px;
+        background: white;
+        border-right: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        position: absolute;
+        right: -10px;
+        top: 45%;
+        transform: rotate(45deg)
+    }
+    &_main{
+        display: flex;
+        // background: red;
+        justify-content: space-between;
+        flex-direction: row;
+        // width: 100%;
+        &-primary{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &_info-primary{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &_info{
+        display: flex;
+        font-size: 14px;
+        color: #000;
+        // opacity: 0.6;
+        margin-top: 15px;
+        align-items: center;
+    }
+
+
+    &_service{
+        margin-right: 10px;
+        font-weight: bold;
+        background: #4b5155;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 3px;
+        box-shadow: 0px 0px 5px 0px #4b5155;
+        .icon_service{
+            margin-right: 10px;
+        }
+    }
+
+    &_email{
+        font-size: 14px;
+        background: #4b5155;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 3px;
+        box-shadow: 0px 0px 5px 0px #4b5155;
+    }
+
+    
+
+    &_price{
+        font-size: 18px;
+        color: #4b5155;
+        font-weight: bold;
+        .coins{
+            font-size: 20px;
+        }
+    }
+
+    &_description{
+        margin-top: 15px;
+        font-size: 16px;
+        opacity: 0.6;
+        align-self: flex-start;
+    }
+
+
+    &_name{
+        color: #000;
+        font-size: 18px;
+        opacity: 0.8;
+    }
+}
+
+.d-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-agendar{
+    padding: 0px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #2b6fc6;
+    color: white;
+    box-shadow: 0px 0px 8px 0px #2b6fc6;
+    border: 1px solid #2b6fc6;
+    margin-left: 40px;
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+    &:hover{
+        transform: scale(1.05)
+    }
+}

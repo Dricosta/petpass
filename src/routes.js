@@ -8,16 +8,21 @@ import JobberLogin from './components/JobberLogin/JobberLogin'
 import Dashboard from './pages/dashboard'
 import Services from './components/Services/Services'
 
+
+
 const Routes = () => (
+
     <BrowserRouter>
         <Switch>
+            
             <Route exact path='/' component={Landpage} />
             <Route path='/userRegister' component={UserRegister} />
             <Route path='/jobberRegister' component={JobberRegister} />
             <Route path='/userLogin' component={UserLogin} />
             <Route path='/jobberLogin' component={JobberLogin} />
-            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/dashboard' component={Dashboard} /> 
             <Route path='/services' component={Services} />
+            <Route path='/agendarServico' component={Dashboard} />
         </Switch>
     </BrowserRouter>
 )

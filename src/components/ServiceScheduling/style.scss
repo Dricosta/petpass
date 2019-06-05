@@ -1,0 +1,45 @@
+.agendarServico{    
+    height: auto;
+    width: 100%;
+    margin-left: 8%;
+    padding: 20px;
+    padding-bottom: 50px;
+    overflow: hidden!important;
+    display: flex;
+    h2{
+        text-align: left;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    &_form{
+        &-select{
+            width: 40%;
+            background: #4b5155;
+            border: none;
+            color: white;
+            letter-spacing: 0.5px;
+            box-shadow: 0px 0px 5px 0px #4b5155;
+            padding: 20px 10px;
+            height: 30px;
+
+        }
+    }
+    .w-50{
+        width: 50%;
+    }
+    .errorServices{
+        margin-top: 20px;
+        background: red;
+        opacity: 0.7;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        font-weight: bold;
+        font-size: 12px;
+        color: white;
+        width: 40%;
+        height: 30px;
+        border-radius: 3px;
+    }
+}

@@ -16,18 +16,6 @@ $skin-color: #f1cdb3;
         justify-content: center;
         margin-top: 15px;
     }
-    // .MuiAvatar-root-1{
-    //     height: 70px;
-    //     width: 70px;
-    //    img{
-    //        width: inherit!important;
-    //        object-fit: cover;
-    //    }
-    //    @media only screen and (min-width: 1150px){
-    //         height: 100%;
-    //         width: 80px;
-    //    }
-    // }
     &_circle{
         width: 100%;
         height: 100%;
@@ -69,6 +57,13 @@ $skin-color: #f1cdb3;
             }
             .light{
                 color: #fff;
+            }
+            a{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
         &-item:nth-last-child(1){
