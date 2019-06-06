@@ -12,12 +12,25 @@ class ServiceScheduling extends Component {
         this.state = {
             services: [],
             serviceTarget: '',
-            calendar: false
+            calendar: false,
+            date: new Date(),
+            dateInital: new Date(),
+            workHours: [],
+            dataAgendada: '',
+            horarioAgendado: '',
+            idJobber: ''
         }
     }
 
     async componentDidMount(){
         idLocalStorage = localStorage.getItem("idOwner")
+
+        const AnimalsUser = await api.get(`user/animals/${idLocalStorage}`)
+        this.setState({
+            PetsOwner: AnimalsUser.data.result[0]._id
+        }, () => {
+            console.log(this.state.PetsOwner)
+        })
     }
 
     handleServices = async (e) => {
@@ -42,17 +55,96 @@ class ServiceScheduling extends Component {
         console.log(this.state.services)
     }
 
-    handleCalendar = () => {
+    handleWorkHours = (e) => {
+        
         this.setState({
-            calendar: true
+            horarioAgendado: e.target.value
+        }, () => {
+            console.log('horario escolhido:', this.state.horarioAgendado)
         })
     }
+
+    handleDayScheduling = (day) => {
+        
+        this.setState({
+            dataAgendada: day
+        }, () => {
+            console.log('data agendada:', this.state.dataAgendada)
+        })
+
+    //  //    console.log(e.getTime())
+    //      //e = new Date()
+    //      let newHours = day.setHours(18)
+ 
+    //     console.log('alterando horas:', new Date(newHours))
+        
+     }
+
+
+     AgendarService = () => {
+        let data = this.state.dataAgendada
+        let horario = this.state.horarioAgendado
+        let newHours = data.setHours(horario)
+        const newDate = new Date(newHours).getTime()
+
+        const Agendamento = {
+            idUserOwner: localStorage.getItem("idOwner"),
+            idUserJobber: this.state.idJobber,
+            idAnimal: this.state.PetsOwner,
+            date: newDate
+        }
+
+
+        const createAgendamento = api.post(`service/create`).then({ ...Agendamento })
+
+        console.log('agendado para:', Agendamento)
+     }
+
+    handleCalendar = () => {
+        this.setState({
+            calendar: true,
+            workHours: []
+        })
+    }
+
+
+    GetJobber = (id) => async (e) => {
+        e.preventDefault()
+        console.log(id)
+        this.setState({
+            idJobber: id
+        })
+        this.handleCalendar()
+
+        try {
+            const responseJobber = await api.get(`jobber/${id}`)
+            let startTime = responseJobber.data.result.startTime
+            let endTime = responseJobber.data.result.endTime
+            for (let  hours = startTime; hours <= endTime; hours++) {
+
+                this.setState(state => ({
+                     workHours: [...state.workHours, hours ]
+                }))
+
+                
+            }
+            console.log('dias em que eu trabalho:', this.state.workHours)
+            console.log('jobber que faz esse servico:', responseJobber.data.result)
+
+        } catch (error) {
+            alert('jobber nao encontrado')
+        }
+    }
+
+
+
+   
 
 
     render() {
         return (
             <div className="agendarServico">
-                <div className="w-50">
+                <div className="buscar-consulta">
                     <form className="agendarServico_form">
                             <h2>Agende um serviço aqui mesmo:</h2>
                             <select className="agendarServico_form-select" onChange={this.handleServices}>
@@ -68,21 +160,42 @@ class ServiceScheduling extends Component {
                         : this.state.services.map((services) => {
                         return (
                         <CardListServices
+                        key={services._id}
                         name={services.name}
                         serviceName={services.serviceName}
                         servicePrice={services.servicePrice}
                         serviceDescription={services.serviceDescription}
                         email={services.email}
-                        handleCalendar={this.handleCalendar}
+                        handleCalendar={this.GetJobber(services._id)}
                         /> )
                     })}
                 </div>
-                <div className="w-50">
-                { this.state.calendar && 
-                    <Calendar
-                    onChange={this.onChange}
-                    value={this.state.date}/>
-                }
+                <div className="agendar-consulta">
+                    <div className="agendar-consulta_calendary">
+                        { this.state.calendar && 
+                            <div>
+                            <span>Qual dia é o melhor dia para você?</span>
+                            <Calendar
+                            className="calendar"
+                            value={this.state.date}
+                            minDate={this.state.dateInital}
+                            onClickDay={this.handleDayScheduling}
+                            locale="pt"/>
+                            </div>
+                        }
+                    </div>
+                    <div className="agendar-consulta_hours">
+                       {this.state.workHours.length > 0 && 
+                            <select onChange={this.handleWorkHours}>
+                                {this.state.workHours.map((hours) => {
+                                    return(
+                                        <option value={hours}>{hours}:00 horas </option>
+                                    )
+                                })}
+                            </select>
+                        }
+                    </div>
+                    <button className="btn-confirmar" onClick={this.AgendarService}>Confirmar Agendamento</button>
                 </div>
                 
 
