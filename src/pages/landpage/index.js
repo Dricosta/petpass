@@ -22,7 +22,7 @@ class Landpage extends Component {
           <header className="header-info">
             <div className="header-info_content container">
                 <h1 className="header-info_content_title">Conheça a PetPass</h1>
-                <p className="header-info_content_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p className="header-info_content_text">Nós do Pet Pass pensamos não só em você, mas no seu animal de estimação! Trabalhamos durante 365 dias do ano para conectar os melhores prestadores de serviço com você! Confie no nosso trabalho assim como se fôssemos da sua família!</p>
                 <Link 
                 to="About-us" 
                 className="header-info_content_button" 
@@ -67,13 +67,8 @@ class Landpage extends Component {
                     <img src={pets} alt="pets"/>
                   </div>
                   <div className="About-us_content_boxtwo">
-                    <h2>About the shelter “Cozy House”</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce efficitur blandit condimentum. Proin accumsan lorem vel gravida fringilla. Suspendisse potenti. Mauris ut pulvinar nunc.
-                    </p>
-                    <p>Donec consectetur, diam in porta tempus, urna ligula vestibulum nibh, ac ornare felis justo nec leo. Praesent mattis nibh quis 
-                    ultrices pharetra. Morbi tempus at ante sit amet tristique. 
-                    Maecenas dignissim justo orci, in laoreet urna dapibus nec. Praesent quis tortor faucibus, tristique ante vitae, dignissim 
-                    lorem. Sed at ligula et sem mattis gravida ac vel erat. </p>
+                    <h2>Encontrando o serviço que você procura</h2>
+                    <p>O Pet Pass conecta você aos prestadores de serviços que estão mais próximos da sua localidade, buscando facilitar as pequenas decisões do seu dia-a-dia como mentor dos seus pequenos. Conte com o feedback dos demais usuários para assim encontrar o serviço e o prestador que melhor se enquadra com as suas necessidades. </p>
                   </div>
               </div>
             </div>

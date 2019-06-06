@@ -8,13 +8,9 @@ import JobberLogin from './components/JobberLogin/JobberLogin'
 import Dashboard from './pages/dashboard'
 import ServiceHistory from './components/ServiceHistory/ServiceHistory'
 
-
-
 const Routes = () => (
-
     <BrowserRouter>
         <Switch>
-            
             <Route exact path='/' component={Landpage} />
             <Route path='/userRegister' component={UserRegister} />
             <Route path='/jobberRegister' component={JobberRegister} />

@@ -3,6 +3,7 @@ import './style.scss'
 import api from '../../services/api';
 import CardListServices from '../CardListServices';
 import Calendar from 'react-calendar';
+import PerfilOwner from '../PerfilOwner/index';
 
 let idLocalStorage = ''
 
@@ -18,7 +19,8 @@ class ServiceScheduling extends Component {
             workHours: [],
             dataAgendada: '',
             horarioAgendado: '',
-            idJobber: ''
+            idJobber: '',
+            PetsOwner: ''
         }
     }
 
@@ -84,8 +86,11 @@ class ServiceScheduling extends Component {
      AgendarService = () => {
         let data = this.state.dataAgendada
         let horario = this.state.horarioAgendado
-        let newHours = data.setHours(horario)
+        let newHours = Date.parse(data)
         const newDate = new Date(newHours).getTime()
+
+
+        console.log('newHours',newHours)
 
         const Agendamento = {
             idUserOwner: localStorage.getItem("idOwner"),
@@ -94,10 +99,12 @@ class ServiceScheduling extends Component {
             date: newDate
         }
 
-
-        const createAgendamento = api.post(`service/create`).then({ ...Agendamento })
-
-        console.log('agendado para:', Agendamento)
+        api.post(`service/create`,{
+           ...Agendamento
+        }).then({ 
+           
+         })
+         
      }
 
     handleCalendar = () => {
@@ -187,9 +194,9 @@ class ServiceScheduling extends Component {
                     <div className="agendar-consulta_hours">
                        {this.state.workHours.length > 0 && 
                             <select onChange={this.handleWorkHours}>
-                                {this.state.workHours.map((hours) => {
+                                {this.state.workHours.map((hours, index) => {
                                     return(
-                                        <option value={hours}>{hours}:00 horas </option>
+                                        <option key={index} value={hours}>{hours}:00 horas </option>
                                     )
                                 })}
                             </select>
