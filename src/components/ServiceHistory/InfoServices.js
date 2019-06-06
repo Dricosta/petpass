@@ -12,67 +12,7 @@ class InfoServices extends Component {
     constructor() {
         super()
         this.state = {
-            services: [{
-                ownerName: 'Usuário Comum',
-                ownerEmail: 'user@comum.com',
-                jobberName: 'Usuário Prestador',
-                jobberEmail: 'user@prestador.com',
-                petName: 'Pet do Usuário',
-                execDate: '02/06/2019',
-                serviceStatus: 'Solicitado',
-                paymentOwner: 'Confirmar',
-                paymentJobber: 'Confirmar'
-            }, {
-                ownerName: 'Usuário Comum2',
-                ownerEmail: 'user@comum.com2',
-                jobberName: 'Usuário Prestador2',
-                jobberEmail: 'user@prestador.com2',
-                petName: 'Pet do Usuário2',
-                execDate: '02/06/20192',
-                serviceStatus: 'Solicitado2',
-                paymentOwner: 'Confirmar2',
-                paymentJobber: 'Confirmar2'
-            }, {
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user@comum.com3',
-                jobberName: 'Usuário Prestador3',
-                jobberEmail: 'user@prestador.com3',
-                petName: 'Pet do Usuário3',
-                execDate: '03/06/30193',
-                serviceStatus: 'Solicitado3',
-                paymentOwner: 'Confirmar3',
-                paymentJobber: 'Confirmar3'
-            },{
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user@comum.com3',
-                jobberName: 'Usuário Prestador3',
-                jobberEmail: 'user@prestador.com3',
-                petName: 'Pet do Usuário3',
-                execDate: '03/06/30193',
-                serviceStatus: 'Solicitado3',
-                paymentOwner: 'Confirmar3',
-                paymentJobber: 'Confirmar3'
-            },{
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user@comum.com3',
-                jobberName: 'Usuário Prestador3',
-                jobberEmail: 'user@prestador.com3',
-                petName: 'Pet do Usuário3',
-                execDate: '03/06/30193',
-                serviceStatus: 'Solicitado3',
-                paymentOwner: 'Confirmar3',
-                paymentJobber: 'Confirmar3'
-            },{
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user@comum.com3',
-                jobberName: 'Usuário Prestador3',
-                jobberEmail: 'user@prestador.com3',
-                petName: 'Pet do Usuário3',
-                execDate: '03/06/30193',
-                serviceStatus: 'Solicitado3',
-                paymentOwner: 'Confirmar3',
-                paymentJobber: 'Confirmar3'
-            }],
+            services: [],
             userLogado: [],
             genderUserLogado: ''
         }
@@ -108,11 +48,7 @@ class InfoServices extends Component {
     render() {
         const { userLogado } = this.state;
         const date = new Date();
-        const birthDate = {
-            day: date.getDay(userLogado.birthday),
-            month: date.getMonth(userLogado.birthday),
-            year: date.getFullYear(userLogado.birthday)
-        }
+
         return (
             <div className="InfoUser">
 
@@ -146,7 +82,7 @@ class InfoServices extends Component {
                                             <p><strong>Pet</strong>: {services.petName}</p>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <p>{distanceInWords(services.execDate, new Date(), { locale: pt })} atrás</p>
+                                            <p><strong>Data</strong>: {`${date.getDay(services.execDate)}/${date.getMonth(services.execDate)}/${date.getFullYear(services.execDate)} `}</p>
                                         </Grid>
                                     </Grid>
 
