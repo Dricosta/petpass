@@ -3,7 +3,7 @@ import './style.scss'
 import api from '../../services/api';
 import CardListServices from '../CardListServices';
 import Calendar from 'react-calendar';
-import PerfilOwner from '../PerfilOwner/index';
+import MsgNotification from '../MsgNotification';
 
 let idLocalStorage = ''
 
@@ -20,7 +20,10 @@ class ServiceScheduling extends Component {
             dataAgendada: '',
             horarioAgendado: '',
             idJobber: '',
-            PetsOwner: ''
+            PetNotification: false,
+            PetMsg: '',
+            PetMsgColor: true,
+            PetNotificationIcon: true,
         }
     }
 
@@ -86,11 +89,8 @@ class ServiceScheduling extends Component {
      AgendarService = () => {
         let data = this.state.dataAgendada
         let horario = this.state.horarioAgendado
-        let newHours = Date.parse(data)
+        let newHours = data.setHours(horario)
         const newDate = new Date(newHours).getTime()
-
-
-        console.log('newHours',newHours)
 
         const Agendamento = {
             idUserOwner: localStorage.getItem("idOwner"),
@@ -99,12 +99,27 @@ class ServiceScheduling extends Component {
             date: newDate
         }
 
-        api.post(`service/create`,{
-           ...Agendamento
-        }).then({ 
-           
-         })
-         
+
+        api.post(`service/create`, {
+            ...Agendamento
+        }).then((response) => { 
+            if (response.status === 200) {
+                this.setState({
+                    PetNotificationIcon: true,
+                    PetNotification: true,
+                    PetMsg: 'Serviço agendado com sucesso',
+                    PetMsgColor: true
+                }, () => {
+                    setTimeout(() => {
+                        this.setState({
+                            PetNotification: false
+                        })
+                    }, 2000)
+                })
+            }
+        })
+
+        console.log('agendado para:', Agendamento)
      }
 
     handleCalendar = () => {
@@ -154,7 +169,7 @@ class ServiceScheduling extends Component {
                 <div className="buscar-consulta">
                     <form className="agendarServico_form">
                             <h2>Agende um serviço aqui mesmo:</h2>
-                            <select className="agendarServico_form-select" onChange={this.handleServices}>
+                            <select defaltValue="Escolha um serviço" className="agendarServico_form-select" onChange={this.handleServices}>
                                 <option value="Passeio">Passeio</option>
                                 <option value="Banho">Banho</option>
                                 <option value="Tosa">Tosa</option>
@@ -193,10 +208,10 @@ class ServiceScheduling extends Component {
                     </div>
                     <div className="agendar-consulta_hours">
                        {this.state.workHours.length > 0 && 
-                            <select onChange={this.handleWorkHours}>
-                                {this.state.workHours.map((hours, index) => {
+                            <select value={this.state.workHours || "Escolha um horário"} onChange={this.handleWorkHours}>
+                                {this.state.workHours.map((hours) => {
                                     return(
-                                        <option key={index} value={hours}>{hours}:00 horas </option>
+                                        <option value={hours}>{hours}:00 horas </option>
                                     )
                                 })}
                             </select>
@@ -205,6 +220,11 @@ class ServiceScheduling extends Component {
                     <button className="btn-confirmar" onClick={this.AgendarService}>Confirmar Agendamento</button>
                 </div>
                 
+                <MsgNotification
+                PetNotification={this.state.PetNotification} 
+                PetMsg={this.state.PetMsg}
+                PetMsgColor={this.state.PetMsgColor}
+                PetNotificationIcon={this.state.PetNotificationIcon}/>
 
             </div>
         );
