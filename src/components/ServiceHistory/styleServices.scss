@@ -1,0 +1,22 @@
+.InfoUser{
+    height: auto;
+    width: 100%;
+    margin-left: 8%;
+    padding: 20px;
+    padding-bottom: 50px;
+    overflow: hidden!important;
+}
+
+h3, p {
+    margin: 2px;
+    font-size: 15px;
+}
+
+p {
+    font-weight: normal;
+}
+
+h3, strong, p {
+    font-family: 'Anonymous Pro', monospace;
+    color: #282222;
+}

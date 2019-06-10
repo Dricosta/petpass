@@ -10,7 +10,7 @@ import '../../reset.scss'
 
 export class UserRegister extends Component {
     state = {
-        step: 1,
+        step: 3,
         name: '',
         email: '',
         password: '',

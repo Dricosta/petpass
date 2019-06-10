@@ -7,6 +7,7 @@ import InfoUser from '../../components/InfoUser/'
 import api from '../../services/api';
 import InfoJobber from '../../components/infoJobber';
 import ServiceScheduling from '../../components/ServiceScheduling';
+import InfoServices from '../../components/ServiceHistory/InfoServices';
 
 library.add(faUser, faLightbulb, faHandshake, faCalendar, faSignOutAlt, faCoins, faCreditCard)
 
@@ -63,6 +64,12 @@ class Dashboard extends Component {
                     localStorage.getItem('idOwner') ? <ServiceScheduling/> : false 
                     :
                     false
+                }
+                {
+                    window.location.pathname.indexOf('servicos') !== -1 ?
+                        localStorage.getItem('idOwner') || localStorage.getItem('idJobber') ? <InfoServices /> : false
+                        :
+                        false
                 }
             </div>
         );

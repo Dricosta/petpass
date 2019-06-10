@@ -7,9 +7,14 @@ import {
     MenuItem, FormControl, Select,
     Button, InputAdornment
 } from '@material-ui/core'
+import MsgNotification from '../MsgNotification'
 
 export class PetDetails extends Component {
     state = {
+        LoginNotification: false,
+        LoginMsg: '',
+        LoginMsgColor: true,
+        LoginNotificationIcon: true,
         idOwner: '',
         name: '',
         description: '',
@@ -28,6 +33,30 @@ export class PetDetails extends Component {
 
     continue = e => {
         e.preventDefault()
+
+        if ((
+            this.state.name &&
+            this.state.description &&
+            this.state.breed &&
+            this.state.weight &&
+            this.state.animalSize &&
+            this.state.animalType
+        ) === '') {
+            this.setState({
+                LoginNotificationIcon: false,
+                LoginNotification: true,
+                LoginMsg: 'Preencha todos os dados',
+                LoginMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        LoginNotification: false
+                    })
+                }, 2000)
+            })
+            return false
+        }
+
 
         let newPet = {
             'idOwner': localStorage.getItem('idOwner'),
@@ -98,7 +127,7 @@ export class PetDetails extends Component {
                     justify='center' alignItems='center'>
 
                     <Grid item container xs={12} justify='center'>
-                        <h2>Registre seu pet</h2>
+                        <h2>Cadastre seu pet</h2>
                     </Grid>
 
                     {/* Avatar */}
@@ -229,11 +258,11 @@ export class PetDetails extends Component {
                         style={styles.divAction}>
                         <Grid item container xs={6}
                             justify='flex-start'>
-                            <Button
+                            {/* <Button disabled
                                 onClick={this.back}
                                 style={styles.actionButton}>
                                 Voltar
-                            </Button>
+                            </Button> */}
                         </Grid>
 
                         <Grid item container xs={6}
@@ -246,6 +275,13 @@ export class PetDetails extends Component {
                         </Grid>
                     </Grid>
                     {/* End Buttons */}
+
+                    <MsgNotification
+                        PetNotification={this.state.LoginNotification}
+                        PetMsg={this.state.LoginMsg}
+                        PetMsgColor={this.state.LoginMsgColor}
+                        PetNotificationIcon={this.state.LoginNotification} />
+
                 </Grid>
             </Grid>
         )

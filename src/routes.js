@@ -6,7 +6,6 @@ import JobberRegister from './components/JobberRegister/JobberRegister'
 import UserLogin from './components/UserLogin/UserLogin'
 import JobberLogin from './components/JobberLogin/JobberLogin'
 import Dashboard from './pages/dashboard'
-import ServiceHistory from './components/ServiceHistory/ServiceHistory'
 
 const Routes = () => (
     <BrowserRouter>
@@ -17,7 +16,7 @@ const Routes = () => (
             <Route path='/userLogin' component={UserLogin} />
             <Route path='/jobberLogin' component={JobberLogin} />
             <Route path='/dashboard' component={Dashboard} /> 
-            <Route path='/services' component={ServiceHistory} />
+            <Route path='/servicos' component={Dashboard} />
             <Route path='/agendarServico' component={Dashboard} />
         </Switch>
     </BrowserRouter>

@@ -5,9 +5,14 @@ import {
     Grid, TextField, Button, FormControlLabel,
     Checkbox, FormControl, FormLabel
 } from '@material-ui/core'
+import MsgNotification from '../MsgNotification'
 
 export class WorkDetails extends Component {
     state = {
+        LoginNotification: false,
+        LoginMsg: '',
+        LoginMsgColor: true,
+        LoginNotificationIcon: true,
         sunday: false,
         monday: false,
         tuesday: false,
@@ -24,6 +29,41 @@ export class WorkDetails extends Component {
     continue = e => {
         e.preventDefault()
         //PROCESS FORM
+        if ((
+            this.props.values.name &&
+            this.props.values.email &&
+            this.props.values.password &&
+            this.props.values.description &&
+            this.props.values.accountNumber &&
+            this.props.values.digit &&
+            this.props.values.agency &&
+            this.props.values.bankCode &&
+            Date.parse(parseBirthday) &&
+            this.props.values.lat &&
+            this.props.values.lng &&
+            this.props.values.phone &&
+            this.props.values.gender &&
+            this.props.values.serviceName &&
+            this.props.values.serviceDescription &&
+            this.props.values.serviceValue &&
+            this.props.values.startTime &&
+            this.props.values.endTime
+        ) === '') {
+            this.setState({
+                LoginNotificationIcon: false,
+                LoginNotification: true,
+                LoginMsg: 'Preencha todos os dados',
+                LoginMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        LoginNotification: false
+                    })
+                }, 2000)
+            })
+            return false
+        }
+
         const parseBirthday = new Date(this.props.values.birthday)
 
         let newUser = {
@@ -254,11 +294,18 @@ export class WorkDetails extends Component {
                             item container xs={6}
                             justify='flex-end'>
                             <Button onClick={this.continue} style={styles.actionButton}>
-                                Continuar
+                                Cadastrar
                             </Button>
                         </Grid>
                     </Grid>
                     {/* End Buttons */}
+
+                    <MsgNotification
+                        PetNotification={this.state.LoginNotification}
+                        PetMsg={this.state.LoginMsg}
+                        PetMsgColor={this.state.LoginMsgColor}
+                        PetNotificationIcon={this.state.LoginNotification} />
+
                 </Grid>
             </Grid>
         )

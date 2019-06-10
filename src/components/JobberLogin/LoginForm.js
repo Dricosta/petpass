@@ -2,11 +2,38 @@ import React, { Component } from 'react'
 import '../../reset.scss'
 import api from '../../services/api'
 import { Grid, TextField, Button } from '@material-ui/core'
+import MsgNotification from '../MsgNotification/index';
 
 export class LoginForm extends Component {
+    constructor() {
+        super()
+        this.state = {
+            LoginNotification: false,
+            LoginMsg: '',
+            LoginMsgColor: true,
+            LoginNotificationIcon: true,
+        }
+    }
+
     continue = e => {
         e.preventDefault()
         //PROCESS FORM
+        if ((this.props.values.email && this.props.values.password) === '') {
+            this.setState({
+                LoginNotificationIcon: false,
+                LoginNotification: true,
+                LoginMsg: 'Preencha todos os dados',
+                LoginMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        LoginNotification: false
+                    })
+                }, 2000)
+            })
+            return false
+        }
+
         let formData = {
             'email': this.props.values.email,
             'password': this.props.values.password,
@@ -18,6 +45,20 @@ export class LoginForm extends Component {
                     console.log('result:', response)
                     localStorage.setItem('idJobber', response.data.result._id)
                     formData.redirect()
+                } else {
+                    this.setState({
+                        LoginNotificationIcon: false,
+                        LoginNotification: true,
+                        LoginMsg: 'Login ou senha inválidos',
+                        LoginMsgColor: false
+                    }, () => {
+                        setTimeout(() => {
+                            this.setState({
+                                LoginNotification: false
+                            })
+                        }, 2000)
+                    })
+                    return false
                 }
             })
     }
@@ -87,6 +128,13 @@ export class LoginForm extends Component {
                         </Grid>
                     </Grid>
                     {/* End Buttons */}
+
+                    <MsgNotification
+                        PetNotification={this.state.LoginNotification}
+                        PetMsg={this.state.LoginMsg}
+                        PetMsgColor={this.state.LoginMsgColor}
+                        PetNotificationIcon={this.state.LoginNotification} />
+
                 </Grid>
             </Grid>
         )

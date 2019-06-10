@@ -19,7 +19,7 @@ const NavbarDash = ({ handleLight, handleLogout, Light, Photo }) => {
             </div>
             <ul className="navbardash_menu">
                 <li className="navbardash_menu-item"><a href="/dashboard"><FontAwesomeIcon icon="user" /></a></li>
-                <li className="navbardash_menu-item"><a href="/services"><FontAwesomeIcon icon="handshake" /></a></li>
+                <li className="navbardash_menu-item"><a href="/servicos"><FontAwesomeIcon icon="handshake" /></a></li>
                 <li className="navbardash_menu-item"><a href="/agendarServico"><FontAwesomeIcon icon="calendar" /></a></li>
                 <li className="navbardash_menu-item" onClick={handleLight}><FontAwesomeIcon className={`${Light ? 'dark' : 'false'}`} icon="lightbulb" /></li>
                 <li className="navbardash_menu-item" onClick={handleLogout}><a href="/"><FontAwesomeIcon icon="sign-out-alt" /></a></li>
