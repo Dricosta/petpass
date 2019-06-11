@@ -47,21 +47,20 @@ export class LoginForm extends Component {
                     console.log('id:', response.data.result._id)
                     localStorage.setItem('idOwner', response.data.result._id)
                     formData.redirect()
-                } else {
-                    this.setState({
-                        LoginNotificationIcon: false,
-                        LoginNotification: true,
-                        LoginMsg: 'Login ou senha inválidos',
-                        LoginMsgColor: false
-                    }, () => {
-                        setTimeout(() => {
-                            this.setState({
-                                LoginNotification: false
-                            })
-                        }, 2000)
-                    })
-                    return false
                 }
+                    // this.setState({
+                    //     LoginNotificationIcon: false,
+                    //     LoginNotification: true,
+                    //     LoginMsg: 'Login ou senha inválidos',
+                    //     LoginMsgColor: false
+                    // }, () => {
+                    //     setTimeout(() => {
+                    //         this.setState({
+                    //             LoginNotification: false
+                    //         })
+                    //     }, 2000)
+                    // })
+                    // return false
             })
     }
 

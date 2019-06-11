@@ -10,6 +10,7 @@ class InfoServices extends Component {
         super()
         this.state = {
             services: [{
+                id: 'we12e12eweqwew',
                 ownerName: 'Usuário Comum',
                 ownerEmail: 'user@comum.com',
                 jobberName: 'Usuário Prestador',
@@ -20,6 +21,7 @@ class InfoServices extends Component {
                 paymentOwner: 'Confirmar',
                 paymentJobber: 'Confirmar'
             }, {
+                id: 'we12e12eweqwewwwww',
                 ownerName: 'Usuário Comum2',
                 ownerEmail: 'user2@comum.com',
                 jobberName: 'Usuário Prestador',
@@ -30,6 +32,7 @@ class InfoServices extends Component {
                 paymentOwner: 'Confirmar',
                 paymentJobber: 'Confirmar'
             }, {
+                id: 'we12e12eweqwew213123',
                 ownerName: 'Usuário Comum3',
                 ownerEmail: 'user3@comum.com',
                 jobberName: 'Usuário Prestador',
@@ -40,6 +43,7 @@ class InfoServices extends Component {
                 paymentOwner: 'Confirmado',
                 paymentJobber: 'Confirmado'
             }, {
+                id: 'we12e12eweqwewasdfaxczxc',
                 ownerName: 'Usuário Comum3',
                 ownerEmail: 'user3@comum.com',
                 jobberName: 'Usuário Prestador',
@@ -69,6 +73,22 @@ class InfoServices extends Component {
         })
     }
 
+    cancelService = (service) => (e) => {
+        e.preventDefault()
+        console.log('Services: ', service)
+        console.log('e: ', e)
+
+        // api.put(`services/edit`, { ...services }).then((response) => {
+        //     if (response.status === 200) {
+        //         this.setState({
+        //             PetsOwner: this.state.PetsOwner.filter(Pet => Pet._id !== PetToBeDelet)
+        //         })
+        //     }
+        // })
+
+    }
+
+
     render() {
         const owner = localStorage.getItem('idOwner') || false
         const jobber = localStorage.getItem('idJobber') || false
@@ -82,7 +102,7 @@ class InfoServices extends Component {
                             const newDate = new Date(date)
                             console.log(services)
                             return (
-                                <Grid item container xs={12} key={count++} style={styles.servicesCard}
+                                <Grid item container xs={12} key={services.id} style={styles.servicesCard}
                                     justify='space-between'>
                                     <Grid item container xs={12} sm={4} style={styles.serviceCard}>
                                         <Grid item container xs={12} justify='center'>
@@ -110,8 +130,8 @@ class InfoServices extends Component {
                                             <Grid item container xs={12} justify='center'>
                                                 {
                                                     owner && services.serviceStatus === 'solicitado' &&
-                                                    <Grid item xs={12}>
-                                                        <Button fullWidth style={styles.button} children='cancelar' />
+                                                    <Grid item xs={12} >
+                                                        <Button fullWidth style={styles.button} onClick={this.cancelService(services.id)} children='cancelar' />
                                                     </Grid>
                                                 }
                                                 {
