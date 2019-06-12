@@ -27,7 +27,7 @@ export class AccountDetails extends Component {
             this.props.values.digit &&
             this.props.values.agency &&
             this.props.values.bankCode &&
-            Date.parse(parseBirthday) &&
+            this.props.values.birthday &&
             this.props.values.lat &&
             this.props.values.lng &&
             this.props.values.phone &&

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import api from '../../services/api';
 import './styleServices.scss'
 import { Grid, Button } from '@material-ui/core'
+import Done from '@material-ui/icons/Done'
 
 let idLocalStorage = ''
 
@@ -9,82 +10,86 @@ class InfoServices extends Component {
     constructor() {
         super()
         this.state = {
-            services: [{
-                id: 'we12e12eweqwew',
-                ownerName: 'Usuário Comum',
-                ownerEmail: 'user@comum.com',
-                jobberName: 'Usuário Prestador',
-                jobberEmail: 'user@prestador.com',
-                petName: 'Pet do Usuário',
-                execDate: 1559995236000,
-                serviceStatus: 'solicitado',
-                paymentOwner: 'Confirmar',
-                paymentJobber: 'Confirmar'
-            }, {
-                id: 'we12e12eweqwewwwww',
-                ownerName: 'Usuário Comum2',
-                ownerEmail: 'user2@comum.com',
-                jobberName: 'Usuário Prestador',
-                jobberEmail: 'user@prestador.com',
-                petName: 'Pet do Usuário',
-                execDate: 1559995236000,
-                serviceStatus: 'cancelado',
-                paymentOwner: 'Confirmar',
-                paymentJobber: 'Confirmar'
-            }, {
-                id: 'we12e12eweqwew213123',
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user3@comum.com',
-                jobberName: 'Usuário Prestador',
-                jobberEmail: 'user@prestador.com',
-                petName: 'Pet do Usuário',
-                execDate: 1559995236000,
-                serviceStatus: 'executado',
-                paymentOwner: 'Confirmado',
-                paymentJobber: 'Confirmado'
-            }, {
-                id: 'we12e12eweqwewasdfaxczxc',
-                ownerName: 'Usuário Comum3',
-                ownerEmail: 'user3@comum.com',
-                jobberName: 'Usuário Prestador',
-                jobberEmail: 'user@prestador.com',
-                petName: 'Pet do Usuário',
-                execDate: 1559995236000,
-                serviceStatus: 'pago',
-                paymentOwner: 'Confirmado',
-                paymentJobber: 'Confirmado'
-
-            }],
+            services: [],
             userLogado: [],
             genderUserLogado: ''
         }
     }
 
-
-
     async componentDidMount() {
         idLocalStorage = localStorage.getItem("idOwner") || localStorage.getItem("idJobber")
         const responseUser = await api.get(`user/${idLocalStorage}`)
-        const responseServices = await api.get(`user/services/${idLocalStorage}`)
 
+        const responseServices = localStorage.getItem("idOwner") ?
+            await api.get(`user/services/${idLocalStorage}`) : await api.get(`jobber/services/${idLocalStorage}`)
+        console.log(responseServices)
         this.setState({
             userLogado: responseUser.data.result,
             services: responseServices.data.result
         })
     }
 
-    cancelService = (service) => (e) => {
+    ownerConfirmService = (id) => (e) => {
         e.preventDefault()
-        console.log('Services: ', service)
-        console.log('e: ', e)
 
-        // api.put(`services/edit`, { ...services }).then((response) => {
-        //     if (response.status === 200) {
-        //         this.setState({
-        //             PetsOwner: this.state.PetsOwner.filter(Pet => Pet._id !== PetToBeDelet)
-        //         })
-        //     }
-        // })
+        let serviceFilter = this.state.services.filter((service) => service.id === id)
+        let serviceToBeCanceled = {
+            "_id": serviceFilter[0].id,
+            "ownerServiceConfirmation": true,
+            "jobberServiceConfirmation": serviceFilter[0].jobberServiceConfirmation,
+            "serviceStatus": serviceFilter[0].serviceStatus
+        }
+
+        api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+            }
+        })
+
+    }
+
+    jobberConfirmService = (id) => (e) => {
+        e.preventDefault()
+
+        let serviceFilter = this.state.services.filter((service) => service.id === id)
+        let serviceToBeCanceled = {
+            "_id": serviceFilter[0].id,
+            "ownerServiceConfirmation": serviceFilter[0].ownerServiceConfirmation,
+            "jobberServiceConfirmation": true,
+            "serviceStatus": serviceFilter[0].serviceStatus
+        }
+
+        api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+            }
+        })
+
+    }
+
+
+    cancelService = (id) => (e) => {
+        e.preventDefault()
+
+        this.state.services.map((service) => {
+            if (service.id === id) {
+                service.serviceStatus = 'cancelado'
+            }
+        })
+
+        let serviceFilter = this.state.services.filter((service) => service.id === id)
+        let serviceToBeCanceled = {
+            "_id": serviceFilter[0].id,
+            "ownerServiceConfirmation": false,
+            "jobberServiceConfirmation": false,
+            "serviceStatus": "cancelado"
+        }
+
+        api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+            }
+        })
 
     }
 
@@ -92,7 +97,6 @@ class InfoServices extends Component {
     render() {
         const owner = localStorage.getItem('idOwner') || false
         const jobber = localStorage.getItem('idJobber') || false
-        var count = 0
         return (
             <div className="InfoUser">
                 <Grid container item xs={12} justify='flex-start'>
@@ -131,14 +135,15 @@ class InfoServices extends Component {
                                                 {
                                                     owner && services.serviceStatus === 'solicitado' &&
                                                     <Grid item xs={12} >
-                                                        <Button fullWidth style={styles.button} onClick={this.cancelService(services.id)} children='cancelar' />
+                                                        <Button fullWidth style={styles.button}
+                                                            onClick={this.cancelService(services.id)} children='cancelar' />
                                                     </Grid>
                                                 }
                                                 {
                                                     jobber && services.serviceStatus === 'solicitado' &&
-                                                    <Grid item container xs={12} justify='space-between'>
-                                                        <Button style={styles.button} children='cancelar' />
-                                                        <Button style={styles.button} children='confirmar' />
+                                                    <Grid item xs={12} >
+                                                        <Button fullWidth style={styles.button}
+                                                            onClick={this.cancelService(services.id)} children='cancelar' />
                                                     </Grid>
                                                 }
                                                 {
@@ -151,12 +156,33 @@ class InfoServices extends Component {
                                                 }
 
                                                 {
-                                                    owner && services.serviceStatus === 'executado' &&
-                                                    <Button fullWidth style={styles.button} children='Realizar pagamento' />
+                                                    owner && services.serviceStatus === 'executado' && services.ownerServiceConfirmation &&
+                                                    <Grid item container xs={12} justify='space-around'>
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                    </Grid>
                                                 }
                                                 {
-                                                    jobber && services.serviceStatus === 'executado' &&
-                                                    <Button disabled fullWidth style={styles.buttonNotAllow} children='Aguardando pagamento' />
+                                                    owner && services.serviceStatus === 'executado' && !services.ownerServiceConfirmation &&
+                                                    <Grid item container xs={12} justify='space-around'>
+                                                        <Button xs={3} style={styles.button} children={<Done />} onClick={this.ownerConfirmService(services.id)} />
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                    </Grid>
+                                                }
+
+                                                {
+                                                    jobber && services.serviceStatus === 'executado' && services.jobberServiceConfirmation &&
+                                                    <Grid item container xs={12} justify='space-around'>
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                    </Grid>
+                                                }
+                                                {
+                                                    jobber && services.serviceStatus === 'executado' && !services.jobberServiceConfirmation &&
+                                                    <Grid item container xs={12} justify='space-around'>
+                                                        <Button xs={3} disabled style={styles.buttonNotAllow} children={<Done />} />
+                                                        <Button xs={3} style={styles.button} children={<Done />} onClick={this.jobberConfirmService(services.id)} />
+                                                    </Grid>
                                                 }
                                                 {
                                                     owner &&

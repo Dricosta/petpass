@@ -48,20 +48,26 @@ export class LoginForm extends Component {
                     localStorage.setItem('idOwner', response.data.result._id)
                     formData.redirect()
                 }
-                    // this.setState({
-                    //     LoginNotificationIcon: false,
-                    //     LoginNotification: true,
-                    //     LoginMsg: 'Login ou senha inválidos',
-                    //     LoginMsgColor: false
-                    // }, () => {
-                    //     setTimeout(() => {
-                    //         this.setState({
-                    //             LoginNotification: false
-                    //         })
-                    //     }, 2000)
-                    // })
-                    // return false
+            }).catch(e => {
+                this.loginFail()
+            }) 
+    }
+
+    loginFail() {
+        if (!localStorage.getItem("idOwner")) {
+            this.setState({
+                LoginNotificationIcon: false,
+                LoginNotification: true,
+                LoginMsg: 'Login ou senha inválidos',
+                LoginMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        LoginNotification: false
+                    })
+                }, 2000)
             })
+        }
     }
 
     render() {

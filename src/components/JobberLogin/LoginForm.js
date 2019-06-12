@@ -45,23 +45,29 @@ export class LoginForm extends Component {
                     console.log('result:', response)
                     localStorage.setItem('idJobber', response.data.result._id)
                     formData.redirect()
-                } else {
-                    this.setState({
-                        LoginNotificationIcon: false,
-                        LoginNotification: true,
-                        LoginMsg: 'Login ou senha inválidos',
-                        LoginMsgColor: false
-                    }, () => {
-                        setTimeout(() => {
-                            this.setState({
-                                LoginNotification: false
-                            })
-                        }, 2000)
-                    })
-                    return false
                 }
+            }).catch(e => {
+                this.loginFail()
             })
     }
+
+    loginFail() {
+        if (!localStorage.getItem("idJobber")) {
+            this.setState({
+                LoginNotificationIcon: false,
+                LoginNotification: true,
+                LoginMsg: 'Login ou senha inválidos',
+                LoginMsgColor: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        LoginNotification: false
+                    })
+                }, 2000)
+            })
+        }
+    }
+
 
     render() {
         const { values, handleChange, msg } = this.props
