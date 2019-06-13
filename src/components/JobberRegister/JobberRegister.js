@@ -59,7 +59,7 @@ export class JobberRegister extends Component {
             return
         }
 
-        if (input === 'serviceValueSm') {
+        if (input === 'serviceValue') {
             e.target.value = Math.abs(e.target.value)
             return
         }

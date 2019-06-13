@@ -169,7 +169,7 @@ class ServiceScheduling extends Component {
                 <div className="buscar-consulta">
                     <form className="agendarServico_form">
                             <h2>Agende um serviço aqui mesmo:</h2>
-                            <select defaltValue="Escolha um serviço" className="agendarServico_form-select" onChange={this.handleServices}>
+                            <select defaulValue="escolha um serviço" className="agendarServico_form-select" onChange={this.handleServices}>
                                 <option value="Passeio">Passeio</option>
                                 <option value="Banho">Banho</option>
                                 <option value="Tosa">Tosa</option>
@@ -208,7 +208,7 @@ class ServiceScheduling extends Component {
                     </div>
                     <div className="agendar-consulta_hours">
                        {this.state.workHours.length > 0 && 
-                            <select value={this.state.workHours || "Escolha um horário"} onChange={this.handleWorkHours}>
+                            <select defaultValue={this.state.workHours} onChange={this.handleWorkHours}>
                                 {this.state.workHours.map((hours) => {
                                     return(
                                         <option value={hours}>{hours}:00 horas </option>
@@ -217,7 +217,7 @@ class ServiceScheduling extends Component {
                             </select>
                         }
                     </div>
-                    <button className="btn-confirmar" onClick={this.AgendarService}>Confirmar Agendamento</button>
+                    { this.state.calendar &&  <button className="btn-confirmar" onClick={this.AgendarService}>Confirmar Agendamento</button> }
                 </div>
                 
                 <MsgNotification

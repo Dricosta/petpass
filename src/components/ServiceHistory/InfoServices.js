@@ -43,6 +43,7 @@ class InfoServices extends Component {
         api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
             if (response.status === 200) {
                 console.log(response)
+                this.forceUpdate();
             }
         })
 
@@ -62,6 +63,7 @@ class InfoServices extends Component {
         api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
             if (response.status === 200) {
                 console.log(response)
+                this.forceUpdate();
             }
         })
 
@@ -87,9 +89,11 @@ class InfoServices extends Component {
 
         api.put(`service/edit`, { ...serviceToBeCanceled }).then((response) => {
             if (response.status === 200) {
-                console.log(response)
+                this.forceUpdate();
             }
         })
+
+     
 
     }
 
