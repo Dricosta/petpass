@@ -70,8 +70,8 @@ export class ServiceDetails extends Component {
                             label='Valor em Real'
                             type='number'
                             required
-                            value={values.serviceValueSm}
-                            onChange={handleChange('serviceValueSm')}
+                            value={values.serviceValue}
+                            onChange={handleChange('serviceValue')}
                             margin='normal'
                             fullWidth
                             InputProps={{

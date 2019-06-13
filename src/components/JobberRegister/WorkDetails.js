@@ -28,6 +28,8 @@ export class WorkDetails extends Component {
 
     continue = e => {
         e.preventDefault()
+        console.log(this.state)
+        console.log(this.props.values)
         //PROCESS FORM
         if ((
             this.props.values.name &&
@@ -82,8 +84,8 @@ export class WorkDetails extends Component {
             'serviceName': this.props.values.serviceName,
             'serviceDescription': this.props.values.serviceDescription,
             'serviceValue': this.props.values.serviceValue,
-            'startTime': this.props.values.startTime,
-            'endTime': this.props.values.endTime
+            'startTime': Number(this.props.values.startTime) > Number(this.props.values.endTime) ? Number(this.props.values.endTime) : Number(this.props.values.startTime),
+            'endTime': Number(this.props.values.startTime) < Number(this.props.values.endTime) ? Number(this.props.values.endTime) : Number(this.props.values.startTime)
         }
 
         const photo = this.props.values.photo
