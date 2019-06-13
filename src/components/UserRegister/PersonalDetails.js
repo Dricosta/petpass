@@ -86,6 +86,8 @@ export class UserDetails extends Component {
                             required
                             value={values.email}
                             onChange={handleChange('email')}
+                            error={!/^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(values.email)}
+                            helperText={/^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(values.email) ? '' : 'Informe um email válido'}
                             margin='normal'
                             fullWidth
                         />

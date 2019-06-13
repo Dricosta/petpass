@@ -22,7 +22,6 @@ export class AccountDetails extends Component {
             this.props.values.name &&
             this.props.values.email &&
             this.props.values.password &&
-            this.props.values.description &&
             this.props.values.accountNumber &&
             this.props.values.digit &&
             this.props.values.agency &&
@@ -30,13 +29,12 @@ export class AccountDetails extends Component {
             this.props.values.birthday &&
             this.props.values.lat &&
             this.props.values.lng &&
-            this.props.values.phone &&
             this.props.values.gender
         ) === '') {
             this.setState({
                 LoginNotificationIcon: false,
                 LoginNotification: true,
-                LoginMsg: 'Preencha todos os dados',
+                LoginMsg: 'Preencha todos os campos obrigatórios',
                 LoginMsgColor: false
             }, () => {
                 setTimeout(() => {

@@ -49,10 +49,37 @@ export class JobberRegister extends Component {
     }
 
     handleChange = input => e => {
-        if((input === "startTime" || input === "endTime") && e.target.value > 24){
+        if ((input === "startTime" || input === "endTime") && e.target.value > 24) {
             e.target.value = 24
-            // this.setState({ [input]: 24 })
+            return
         }
+
+        if ((input === "startTime" || input === "endTime") && e.target.value < 1) {
+            e.target.value = 1
+            return
+        }
+
+        if (input === 'serviceValueSm') {
+            e.target.value = Math.abs(e.target.value)
+            return
+        }
+
+        if (input === 'phone') {
+            this.setState({
+                [input]: e.target.value.replace(/\D/g, '')
+                    .replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+                    .replace(/(-\d{4})\d+?$/, '$1')
+            })
+            return
+        }
+        if (input === 'accountNumber' || input === 'digit' || input === 'agency' || input === 'bankCode') {
+            this.setState({
+                [input]: e.target.value.replace(/\D/g, '')
+            })
+            return
+        }
+
+
         this.setState({ [input]: e.target.value })
     }
 

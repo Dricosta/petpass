@@ -10,7 +10,7 @@ import '../../reset.scss'
 
 export class UserRegister extends Component {
     state = {
-        step: 1,
+        step: 3,
         name: '',
         email: '',
         password: '',
@@ -43,6 +43,20 @@ export class UserRegister extends Component {
     }
 
     handleChange = input => e => {
+        if (input === 'phone') {
+            this.setState({
+                [input]: e.target.value.replace(/\D/g, '')
+                    .replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+                    .replace(/(-\d{4})\d+?$/, '$1')
+            })
+            return
+        }
+        if (input === 'accountNumber' || input === 'digit' || input === 'agency' || input === 'bankCode') {
+            this.setState({
+                [input]: e.target.value.replace(/\D/g, '')
+            })
+            return
+        }
         this.setState({ [input]: e.target.value })
     }
 
